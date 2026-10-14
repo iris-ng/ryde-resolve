@@ -1,0 +1,42 @@
+/* The past rulings review page (learning loop, 4 October). One column, the lab's colours and type scale. */
+.lab-precedents{max-width:860px;margin:32px auto;padding:0 16px;line-height:1.55;color:var(--ink)}
+.lab-precedents h1{font-family:var(--font-head);font-size:26px;margin:8px 0 10px}
+.lab-precedents a{color:var(--accent)}
+.lab-precedents-lead,.lab-precedents-empty{color:var(--muted);font-size:var(--fs-body)}
+.lab-precedents .live-login{display:flex;flex-wrap:wrap;gap:10px;align-items:end;margin:16px 0}
+.lab-precedents .live-login label{display:grid;gap:6px}
+.lab-precedents input,.lab-precedents textarea,.lab-precedents select{display:block;width:100%;max-width:100%;margin-top:6px;padding:10px;border:1px solid var(--line-strong);border-radius:7px;background:var(--sunken);color:var(--ink);font:inherit}
+.lab-precedents input[type=checkbox]{display:inline-block;width:auto;margin:0}
+.lab-precedents textarea{min-height:80px}
+.lab-precedents button{padding:9px 14px;border:1px solid var(--line-strong);border-radius:8px;background:var(--surface);color:var(--ink);cursor:pointer}
+.lab-precedents button.primary{border-color:transparent}
+.lab-precedents button:disabled{opacity:.55;cursor:not-allowed}
+.lab-precedents-filter{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}
+.lab-precedents-filter button[aria-pressed=true]{background:var(--selected);border-color:var(--accent)}
+.lab-precedent{margin:16px 0;padding:18px 20px;border:1px solid var(--line);border-radius:12px;background:var(--surface);min-width:0;overflow-wrap:anywhere}
+.lab-precedent header{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.lab-precedent h2{font-size:19px;margin:0}
+.lab-precedent h3{font-size:var(--fs-body);margin:14px 0 4px}
+.lab-precedent h4{font-size:var(--fs-small);margin:12px 0 4px;color:var(--muted)}
+.lab-precedent ul{margin:4px 0;padding-left:20px}
+.lab-precedent details{margin:12px 0}
+.lab-precedent summary{cursor:pointer;font-weight:600}
+.lab-precedent-status{padding:2px 10px;border-radius:999px;border:1px solid var(--line-strong);font-size:var(--fs-small);white-space:nowrap}
+.tone-approved .lab-precedent-status{border-color:var(--good-line);background:var(--good-soft);color:var(--good-ink)}
+.tone-rejected .lab-precedent-status,.tone-overturned .lab-precedent-status{color:var(--muted)}
+.tone-draft_pending_review .lab-precedent-status{border-color:var(--warn-line);background:var(--warn-soft)}
+.lab-precedent-source{color:var(--muted);font-size:var(--fs-small);margin:6px 0}
+.lab-precedent-compare{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.lab-precedent-compare>div{padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--sunken)}
+.lab-precedent-compare h3{margin:0 0 4px;font-size:var(--fs-small);color:var(--muted)}
+.lab-precedent-compare p{margin:0;font-weight:600}
+.lab-precedent-text{white-space:pre-line}
+.lab-precedent-actions,.lab-precedent-editor{margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.lab-precedent-actions label,.lab-precedent-editor label{display:block;margin:8px 0}
+.lab-precedent-editor fieldset{margin:10px 0;padding:8px 12px;border:1px solid var(--line);border-radius:10px;min-width:0}
+.lab-precedent-editor legend{font-weight:600;font-size:var(--fs-small)}
+.lab-precedents .check-label{display:flex;align-items:baseline;gap:8px;margin:4px 0}
+.lab-precedents .workbench-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+@media(max-width:640px){.lab-precedent-compare{grid-template-columns:1fr}.lab-precedent{padding:14px}}
+.lab-precedent-warning{margin:10px 0;padding:10px 12px;border:1px solid var(--warn-line);border-radius:10px;background:var(--warn-soft);font-size:var(--fs-body)}
+.lab-precedents-pages{display:flex;align-items:center;justify-content:center;gap:12px;margin:18px 0;color:var(--muted);font-size:var(--fs-small)}

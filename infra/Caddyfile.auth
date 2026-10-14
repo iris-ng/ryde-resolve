@@ -1,0 +1,34 @@
+{
+    # IP-address clients commonly omit SNI; choose this site's public certificate.
+    default_sni {$RYDE_SITE_HOST}
+}
+
+https://{$RYDE_SITE_HOST} {
+    tls {
+        issuer acme https://acme-v02.api.letsencrypt.org/directory {
+            profile shortlived
+        }
+    }
+    encode gzip
+    request_body {
+        max_size 300KB
+    }
+    basic_auth {
+        {$RYDE_SITE_USER} {$RYDE_SITE_PASSWORD_HASH}
+    }
+    # Nothing is stored, except the character frames (.png), which the web app marks private for a day (3 October).
+    @not_art not path_regexp ^/(otter|pango|fish|frog|rooster)/.+\.png$
+    header @not_art Cache-Control "no-store"
+    reverse_proxy web:3000 {
+        header_up X-Ryde-Client-IP {remote_host}
+        # Browser credentials terminate at the proxy. Only the internal observer
+        # token reaches the app, after successful site authentication.
+        header_up Authorization "Bearer {$AGENT_LAB_VIEW_TOKEN}"
+    }
+}
+
+# Never challenge for credentials over cleartext HTTP, including requests to an
+# unexpected Host header. Caddy's ACME challenge handler runs before redirects.
+http:// {
+    redir https://{$RYDE_SITE_HOST}{uri} 308
+}

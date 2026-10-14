@@ -1,0 +1,433 @@
+{
+  "dataset_meta": {
+    "schema_version": "1.0",
+    "synthetic": true,
+    "origin": "team_synthetic",
+    "authored_at": "2026-10-11T20:00:00+08:00",
+    "authored_by": "Ryde Resolve team: unseen test set, built by evidence/tools/build_unseen_set.py from the owner-approved outline",
+    "primary_category": "cleaning_fee",
+    "secondary_issues": [
+      "property_damage"
+    ],
+    "notes": "Unseen test case. All people, accounts, trips and businesses are fictional; the places are real Singapore places.",
+    "timezone": "Asia/Singapore",
+    "held_out_set": "unseen-2026-10"
+  },
+  "dispute_ticket": {
+    "dispute_id": "DISP-127",
+    "trip_id": "TRIP-2026-61127",
+    "filed_by": "driver",
+    "dispute_type": "cleaning_fee",
+    "description": "The rider spilled a berry smoothie on my vinyl rear seat. She wiped it but a purple mark about 8 cm stayed. I had it professionally removed for $32, receipt attached.",
+    "filed_at": "2026-09-16T19:00:00+08:00",
+    "status": "open",
+    "channel": "Driver app, Ryde Experience > My rider made a mess",
+    "requested_remedy": {
+      "type": "cleaning_fee",
+      "amount": 32.0,
+      "currency": "SGD"
+    },
+    "issues": [
+      {
+        "issue_id": "I-1",
+        "category": "cleaning_fee",
+        "alleged_by": "driver",
+        "against": "rider",
+        "allegation": "Rider caused a mess that needed professional cleaning; the driver claims $32.00.",
+        "claimed_amount": 32.0
+      }
+    ]
+  },
+  "rider_profile": {
+    "rider_id": "R-U127",
+    "name": "Teren Fael",
+    "account_age_days": 505,
+    "total_trips": 167,
+    "avg_rating": 4.8,
+    "dispute_history": {
+      "total_disputes": 0,
+      "upheld": 0,
+      "rejected": 0,
+      "pending": 0,
+      "window_days": 365
+    },
+    "fraud_flags": 0,
+    "payment_method": "Mastercard ending 4127",
+    "rating_history": [
+      {
+        "month": "2026-04",
+        "avg_rating": 4.76,
+        "trips": 6
+      },
+      {
+        "month": "2026-05",
+        "avg_rating": 4.81,
+        "trips": 5
+      },
+      {
+        "month": "2026-06",
+        "avg_rating": 4.76,
+        "trips": 6
+      },
+      {
+        "month": "2026-07",
+        "avg_rating": 4.79,
+        "trips": 5
+      },
+      {
+        "month": "2026-08",
+        "avg_rating": 4.81,
+        "trips": 6
+      },
+      {
+        "month": "2026-09",
+        "avg_rating": 4.78,
+        "trips": 3
+      }
+    ]
+  },
+  "driver_profile": {
+    "driver_id": "D-U127",
+    "name": "Davi Nore",
+    "account_age_days": 1240,
+    "total_trips": 4420,
+    "avg_rating": 4.88,
+    "dispute_history": {
+      "total_disputes": 1,
+      "upheld_against": 0,
+      "rejected": 1,
+      "pending": 0,
+      "window_days": 365
+    },
+    "fraud_flags": 0,
+    "vehicle": "Toyota Corolla Altis (TEST 8127)",
+    "cancellation_rate_pct": 1.9,
+    "licence_type": "PDVL",
+    "rating_history": [
+      {
+        "month": "2026-04",
+        "avg_rating": 4.88,
+        "trips": 101
+      },
+      {
+        "month": "2026-05",
+        "avg_rating": 4.92,
+        "trips": 124
+      },
+      {
+        "month": "2026-06",
+        "avg_rating": 4.9,
+        "trips": 122
+      },
+      {
+        "month": "2026-07",
+        "avg_rating": 4.84,
+        "trips": 119
+      },
+      {
+        "month": "2026-08",
+        "avg_rating": 4.85,
+        "trips": 107
+      },
+      {
+        "month": "2026-09",
+        "avg_rating": 4.88,
+        "trips": 66
+      }
+    ]
+  },
+  "trip_data": {
+    "trip_id": "TRIP-2026-61127",
+    "rider_id": "R-U127",
+    "driver_id": "D-U127",
+    "service_type": "RydeX",
+    "booking_mode": "on_demand",
+    "fare_basis": "fixed_quote",
+    "pickup_location": {
+      "name": "Novena, Thomson Road",
+      "lat": 1.3202,
+      "lng": 103.8437
+    },
+    "dropoff_location": {
+      "name": "Bishan Place",
+      "lat": 1.3506,
+      "lng": 103.8488
+    },
+    "booking_time": "2026-09-16T15:30:00+08:00",
+    "match_time": "2026-09-16T15:30:10+08:00",
+    "scheduled_time": "2026-09-16T15:30:00+08:00",
+    "driver_arrival_time": "2026-09-16T15:40:00+08:00",
+    "trip_start_time": "2026-09-16T15:45:00+08:00",
+    "trip_end_time": "2026-09-16T16:00:00+08:00",
+    "quoted_fare": 12.6,
+    "final_fare": 12.6,
+    "currency": "SGD",
+    "payment_method": "Mastercard ending 4127",
+    "trip_status": "completed"
+  },
+  "gps_telemetry": [
+    {
+      "timestamp": "2026-09-16T15:40:00+08:00",
+      "lat": 1.3202,
+      "lng": 103.8437,
+      "speed_kmh": 0,
+      "status": "arrived",
+      "accuracy_m": 5
+    },
+    {
+      "timestamp": "2026-09-16T15:45:00+08:00",
+      "lat": 1.3202,
+      "lng": 103.8437,
+      "speed_kmh": 0,
+      "status": "in_trip",
+      "accuracy_m": 6
+    },
+    {
+      "timestamp": "2026-09-16T15:48:45+08:00",
+      "lat": 1.32656,
+      "lng": 103.845032,
+      "speed_kmh": 34,
+      "status": "in_trip",
+      "accuracy_m": 7
+    },
+    {
+      "timestamp": "2026-09-16T15:52:30+08:00",
+      "lat": 1.335942,
+      "lng": 103.846025,
+      "speed_kmh": 47,
+      "status": "in_trip",
+      "accuracy_m": 5
+    },
+    {
+      "timestamp": "2026-09-16T15:56:15+08:00",
+      "lat": 1.343441,
+      "lng": 103.847186,
+      "speed_kmh": 37,
+      "status": "in_trip",
+      "accuracy_m": 7
+    },
+    {
+      "timestamp": "2026-09-16T16:00:00+08:00",
+      "lat": 1.3506,
+      "lng": 103.8488,
+      "speed_kmh": 0,
+      "status": "completed",
+      "accuracy_m": 6
+    }
+  ],
+  "chat_logs": [
+    {
+      "timestamp": "2026-09-16T15:31:00+08:00",
+      "sender": "driver",
+      "type": "message",
+      "content": "Coming. Grey Altis."
+    },
+    {
+      "timestamp": "2026-09-16T16:00:10+08:00",
+      "sender": "system",
+      "type": "system",
+      "content": "Trip completed. Fare $12.60 charged to Mastercard ending 4127."
+    },
+    {
+      "timestamp": "2026-09-16T16:01:00+08:00",
+      "sender": "rider",
+      "type": "message",
+      "content": "Sorry about the smoothie. I wiped it but there is still a mark."
+    },
+    {
+      "timestamp": "2026-09-16T16:02:20+08:00",
+      "sender": "driver",
+      "type": "attachment",
+      "content": "Photo of the rear seat.",
+      "attachment_ref": "PH-1"
+    },
+    {
+      "timestamp": "2026-09-16T16:03:20+08:00",
+      "sender": "driver",
+      "type": "attachment",
+      "content": "Photo of the car plate.",
+      "attachment_ref": "PH-2"
+    },
+    {
+      "timestamp": "2026-09-16T16:04:00+08:00",
+      "sender": "driver",
+      "type": "message",
+      "content": "Ok. I will report it to Ryde."
+    }
+  ],
+  "app_events": [
+    {
+      "timestamp": "2026-09-16T15:30:00+08:00",
+      "event_type": "booking_confirmed",
+      "details": "Rider R-U127 booked RydeX TRIP-2026-61127 from Novena, Thomson Road to Bishan Place. Fixed quote $12.60.",
+      "actor": "rider"
+    },
+    {
+      "timestamp": "2026-09-16T15:30:10+08:00",
+      "event_type": "driver_assigned",
+      "details": "Driver D-U127 (Davi Nore, Toyota Corolla Altis TEST 8127) matched. Pickup ETA 10 min.",
+      "actor": "system"
+    },
+    {
+      "timestamp": "2026-09-16T15:40:00+08:00",
+      "event_type": "driver_arrived",
+      "details": "Driver GPS 6 m from the pickup point. Auto-arrival confirmed.",
+      "actor": "system"
+    },
+    {
+      "timestamp": "2026-09-16T15:45:00+08:00",
+      "event_type": "trip_started",
+      "details": "Driver tapped Pick Up.",
+      "actor": "driver"
+    },
+    {
+      "timestamp": "2026-09-16T16:00:00+08:00",
+      "event_type": "trip_completed",
+      "details": "Driver tapped End Trip at the drop-off point.",
+      "actor": "driver"
+    },
+    {
+      "timestamp": "2026-09-16T16:00:10+08:00",
+      "event_type": "payment_captured",
+      "details": "$12.60 captured on Mastercard ending 4127.",
+      "actor": "system"
+    },
+    {
+      "timestamp": "2026-09-16T16:02:20+08:00",
+      "event_type": "photo_uploaded",
+      "details": "Driver uploaded photo PH-1 via trip chat. Server hash recorded.",
+      "actor": "driver"
+    },
+    {
+      "timestamp": "2026-09-16T16:03:20+08:00",
+      "event_type": "photo_uploaded",
+      "details": "Driver uploaded photo PH-2 via trip chat. Server hash recorded.",
+      "actor": "driver"
+    },
+    {
+      "timestamp": "2026-09-16T19:00:00+08:00",
+      "event_type": "cleaning_claim_submitted",
+      "details": "Driver submitted cleaning claim CLM-61127-01 for $32.00 with receipt DOC-RCPT-ACS-0412 and photos PH-1, PH-2.",
+      "actor": "driver",
+      "data": {
+        "claim_id": "CLM-61127-01",
+        "amount": 32.0,
+        "incident_at": "2026-09-16T16:00:00+08:00",
+        "receipt": "DOC-RCPT-ACS-0412"
+      }
+    },
+    {
+      "timestamp": "2026-09-16T19:01:00+08:00",
+      "event_type": "rider_notified",
+      "details": "Rider notified of cleaning claim CLM-61127-01 and invited to respond via RydeHELP.",
+      "actor": "system"
+    },
+    {
+      "timestamp": "2026-09-16T20:20:00+08:00",
+      "event_type": "rider_response_received",
+      "details": "Rider responded to claim CLM-61127-01 via RydeHELP.",
+      "actor": "rider"
+    }
+  ],
+  "payment_events": [
+    {
+      "timestamp": "2026-09-16T16:00:10+08:00",
+      "type": "capture",
+      "amount": 12.6,
+      "status": "settled",
+      "method": "Mastercard ending 4127",
+      "reference": "CAP-61127",
+      "counterparty": "rider",
+      "note": "Trip fare."
+    }
+  ],
+  "photos": [
+    {
+      "photo_id": "PH-1",
+      "submitted_by": "driver",
+      "submitted_at": "2026-09-16T16:02:20+08:00",
+      "filename": "photos/PH-1.jpg",
+      "sha256": "fa36bd1a4083818a215d614e9566cc3bcf8cd411b30d4117b8f3ebd933a0ccd9",
+      "bytes_available": true,
+      "description": "Driver's trip-chat photo of the rear seat.",
+      "reported_exif": {
+        "captured_at": "2026-09-16 16:02:00",
+        "offset": "+08:00",
+        "gps_lat": 1.3506,
+        "gps_lng": 103.8488,
+        "device": "Samsung SM-A556E",
+        "software": "Android 15"
+      },
+      "shows_vehicle_plate": false,
+      "provenance_notes": "Uploaded via trip chat."
+    },
+    {
+      "photo_id": "PH-2",
+      "submitted_by": "driver",
+      "submitted_at": "2026-09-16T16:03:20+08:00",
+      "filename": "photos/PH-2.jpg",
+      "sha256": "d8c1dac0729411c2776a668eba461bcb97077639e35ba2a67b11c9351f62877e",
+      "bytes_available": true,
+      "description": "Driver's trip-chat photo of the car plate.",
+      "reported_exif": {
+        "captured_at": "2026-09-16 16:03:00",
+        "offset": "+08:00",
+        "gps_lat": 1.3506,
+        "gps_lng": 103.8488,
+        "device": "Samsung SM-A556E",
+        "software": "Android 15"
+      },
+      "shows_vehicle_plate": true,
+      "provenance_notes": "Uploaded via trip chat."
+    }
+  ],
+  "documents": [
+    {
+      "document_id": "DOC-RCPT-ACS-0412",
+      "kind": "receipt",
+      "submitted_by": "driver",
+      "submitted_at": "2026-09-16T19:00:00+08:00",
+      "filename": "doc-rcpt-acs-0412.txt",
+      "extracted_fields": {
+        "company": "Aure Cushion Service",
+        "contact": "+65 0000 8127",
+        "address": "127 Aure Service Lane, #01-01, Singapore 000127",
+        "receipt_number": "ACS-2026-0412",
+        "cleaning_date": "2026-09-16",
+        "cleaning_time": "18:00",
+        "car_plate": "TEST 8127",
+        "service": "Removal of berry-drink mark from vinyl rear cushion",
+        "amount": 32.0,
+        "signature": "present",
+        "signed_by": "Lira En",
+        "company_stamp": "present"
+      },
+      "text": "Transcript of the receipt: Aure Cushion Service. 127 Aure Service Lane, #01-01, Singapore 000127. Tel +65 0000 8127. Receipt ACS-2026-0412. Date 16/09/2026 18:00. Vehicle TEST 8127. Service: Removal of berry-drink mark from vinyl rear cushion. Amount S$32.00. Signed Lira En; company stamp."
+    },
+    {
+      "document_id": "DOC-RCPT-61127",
+      "kind": "trip_receipt",
+      "submitted_by": "system",
+      "submitted_at": "2026-09-16T16:00:05+08:00",
+      "filename": "receipt-RCPT-61127.txt",
+      "extracted_fields": {
+        "total": 12.6
+      },
+      "text": "Ryde receipt RCPT-61127. RydeX. Novena, Thomson Road to Bishan Place. Total $12.60."
+    }
+  ],
+  "statements": [
+    {
+      "party": "driver",
+      "submitted_at": "2026-09-16T19:00:00+08:00",
+      "channel": "Driver app claim form",
+      "text": "At the drop-off the rider spilled a berry smoothie on the pale grey vinyl rear seat. She wiped it straight away with tissue, but a purple mark about 8 cm across stayed on the vinyl. I took a photo after the wiping. Aure Cushion Service removed the mark at 6pm for $32."
+    },
+    {
+      "party": "rider",
+      "submitted_at": "2026-09-16T20:20:00+08:00",
+      "channel": "RydeHELP",
+      "text": "My smoothie spilled on the seat when I was getting out. I wiped it at once but a purple mark about 8 cm was left on the seat. I am sorry about the mark, but the seat is vinyl and I thought it would wipe clean."
+    }
+  ]
+}

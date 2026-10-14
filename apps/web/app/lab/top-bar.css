@@ -1,0 +1,55 @@
+/* The top bar's Summary, Library and Walkthrough (user, 8 October; moved here from the step tour's styles when the video
+   replaced it): three pills with words alike. Under 1280px all three
+   turn into icons together (the word stays for screen readers), so the bar keeps one row on tablets and the case name
+   keeps its room on laptops. Each shows a tooltip right under it on mouseover or keyboard focus: what it does, and its
+   name too when only the icon shows. Touch screens skip the mouseover one, which would stick after a tap. */
+.lab.live-app .lab-tour-button,.lab.live-app .lab-queue-button{display:inline-flex;align-items:center;gap:6px;flex:none;height:40px;padding:0 16px;border:1px solid var(--line-strong);border-radius:999px;background:var(--surface);color:var(--ink);font-weight:600}
+.lab.live-app .lab-tour-button:hover:not(:disabled),.lab.live-app .lab-queue-button:hover:not(:disabled){border-color:var(--accent-line);background:var(--surface);color:var(--ink)}
+/* The queue's count: a small pill after the word; on the icon, a badge at its corner. */
+.lab-queue-count{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:var(--accent-tint);border:1px solid var(--accent-line);color:var(--ink);font-size:12px;font-weight:600;line-height:1}
+.lab-library-link{display:inline-flex;align-items:center;gap:7px;flex:none;height:40px;padding:0 16px;border:1px solid var(--line-strong);border-radius:999px;background:var(--surface);color:var(--ink);font-weight:600;text-decoration:none}
+.lab-library-link:hover{border-color:var(--accent-line);color:var(--accent)}
+.lab-library-link:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.lab.live-app .lab-summary-button{display:inline-flex;align-items:center;justify-content:center}
+.lab-bar-icon{display:none;flex:none;width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.lab-tipped{position:relative}
+.lab-tip{display:none;position:absolute;top:calc(100% + 8px);left:50%;z-index:40;width:max-content;max-width:220px;padding:7px 10px;border-radius:8px;background:var(--ink);color:var(--paper);font:500 13px/1.35 var(--font-body);text-align:center;white-space:normal;transform:translateX(-50%);cursor:default;box-shadow:0 6px 18px var(--shadow)}
+/* The 8px between button and tooltip still counts as the button, so the pointer can move onto the tooltip and it stays. */
+.lab-tip::before{content:"";position:absolute;left:0;right:0;bottom:100%;height:9px}
+.lab-tip b{display:none;font-family:var(--font-head);font-weight:600}
+.lab-tipped:hover .lab-tip,.lab-tipped:focus-visible .lab-tip{display:block}
+@media(hover:none){.lab-tipped:hover:not(:focus-visible) .lab-tip{display:none}}
+.lab-tipped[data-tip-off]:hover .lab-tip,.lab-tipped[data-tip-off]:focus-visible .lab-tip{display:none}
+@media(max-width:1279px){
+  /* Summary's own pill padding (gates.css) loads later, so the bar's class makes this rule win. */
+  .lab.live-app .lab-bar .lab-summary-button,.lab-library-link,.lab.live-app .lab-tour-button,.lab.live-app .lab-queue-button{width:40px;padding:0;justify-content:center}
+  .lab-bar-icon{display:block}
+  .lab-queue-count{position:absolute;top:-6px;right:-6px;min-width:18px;height:18px;padding:0 4px;font-size:11px}
+  .lab-bar-word{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+  .lab-tip b{display:block}
+  /* As icons the three sit near the bar's left on phones: each tooltip starts at its button's left edge and runs right,
+     so none is cut off by the screen's left edge. */
+  .lab-tip{left:0;transform:none}
+}
+/* Walkthrough and Queue are the two rightmost buttons (Queue since 11 October 2026). On tablets and small laptops their tooltips
+   end at the button's right edge instead, or the screen's right edge cuts them off at 1024px (found 11 October 2026 by
+   tests/library-browser.mjs after the 8 October wording). Phones keep the left start: there the icons sit near the bar's left and
+   a right-ended tip would leave the screen (tests/queue-signals-browser.mjs checks the Queue tooltip down to 320px). */
+@media(min-width:481px) and (max-width:1279px){.lab-tour-button .lab-tip,.lab-queue-button .lab-tip{left:auto;right:0}}
+/* Phones: narrower tooltips that wrap, so the rightmost of the three still fits a 320px screen. */
+@media(max-width:480px){.lab-tip{max-width:150px}}
+/* With the library link the phone bar holds six controls. Under 420px they tighten so the theme and animations chips stay
+   on the first row: the hidden brand gives up its gap, the gaps narrow, and New, Summary and the icon buttons slim down. */
+@media(max-width:420px){
+  .lab-bar>.lab-brand{position:absolute}
+  .lab.live-app .lab-bar{column-gap:6px}
+  .lab.live-app .lab-bar .lab-theme+.lab-motion{margin-left:-2px}
+  .lab.live-app .lab-bar .lab-summary-button,.lab-library-link,.lab.live-app .lab-tour-button,.lab.live-app .lab-queue-button{width:36px}
+}
+/* The narrowest phones (320px, and 400% zoom): a little tighter again, with slimmer theme and animations chips. */
+@media(max-width:340px){
+  .lab.live-app .lab-bar{column-gap:4px}
+  .lab.live-app .lab-bar .lab-theme+.lab-motion{margin-left:0}
+  .lab.live-app .lab-bar .lab-summary-button,.lab-library-link,.lab.live-app .lab-tour-button,.lab.live-app .lab-queue-button{width:34px}
+  .lab.live-app .lab-bar .lab-theme{min-height:34px;padding:2px}
+}

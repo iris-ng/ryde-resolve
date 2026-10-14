@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "note": "Best road route between each route case's planned trip start and end (first and last planned points, else pickup and drop-off), saved once from the OSRM demo server (OpenStreetMap data) by evidence/tools/fetch-route-references.mjs; never fetched during a run. Points are [lat, lng] like route_data. A reference, not part of any case file.",
+  "entries": {
+    "DISP-109": {
+      "caseId": "DISP-109",
+      "source": "OSRM demo server, OpenStreetMap data",
+      "fetched_at": "2026-10-10T05:10:30.375Z",
+      "from": {
+        "lat": 1.36898,
+        "lng": 103.84839
+      },
+      "to": {
+        "lat": 1.32015,
+        "lng": 103.84417
+      },
+      "distance_km": 8.22,
+      "duration_min": 9.8,
+      "points": [
+        [
+          1.36898,
+          103.84839
+        ],
+        [
+          1.36884,
+          103.84798
+        ],
+        [
+          1.3689,
+          103.84988
+        ],
+        [
+          1.36341,
+          103.85286
+        ],
+        [
+          1.36222,
+          103.85297
+        ],
+        [
+          1.36032,
+          103.85253
+        ],
+        [
+          1.35677,
+          103.85485
+        ],
+        [
+          1.35484,
+          103.8574
+        ],
+        [
+          1.3521,
+          103.85746
+        ],
+        [
+          1.33888,
+          103.86203
+        ],
+        [
+          1.3291,
+          103.86237
+        ],
+        [
+          1.32734,
+          103.86179
+        ],
+        [
+          1.3261,
+          103.86085
+        ],
+        [
+          1.32086,
+          103.85564
+        ],
+        [
+          1.31891,
+          103.85293
+        ],
+        [
+          1.31837,
+          103.85289
+        ],
+        [
+          1.31824,
+          103.85352
+        ],
+        [
+          1.31905,
+          103.85376
+        ],
+        [
+          1.31939,
+          103.85277
+        ],
+        [
+          1.31929,
+          103.85054
+        ],
+        [
+          1.3184,
+          103.84595
+        ],
+        [
+          1.32008,
+          103.84548
+        ],
+        [
+          1.32064,
+          103.84487
+        ],
+        [
+          1.32015,
+          103.84417
+        ]
+      ]
+    }
+  }
+}

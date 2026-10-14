@@ -1,0 +1,38 @@
+{
+  "name": "ryde-resolve",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.33.0",
+  "engines": {
+    "node": ">=24 <27"
+  },
+  "scripts": {
+    "dev": "next dev apps/web --hostname 127.0.0.1",
+    "build": "next build apps/web",
+    "start": "next start apps/web --hostname 0.0.0.0",
+    "agent:bundle": "node apps/agent-runner/build.mjs",
+    "db:migrate": "node --import tsx packages/db/migrate.ts",
+    "typecheck": "tsc --noEmit",
+    "check": "pnpm typecheck && pnpm build",
+    "live:worker": "node dist/live-worker.mjs",
+    "live:migrate": "node --import tsx packages/live-fishbowl/migrate.ts"
+  },
+  "dependencies": {
+    "jpeg-js": "0.4.4",
+    "next": "~16.3.8",
+    "pg": "^8.23.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^24.13.6",
+    "@types/pg": "^8.23.1",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "tsx": "^4.23.15",
+    "typescript": "5.9.3"
+  }
+}

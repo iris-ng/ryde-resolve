@@ -1,0 +1,93 @@
+/* The walkthrough (tour.tsx). The dialog covers the screen and is see-through. Two layers with the bright box cut out:
+   the dialog's own backdrop blurs the page (a blur only reaches the page from there), and the dark layer tints it. The
+   cut reaches the backdrop as --tour-cut; a browser whose backdrop cannot read it skips the blur rather than blurring
+   the box. The ring draws the box's pink edge and soft glow. The card is plum with pink buttons in both themes so it
+   stands out from the page (user choice, 6 October); its colours are the --tour-card* settings, so another palette is one block of values (user, 6 October).
+   Every animation starts from its hidden state and ends at the plain style, so when the animations chip or the system turns motion off (styles.css), everything simply shows. */
+:root{--tour-dim:rgba(14,14,18,.45);--tour-filter:blur(2px) saturate(.7);--tour-glow:rgba(233,56,100,.28)}
+:root{--tour-card:#43183a;--tour-card-ink:#fff;--tour-card-soft:rgba(255,255,255,.86);--tour-card-line:rgba(255,255,255,.1);--tour-dot:rgba(255,255,255,.26);--tour-dot-done:rgba(255,255,255,.52);--tour-dot-on:#ff6b8e;--tour-next:#e93864;--tour-next-ink:#fff;--tour-next-hover:#ff5a82;--tour-quiet-hover:rgba(255,255,255,.1)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--tour-dim:rgba(0,0,0,.5);--tour-filter:blur(2px) saturate(.5);--tour-glow:rgba(255,107,142,.4)}}
+:root[data-theme=dark]{--tour-dim:rgba(0,0,0,.5);--tour-filter:blur(2px) saturate(.5);--tour-glow:rgba(255,107,142,.4)}
+.lab-tour{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;max-width:none;max-height:none;margin:0;padding:0;border:0;background:transparent;color:var(--ink);overflow:hidden;animation:lab-tour-fade 200ms ease-out both}
+.lab-tour:focus{outline:none}
+.lab-tour::backdrop{background:transparent;-webkit-backdrop-filter:var(--tour-filter);backdrop-filter:var(--tour-filter);clip-path:var(--tour-cut);transition:clip-path 280ms cubic-bezier(.2,.7,.2,1)}
+.lab-tour-dim{position:fixed;inset:0;background:var(--tour-dim);transition:clip-path 280ms cubic-bezier(.2,.7,.2,1)}
+.lab-tour-hole{position:fixed;border-radius:14px;box-shadow:0 0 0 2px var(--brand),0 0 28px 4px var(--tour-glow);pointer-events:none;transition:top 280ms cubic-bezier(.2,.7,.2,1),left 280ms cubic-bezier(.2,.7,.2,1),width 280ms cubic-bezier(.2,.7,.2,1),height 280ms cubic-bezier(.2,.7,.2,1),box-shadow 200ms ease}
+.lab-tour-hole.none{box-shadow:none}
+/* The pen arrow (tour.tsx penStrokes): stacked strokes, each drawing itself over its own stretch of time (set inline). */
+.lab-tour-arrow{position:fixed;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.lab-tour-arrow>path{fill:none;stroke:var(--brand);stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;animation:lab-tour-draw linear both}
+/* Card type and spacing grow with the window, so a laptop or desktop screen gets a card that reads at a glance; a phone
+   keeps the smallest sizes. Progress is the row of dots (screen readers hear "Step n of 13" from the card's label). */
+.lab-tour-card{position:fixed;max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px);overflow:auto;color:var(--tour-card-ink);padding:clamp(18px,1.5vw,28px) clamp(20px,1.7vw,32px) clamp(16px,1.3vw,24px);border:1px solid var(--tour-card-line);border-radius:clamp(16px,1.3vw,22px);background:var(--tour-card);box-shadow:0 24px 64px rgba(0,0,0,.4);animation:lab-tour-in 200ms ease-out 90ms both}
+.lab-tour-text{margin:0 0 clamp(14px,1.2vw,22px);padding-right:24px;overflow-wrap:break-word;font-size:clamp(18px,calc(.85rem + .55vw),24px);line-height:1.42;font-weight:500}
+/* Chosen words get a hand-drawn pink underline (user choice, 7 October), one stroke per line when a phrase wraps. */
+.lab-tour-em{-webkit-box-decoration-break:clone;box-decoration-break:clone;padding-bottom:.08em;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 12' preserveAspectRatio='none'%3E%3Cpath d='M3 8.6C20 5.4 44 6.4 66 6.6S102 4.6 117 4.4' fill='none' stroke='%23ff6b8e' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E") left bottom/100% .38em no-repeat}
+/* A second part's card (a two-part step): only its words, no buttons. */
+.lab-tour-note .lab-tour-text{margin:0;padding-right:0}
+/* The dots, then the back and forward arrows as one group; when the row is too narrow the group moves under the dots, at the right. */
+.lab-tour-foot{display:flex;flex-wrap:wrap;align-items:center;gap:10px clamp(6px,.6vw,10px)}
+.lab-tour-actions{display:flex;align-items:center;gap:clamp(4px,.5vw,8px);margin-left:auto;flex:none}
+.lab-tour-dots{display:flex;gap:clamp(5px,.45vw,8px);margin-right:auto}
+.lab-tour-dots i{width:clamp(7px,.55vw,10px);height:clamp(7px,.55vw,10px);border-radius:50%;background:var(--tour-dot);transition:background-color 200ms ease,transform 200ms ease}
+.lab-tour-dots i.done{background:var(--tour-dot-done)}
+.lab-tour-dots i.on{background:var(--tour-dot-on);transform:scale(1.3)}
+.lab.live-app .lab-tour .quiet,.lab.live-app .lab-tour .primary{min-height:clamp(40px,3vw,50px);font-size:clamp(16px,calc(.8rem + .25vw),19px);border-radius:999px}
+.lab.live-app .lab-tour .quiet{padding:0 clamp(10px,.9vw,16px);border-color:transparent;background:transparent;color:var(--tour-card-soft);box-shadow:none}
+.lab.live-app .lab-tour .quiet:hover:not(:disabled){background:var(--tour-quiet-hover);color:var(--tour-card-ink)}
+.lab.live-app .lab-tour .primary{display:inline-flex;align-items:center;justify-content:center;flex:none;width:auto;min-width:6.5em;padding:0 clamp(20px,1.9vw,32px);background:var(--tour-next);border-color:var(--tour-next);color:var(--tour-next-ink);font-weight:600}
+.lab.live-app .lab-tour .primary:hover:not(:disabled){background:var(--tour-next-hover);border-color:var(--tour-next-hover);color:var(--tour-next-ink)}
+.lab-tour-card :focus-visible{outline-color:var(--tour-card-ink)}
+/* The round back and forward arrows. Back on the first card stays in place, faded, so the forward arrow never moves. */
+.lab.live-app .lab-tour .lab-tour-step{display:inline-flex;align-items:center;justify-content:center;width:clamp(40px,3vw,50px);min-width:0;height:clamp(40px,3vw,50px);padding:0;border-radius:50%}
+.lab.live-app .lab-tour .quiet.lab-tour-step{border:1.5px solid var(--tour-dot-done)}
+.lab.live-app .lab-tour .lab-tour-step:disabled{opacity:.35;cursor:default}
+.lab-tour-step svg{width:48%;height:48%;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.lab.live-app .lab-tour .lab-tour-close{position:absolute;top:clamp(8px,.8vw,14px);right:clamp(8px,.8vw,14px);width:34px;height:34px;min-height:34px;padding:0;font-size:24px;line-height:1}
+/* Phones: the dots take their own row above the buttons, so a long tour still fits the card. */
+@media(max-width:640px){.lab-tour-dots{flex-basis:100%}}
+@keyframes lab-tour-fade{from{opacity:0}}
+@keyframes lab-tour-in{from{opacity:0;transform:translateY(6px)}}
+@keyframes lab-tour-draw{from{stroke-dashoffset:1}}
+
+/* The opening (tour.tsx, user request, 7 October): on the plain page colour, light or dark, "Ryde Resolve" writes itself
+   letter by letter over a road that draws itself; the car drives in, waits under the name, drives off, and the cover
+   fades to the blurred page and the first card. Car first in at 0.5s, gone by 2.5s, cover gone by 2.9s. The card and
+   the whole dialog's own fade wait for the opening. It plays even with motion off (user, 7 October): every animation
+   here is !important, which beats the motion-off rule in styles.css (that rule has no specificity). */
+:root{--car-tyre:#26262b;--car-gap:var(--paper);--car-hub:#d9d9de;--car-glass:#ffe3eb}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--car-tyre:#3f3f46;--car-hub:#a1a1aa;--car-glass:#ffd0dc}}
+:root[data-theme=dark]{--car-tyre:#3f3f46;--car-hub:#a1a1aa;--car-glass:#ffd0dc}
+.lab-tour.intro{animation:none}
+.lab-tour.intro .lab-tour-card,.lab-tour.intro .lab-tour-arrow{visibility:hidden;animation:none}
+.lab-tour-hero{position:fixed;inset:0;z-index:2;display:grid;place-items:center;padding:16px;background:var(--paper);cursor:pointer;animation:lab-hero-out 420ms ease-in 2500ms both!important}
+.lab-hero-stage{display:flex;flex-direction:column;align-items:center;gap:clamp(8px,1.4vw,20px);width:min(100%,820px)}
+.lab-hero-word{margin:0;font-family:var(--font-head);font-weight:700;font-size:clamp(40px,9vw,112px);line-height:1.1;letter-spacing:-.03em;color:var(--ink);white-space:nowrap}
+.lab-hero-word span{display:inline-block;animation:lab-hero-letter 520ms cubic-bezier(.2,.8,.2,1) calc(150ms + var(--i) * 45ms) both!important}
+.lab-hero-word .resolve{color:var(--brand)}
+.lab-hero-road{position:relative;width:100%;height:clamp(58px,8vw,96px)}
+.lab-hero-line{position:absolute;left:0;right:0;bottom:0;height:3px;border-radius:2px;background:var(--line-strong);transform-origin:left;animation:lab-hero-line 600ms ease-out 300ms both!important}
+.lab-hero-car{--car-w:clamp(100px,12vw,160px);position:absolute;left:calc(50% - var(--car-w) / 2);bottom:0;width:var(--car-w);height:auto;animation:lab-hero-drive 2000ms 500ms both!important}
+.lab-hero-car .lab-car-wheel{transform-box:fill-box;transform-origin:center;animation:lab-hero-spin 2000ms 500ms both!important}
+.lab-hero-car .lab-car-speed{animation:lab-hero-speed 2000ms 500ms both!important}
+@keyframes lab-hero-letter{from{opacity:0;transform:translateY(.45em)}}
+@keyframes lab-hero-line{from{transform:scaleX(0)}}
+/* In fast and slowing down, a pause under the name, then away speeding up; the wheels turn with the same timing. */
+@keyframes lab-hero-drive{0%{transform:translateX(-62vw);animation-timing-function:cubic-bezier(.15,.7,.3,1)}45%{transform:translateX(0);animation-timing-function:linear}70%{transform:translateX(0);animation-timing-function:cubic-bezier(.6,0,.85,.4)}100%{transform:translateX(62vw)}}
+@keyframes lab-hero-spin{0%{transform:rotate(0);animation-timing-function:cubic-bezier(.15,.7,.3,1)}45%{transform:rotate(900deg);animation-timing-function:linear}70%{transform:rotate(900deg);animation-timing-function:cubic-bezier(.6,0,.85,.4)}100%{transform:rotate(1800deg)}}
+@keyframes lab-hero-speed{0%,36%{opacity:.85}45%,68%{opacity:0}78%,100%{opacity:.85}}
+@keyframes lab-hero-out{to{opacity:0;visibility:hidden}}
+
+/* The top bar's Walkthrough button, a pill like Summary. Phones keep only a question mark so the bar stays on one row;
+   screen readers still read the word. */
+.lab.live-app .lab-tour-button{display:inline-flex;align-items:center;gap:6px;flex:none;height:40px;padding:0 16px;border:1px solid var(--line-strong);border-radius:999px;background:var(--surface);color:var(--ink);font-weight:600}
+.lab.live-app .lab-tour-button:hover:not(:disabled){border-color:var(--accent-line);background:var(--surface);color:var(--ink)}
+.lab-tour-q{display:none}
+@media(max-width:480px){
+  .lab.live-app .lab-tour-button{width:40px;padding:0;justify-content:center}
+  .lab-tour-q{display:inline;font-size:18px;line-height:1}
+  .lab-tour-word{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+}
+/* The narrowest phones (and 400% zoom): a little narrower, with Summary's padding trimmed (responsive.css), so the bar's
+   buttons stay on one row. */
+@media(max-width:360px){.lab.live-app .lab-tour-button{width:38px}}

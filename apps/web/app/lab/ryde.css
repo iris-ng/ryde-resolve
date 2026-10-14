@@ -1,0 +1,117 @@
+/* Ryde look for the lab, after the Ryde rider app: Poppins, pill buttons and chips, a "Where to?" search pill
+   for the case picker, grey option tiles for the agents with a pink badge on the one at work, promo-card tints
+   for the proposal and decision, and a pink stepper. Colours are the theme tokens in styles.css. */
+.lab{background:var(--paper)}
+.lab h1,.lab h2,.lab h3{letter-spacing:-.2px}
+.lab ::selection{background:var(--accent-soft);color:var(--ink)}
+
+/* Buttons: pills. Secondary on the surface with a hairline, primary in Ryde pink. */
+.lab.live-app button{border-radius:999px;border-color:var(--line-strong);background:var(--surface-2);font-weight:500}
+.lab.live-app button:hover:not(:disabled){border-color:var(--accent);background:var(--hover);color:var(--accent)}
+.lab .primary,.lab .lab-welcome .primary,.lab .lab-dialog .primary,.lab .lab-controls .primary{background:var(--accent-solid);border-color:var(--accent-solid);color:var(--on-accent);font-weight:600;box-shadow:0 6px 16px var(--accent-glow)}
+.lab.live-app .primary:hover:not(:disabled){background:var(--accent-hover);border-color:var(--accent-hover);color:var(--on-accent)}
+.lab.live-app .quiet{border-color:transparent;background:transparent;color:var(--muted);font-weight:500}
+.lab.live-app .quiet:hover:not(:disabled){color:var(--accent);background:var(--selected);border-color:transparent}
+.lab.live-app .quiet.selected{color:var(--accent);background:var(--accent-soft);box-shadow:none}
+.lab.live-app .danger{background:var(--bad-soft);border-color:var(--bad-line);color:var(--bad-ink)}
+.lab.live-app .danger-text{color:var(--bad-ink)}
+
+/* Top bar: white, brand tile, search-pill picker, round pink plus, theme chip. */
+.lab-bar{height:72px;gap:16px;padding:0 24px;background:var(--bar);border-bottom:1px solid var(--line)}
+.lab-brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:17px;letter-spacing:-.3px}
+.lab.live-app .lab-picker-button{grid-template-columns:auto minmax(0,1fr) auto;column-gap:12px;min-height:50px;padding:6px 18px 6px 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);box-shadow:var(--shadow-soft);font-weight:500;color:var(--ink)}
+.lab.live-app .lab-picker-button:hover:not(:disabled){background:var(--surface);color:var(--ink);border-color:var(--accent-line)}
+.lab-pin{grid-column:1;grid-row:1/3;align-self:center;width:22px;height:22px;fill:var(--brand)}
+.lab-picker-title{grid-column:2;font-weight:600}
+.lab-chevron{grid-column:3}
+.lab-menu{top:calc(100% + 8px);padding:8px;border-radius:20px;border-color:var(--line);background:var(--surface);box-shadow:0 18px 48px var(--shadow)}
+.lab-menu-search{top:-8px;padding:10px 16px;border-color:var(--line);border-radius:999px;background:var(--surface);box-shadow:0 -8px 0 var(--surface)}
+.lab-menu-row{border-radius:14px}
+.lab-menu-row.selected{background:var(--selected)}
+.lab.live-app .lab-menu-row>button[role=option]{border-radius:14px;padding:10px 14px}
+.lab.live-app .lab-menu-row>button[role=option]:hover:not(:disabled){background:var(--hover);color:var(--ink)}
+.lab.live-app .lab-theme{display:inline-flex;align-items:center;justify-content:center;flex:none;margin-left:auto;min-height:40px;padding:5px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-size:var(--fs-small);font-weight:500;box-shadow:var(--shadow-soft)}
+.lab.live-app .lab-theme:hover:not(:disabled){color:var(--ink);background:var(--surface);border-color:var(--accent-line)}
+.lab-theme-icon{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--tile);color:var(--brand)}
+.lab-theme-icon svg{width:16px;height:16px;fill:currentColor;stroke:currentColor;stroke-width:1.6;stroke-linecap:round}
+/* The animations chip sits beside the theme chip; off shows the play icon muted with a slash. */
+.lab.live-app .lab-theme+.lab-motion{margin-left:-8px}
+.lab-motion svg{stroke-linejoin:round}
+.lab-motion.off .lab-theme-icon{color:var(--muted)}
+.lab-motion .lab-motion-gap{fill:none;stroke:var(--tile);stroke-width:3.4}.lab-motion .lab-motion-slash{fill:none;stroke-width:1.8}
+
+/* Agents: grey option tiles; the one at work carries a pink pill on its top edge. */
+.lab .live-strip{gap:12px;margin:22px 24px 14px}
+.lab.live-app .desk{position:relative;padding:14px 8px 10px;border:2px solid transparent;border-radius:18px;background:var(--tile);color:var(--ink)}
+.lab.live-app .desk:hover:not(:disabled){border-color:var(--accent-line);background:var(--tile);color:var(--ink)}
+.lab .desk b{font-size:var(--fs-body);font-weight:600}
+.lab .desk span{font-size:var(--fs-small)}
+/* The card colour is the agent's state: yellow while working, calm green when done, red when it failed.
+   Waiting and stopped stay grey. Selection adds the pink border and keeps the state colour. */
+.lab.live-app .desk.working,.lab.live-app .desk.working:hover:not(:disabled){background:var(--desk-working);border-color:var(--desk-working-line);box-shadow:none}
+.lab .desk.working span{color:var(--desk-working-ink)}
+.lab.live-app .desk.sealed,.lab.live-app .desk.sealed:hover:not(:disabled),.lab.live-app .desk.ready,.lab.live-app .desk.ready:hover:not(:disabled){background:var(--desk-done);border-color:var(--desk-done-line)}
+.lab.live-app .desk.attention,.lab.live-app .desk.attention:hover:not(:disabled){background:var(--desk-failed);border-color:var(--desk-failed-line)}
+.lab.live-app .desk.selected,.lab.live-app .desk.selected:hover:not(:disabled){border-color:var(--brand);box-shadow:0 8px 22px var(--accent-glow)}
+.lab.live-app .desk.waiting.selected,.lab.live-app .desk.stopped.selected{background:var(--surface)}
+
+/* Panes: rounded white cards with a soft shadow and a bold section title. */
+.lab-columns{padding:0 24px 20px}
+.lab-pane{border-color:var(--line);border-radius:22px;background:var(--surface);box-shadow:var(--shadow-soft)}
+.lab-pane-head{min-height:52px;padding:10px 10px 6px 18px;border-bottom:0}
+.lab-pane-head h2{font-size:var(--fs-title);font-weight:600}
+.lab-pane-body{padding:8px 18px 18px}
+.lab .lab-rail{border-radius:22px;background:linear-gradient(180deg,var(--rail-bg),var(--surface) 70%)}
+.lab .lab-rail-status{--rail:var(--role-judge);--rail-bg:var(--warn-soft)}
+.lab.live-app .lab-rail:hover:not(:disabled){background:var(--rail-bg);border-color:var(--rail);color:var(--rail)}
+
+/* Evidence: pill tabs, document rows. */
+.lab .live-tabs{flex-wrap:nowrap;gap:2px;padding:4px;border-radius:21px;background:var(--tile);width:fit-content;max-width:100%;overflow-x:auto}
+.lab.live-app .live-tabs button{flex:none;border:0;border-radius:999px;padding:7px 10px;min-height:34px;background:transparent;color:var(--muted);white-space:nowrap}
+.lab.live-app .live-tabs button:hover:not(:disabled){background:transparent;color:var(--ink)}
+.lab.live-app .live-tabs button[aria-pressed=true]{background:var(--surface);color:var(--accent);font-weight:600;box-shadow:0 2px 8px var(--shadow)}
+/* The drop box reads as a quiet grey area (4 October, user request); it turns accent only while a file is dragged over it. */
+.lab.live-app .lab-documents button{border-radius:0;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--ink)}
+.lab.live-app .lab-documents button:hover:not(:disabled){background:var(--hover);color:var(--ink)}
+.lab .citation{border-radius:999px;background:var(--accent-tint);border-color:var(--accent-line);color:var(--accent);padding:4px 10px}
+
+/* Conversation: grey tiles as chat bubbles; the decision is a promo card. */
+.lab-bubble{border:0;border-radius:6px 20px 20px 20px;background:var(--tile)}
+.lab-bubble-tag{padding:10px 12px 8px 10px;background:transparent;border-bottom:1px solid var(--line)}
+.lab-bubble-tag b{font-weight:600}
+.lab-bubble.decision{border:1.5px solid var(--accent-line);border-radius:20px;background:linear-gradient(105deg,var(--accent-tint),var(--selected))}
+.lab-verdict{border-radius:16px;background:var(--surface);border:1px solid var(--accent-line)}
+.lab-verdict h3{font-weight:600}
+.lab-approval{color:var(--warn)}
+.lab.live-app .lab-expand{border:0;background:transparent}
+.lab.live-app .lab-expand:hover:not(:disabled){background:transparent;color:var(--role)}
+
+/* Status: promo-card proposal, pill posture chips. */
+.lab-proposal{border:1.5px solid var(--accent-line);border-radius:18px;background:linear-gradient(105deg,var(--accent-tint),var(--selected))}
+.lab-proposal h3{font-weight:600}
+.lab-proposal.pending{background:none;border-style:dashed;border-color:var(--line-strong)}.lab-proposal.pending h3{color:var(--muted);font-weight:500}
+.lab-facts>div{border-top-color:var(--line)}
+.lab.live-app .lab-posture .quiet{border:1px solid var(--line-strong);border-radius:18px;color:var(--ink-soft);white-space:normal;text-align:left}
+.lab.live-app .lab-posture .quiet.selected{border-color:var(--accent-line);color:var(--accent)}
+.lab .posture-actions{display:flex;flex-wrap:wrap;gap:6px}
+.lab-run-pick select{border-radius:12px;background:var(--surface-2)}
+
+/* Tray, dialog, notices. */
+.lab-tray{background:var(--surface);border-color:var(--accent);border-radius:0 22px 22px 0;box-shadow:12px 0 40px var(--shadow)}
+.lab-dialog{border-radius:26px;border-color:var(--line);background:var(--surface);box-shadow:0 30px 80px var(--shadow)}
+.lab-dialog input[type=text],.lab-dialog input:not([type]){border-radius:14px;border-color:var(--line-strong);background:var(--sunken)}
+.lab-dialog input[type=text]:focus,.lab-dialog input:not([type]):focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 4px var(--accent-glow)}
+.lab .live-login{border-radius:18px;background:var(--surface);box-shadow:var(--shadow-soft)}
+.lab .live-login input{border-radius:12px;border-color:var(--line-strong);background:var(--sunken);color:var(--ink)}
+.lab .live-error{border-radius:14px}
+.lab .live-test-note{border-radius:999px;display:inline-block;padding:6px 14px;font-size:var(--fs-small);background:var(--accent-tint);border-color:var(--accent-line);color:var(--accent)}
+
+@media(max-width:900px){
+  .lab-bar{height:auto;padding:12px 16px}
+  .lab .live-strip{margin:20px 16px 10px}
+  .lab-columns{padding:0 16px 24px}
+}
+@media(max-width:640px){
+  .lab .live-strip{gap:6px}
+  .lab.live-app .desk{padding:10px 2px 6px;border-radius:14px}
+}

@@ -1,0 +1,2543 @@
+{
+ "ruleset_version": "1.0",
+ "built_at": "2026-09-27",
+ "status": "research reference for adjudication; not Ryde-approved; no rule is active",
+ "policy_snapshot": "2026-09-23-full (help centre re-verified unchanged on 2026-09-27, see 2026-09-27-verification/)",
+ "rules": [
+  {
+   "id": "P01",
+   "title": "Cancellation service scope",
+   "kind": "applicability",
+   "categories": [
+    "no_show_charge",
+    "cancellation_fee",
+    "waiting_fee"
+   ],
+   "statement": "Identify booked service, not merely driver identity.",
+   "origin": "reviewed card 2026-09-23 (carried over unchanged)",
+   "sources": [
+    {
+     "source_id": "4407761313305",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/4407761313305-Does-the-Cancellation-Policy-apply-to-all-Ryde-services",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2025-11-23T13:37:05Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/4407761313305.txt",
+     "sha256": "fc314f0eedd304159ef4ad0c44d09b225bc4e321605992fe87ef8763907872ae",
+     "line_start": 5,
+     "line_end": 6,
+     "exact_text": "Cancellation Policy applies to all Service Types * in the Ryde app and is executed on a service level, not driver level. Hence, all carpool drivers are included in the Cancellation Policy.\n*All services except RydeTAXI"
+    },
+    {
+     "source_id": "33362932998937",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/33362932998937-Cancellation-and-Waiting-Time-Policy",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2024-06-05T05:59:53Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/33362932998937.txt",
+     "sha256": "b34bc4c11c2f9916370371918d1fb343598f1c87a9c4cbb3577699161ad5dbe5",
+     "line_start": 24,
+     "line_end": 25,
+     "exact_text": "This Policy applies for all Service Types **.\n**Please refer to the Ryde app for the comprehensive list of service options."
+    }
+   ],
+   "conditions": [
+    "Identify booked service, not merely driver identity."
+   ],
+   "limits": [
+    "RydeTAXI excluded by specific FAQ.",
+    "RydeSEND is not implemented by this passenger pack."
+   ],
+   "required_evidence_proposed": [
+    "booking.service"
+   ],
+   "interpretation_proposed": "Use scope before selecting any cancellation predicate.",
+   "dependencies": [],
+   "conflict_ids": [
+    "C02"
+   ],
+   "unresolved_questions": [],
+   "why_relevant": "Gate: RydeTAXI is excluded, so service type must be read before any fee rule.",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  },
+  {
+   "id": "P02",
+   "title": "On-demand matching grace",
+   "kind": "fee_exemption",
+   "categories": [
+    "cancellation_fee",
+    "no_show_charge"
+   ],
+   "statement": "Cancellation within 3 minutes of matching is not chargeable. Driver arrival does not shorten the guaranteed rider grace.",
+   "origin": "reviewed card 2026-09-23 (carried over unchanged)",
+   "sources": [
+    {
+     "source_id": "23534478435353",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/23534478435353-Cancellation-and-Waiting-Fee",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2026-02-26T08:53:05Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/23534478435353.txt",
+     "sha256": "d059f09e6fbeb26955e168eb1c8104003784da1705aa1233dabf6d1f092c78a0",
+     "line_start": 5,
+     "line_end": 9,
+     "exact_text": "On-demand Trip - Rider Cancellation & Waiting Time Policy Statement\nAll cancellations made within 3 minutes of matching are not chargeable.\nRider will be charged a Cancellation Fee of $6.61* if:\nRider cancels after 3 minutes of matching OR\nThe driver presses “I’m Here”, waits for > 3 minutes for the rider to arrive at the pick-up point and cancels the trip (Rider NO SHOW and no trip completion)"
+    },
+    {
+     "source_id": "4407761270937",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/4407761270937-If-a-driver-arrives-during-the-rider-s-grace-period-will-the-grace-period-for-cancellation-be-reduced",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2024-10-01T06:26:05Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/4407761270937.txt",
+     "sha256": "55d6866d6dfac6f1c7223ddc1fcfb50ca5d59dbf5bb309e68278e0e9d646a4aa",
+     "line_start": 5,
+     "line_end": 5,
+     "exact_text": "Riders are guaranteed 3 minutes of grace period from the time of match and/or 15 minutes before scheduled time for Advance Trip Request before the Cancellation Fee kicks in."
+    }
+   ],
+   "conditions": [
+    "Cancellation within 3 minutes of matching is not chargeable.",
+    "Driver arrival does not shorten the guaranteed rider grace."
+   ],
+   "limits": [
+    "Do not substitute arrival time for matching time.",
+    "Precision and event ordering must be established."
+   ],
+   "required_evidence_proposed": [
+    "matched_at",
+    "cancelled_at",
+    "cancellation_actor"
+   ],
+   "interpretation_proposed": "Compare matching elapsed time; exact 180-second cancellation remains within grace.",
+   "dependencies": [
+    "P01"
+   ],
+   "conflict_ids": [],
+   "unresolved_questions": [
+    "Resolve conflicting/missing timestamps without rounding them into eligibility."
+   ],
+   "why_relevant": "Three-minute grace from matching; an early driver arrival does not shorten it.",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  },
+  {
+   "id": "P03",
+   "title": "Rider cancellation after on-demand grace",
+   "kind": "conditional_rider_charge",
+   "categories": [
+    "cancellation_fee"
+   ],
+   "statement": "Rider cancels after 3 minutes of matching. Principal policy states rider cancellation amount SGD 6.61.",
+   "origin": "reviewed card 2026-09-23 (carried over unchanged)",
+   "sources": [
+    {
+     "source_id": "23534478435353",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/23534478435353-Cancellation-and-Waiting-Fee",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2026-02-26T08:53:05Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/23534478435353.txt",
+     "sha256": "d059f09e6fbeb26955e168eb1c8104003784da1705aa1233dabf6d1f092c78a0",
+     "line_start": 5,
+     "line_end": 9,
+     "exact_text": "On-demand Trip - Rider Cancellation & Waiting Time Policy Statement\nAll cancellations made within 3 minutes of matching are not chargeable.\nRider will be charged a Cancellation Fee of $6.61* if:\nRider cancels after 3 minutes of matching OR\nThe driver presses “I’m Here”, waits for > 3 minutes for the rider to arrive at the pick-up point and cancels the trip (Rider NO SHOW and no trip completion)"
+    },
+    {
+     "source_id": "18229758389017",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/18229758389017-Cancellation-Fee-Waiver-Request",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2026-05-25T09:21:47Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/18229758389017.txt",
+     "sha256": "ea989603e5c32253c7c01805519bd96284d8bdd92d77948f2f901a9949c07147",
+     "line_start": 6,
+     "line_end": 9,
+     "exact_text": "If you are eligible, we will issue you a voucher** with a unique code worth $6.61 as a refund for the incurred Cancellation Charges. Please be mindful to top up your Ryde wallet using the voucher code given to you within the expiry period.\n*Requests submitted after 30 days of the trip will not be considered for waivers.\n**This voucher is non-refundable and cannot be exchanged for cash in part or in full. There is strictly no extension of the expiry date from the date of issue.\nThe increase is due to the platform fee changes effective 17 Feb 2026."
+    }
+   ],
+   "conditions": [
+    "Rider cancels after 3 minutes of matching.",
+    "Principal policy states rider cancellation amount SGD 6.61."
+   ],
+   "limits": [
+    "Matching grace and applicable service must be checked.",
+    "Amount is not driver payout.",
+    "Waiver and correction are separate decisions."
+   ],
+   "required_evidence_proposed": [
+    "matched_at",
+    "cancelled_at",
+    "cancellation_actor",
+    "booking.service",
+    "trip_date",
+    "charge_ledger"
+   ],
+   "interpretation_proposed": "Candidate charge condition; no payment instruction and no automatic rejection of a challenge.",
+   "dependencies": [
+    "P01",
+    "P02",
+    "P08",
+    "P18"
+   ],
+   "conflict_ids": [],
+   "unresolved_questions": [
+    "Confirm historical fee version."
+   ],
+   "why_relevant": "The $6.61 rider cancellation fee after grace; the amount changed on 17 February 2026.",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  },
+  {
+   "id": "P04",
+   "title": "Driver cancellation for on-demand rider no-show",
+   "kind": "conditional_rider_charge",
+   "categories": [
+    "no_show_charge"
+   ],
+   "statement": "Driver presses arrival, waits more than 3 minutes at pickup, rider does not arrive, driver cancels, no trip completion. Rider matching grace remains relevant. Principal rider policy states SGD 6.61 cancellation fee.",
+   "origin": "reviewed card 2026-09-23 (carried over unchanged)",
+   "sources": [
+    {
+     "source_id": "23534478435353",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/23534478435353-Cancellation-and-Waiting-Fee",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2026-02-26T08:53:05Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/23534478435353.txt",
+     "sha256": "d059f09e6fbeb26955e168eb1c8104003784da1705aa1233dabf6d1f092c78a0",
+     "line_start": 5,
+     "line_end": 9,
+     "exact_text": "On-demand Trip - Rider Cancellation & Waiting Time Policy Statement\nAll cancellations made within 3 minutes of matching are not chargeable.\nRider will be charged a Cancellation Fee of $6.61* if:\nRider cancels after 3 minutes of matching OR\nThe driver presses “I’m Here”, waits for > 3 minutes for the rider to arrive at the pick-up point and cancels the trip (Rider NO SHOW and no trip completion)"
+    },
+    {
+     "source_id": "4407761270937",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/4407761270937-If-a-driver-arrives-during-the-rider-s-grace-period-will-the-grace-period-for-cancellation-be-reduced",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2024-10-01T06:26:05Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/4407761270937.txt",
+     "sha256": "55d6866d6dfac6f1c7223ddc1fcfb50ca5d59dbf5bb309e68278e0e9d646a4aa",
+     "line_start": 5,
+     "line_end": 5,
+     "exact_text": "Riders are guaranteed 3 minutes of grace period from the time of match and/or 15 minutes before scheduled time for Advance Trip Request before the Cancellation Fee kicks in."
+    },
+    {
+     "source_id": "4407754403353",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/4407754403353-What-if-my-driver-hasn-t-arrived-but-has-indicated-that-he-she-arrived",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2026-02-26T03:48:25Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/4407754403353.txt",
+     "sha256": "2e1c3f49c7dfab1fd2c4802a429533bb89f7ca6525e5f76fbc0fda34e2b4a49c",
+     "line_start": 5,
+     "line_end": 10,
+     "exact_text": "Drivers are only allowed to indicate arrival and impose the Waiting Time Fee only if he/she:\nIs at the pick-up location according to GPS data\nAND\nHas waited for more than 3 mins\nOtherwise, you will not be charged the $6.61 Waiting Time Fee if any of the above are not fulfilled.\nNonetheless, do reach out to us if you feel you have been charged unfairly or wrongly, and we’ll be happy to assist you."
+    }
+   ],
+   "conditions": [
+    "Driver presses arrival, waits more than 3 minutes at pickup, rider does not arrive, driver cancels, no trip completion.",
+    "Rider matching grace remains relevant. Principal rider policy states SGD 6.61 cancellation fee."
+   ],
+   "limits": [
+    "An arrival button press alone does not prove location.",
+    "No-show and completed-trip waiting are different events.",
+    "GPS wording comes from waiting-fee FAQ; applying its validity safeguard to no-show is a proposed interpretation."
+   ],
+   "required_evidence_proposed": [
+    "matched_at",
+    "arrival_event_at",
+    "gps_with_uncertainty",
+    "booked_pickup",
+    "cancelled_at",
+    "cancellation_actor",
+    "boarding_state",
+    "completion_state"
+   ],
+   "interpretation_proposed": "Evaluate time only after factual arrival is supported. Do not invent a radius or infer no-show from missing chat.",
+   "dependencies": [
+    "P01",
+    "P02",
+    "P06",
+    "P08",
+    "P15",
+    "P18"
+   ],
+   "conflict_ids": [
+    "C01",
+    "C03"
+   ],
+   "unresolved_questions": [
+    "Arrival tolerance and exception handling need policy-owner confirmation."
+   ],
+   "why_relevant": "Core no-show rule: arrival declared, more than three minutes, rider absent, no completion.",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  },
+  {
+   "id": "P05",
+   "title": "Completed-trip waiting fee",
+   "kind": "conditional_rider_charge",
+   "categories": [
+    "waiting_fee"
+   ],
+   "statement": "Driver indicates arrival, waits more than 3 minutes for boarding, rider boards and driver completes trip. Principal source says rider may be charged SGD 5. Driver FAQ requires waiting-fee toggle upon drop-off.",
+   "origin": "reviewed card 2026-09-23 (carried over unchanged)",
+   "sources": [
+    {
+     "source_id": "23534478435353",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/23534478435353-Cancellation-and-Waiting-Fee",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2026-02-26T08:53:05Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/23534478435353.txt",
+     "sha256": "d059f09e6fbeb26955e168eb1c8104003784da1705aa1233dabf6d1f092c78a0",
+     "line_start": 10,
+     "line_end": 11,
+     "exact_text": "Riders may be charged a Waiting Time Fee of $5 at the end of the trip if:\nThe driver presses “I’m Here”, waits for > 3 minutes for the rider to board, and continues the trip (Rider boards and driver completes trip)."
+    },
+    {
+     "source_id": "4408071347993",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/4408071347993-How-Does-the-Waiting-Fee-Work",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2026-09-22T02:23:46Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/4408071347993.txt",
+     "sha256": "5fdb87b7e1e05e3f73c0ed9b7d2db8ff312181ac65b9ce2667b800d654a6a4dc",
+     "line_start": 5,
+     "line_end": 5,
+     "exact_text": "Drivers are required to tap on the $5* Waiting Time Fee button upon Drop-off (if applicable)."
+    },
+    {
+     "source_id": "4408079464217",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/4408079464217-What-if-I-forgot-to-add-in-the-Waiting-Time-Fee",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2026-09-22T02:24:24Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/4408079464217.txt",
+     "sha256": "752493c4a3650438bbea7e7775da1b17329412cc8fd912de5f853f6f39b936f9",
+     "line_start": 5,
+     "line_end": 5,
+     "exact_text": "Ryde will not be held accountable for the reimbursement of waiting time fees. Drivers are advised to tap on the waiting time fee toggle upon drop-off as we are unable to charge the rider once the trip is completed."
+    }
+   ],
+   "conditions": [
+    "Driver indicates arrival, waits more than 3 minutes for boarding, rider boards and driver completes trip.",
+    "Principal source says rider may be charged SGD 5.",
+    "Driver FAQ requires waiting-fee toggle upon drop-off."
+   ],
+   "limits": [
+    "Forgotten waiting fee cannot be charged retrospectively under cited FAQ.",
+    "Do not also charge no-show cancellation for this completed-trip event."
+   ],
+   "required_evidence_proposed": [
+    "arrival_event_at",
+    "boarding_at",
+    "completion_state",
+    "waiting_fee_toggle",
+    "receipt",
+    "gps_with_uncertainty"
+   ],
+   "interpretation_proposed": "Candidate waiting fee, with amount conflict retained; not an automatic charge.",
+   "dependencies": [
+    "P06",
+    "P09"
+   ],
+   "conflict_ids": [
+    "C01",
+    "C03"
+   ],
+   "unresolved_questions": [],
+   "why_relevant": "Completed-trip waiting fee: $5 before charges, $6.61 charged cashless (C01 explained as a team reading).",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  },
+  {
+   "id": "P06",
+   "title": "Arrival validity and location evidence",
+   "kind": "conditional_requirement",
+   "categories": [
+    "no_show_charge",
+    "waiting_fee"
+   ],
+   "statement": "Source requires GPS at pickup AND more than 3 minutes waiting before imposing waiting fee.",
+   "origin": "reviewed card 2026-09-23 (carried over unchanged)",
+   "sources": [
+    {
+     "source_id": "4407754403353",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/4407754403353-What-if-my-driver-hasn-t-arrived-but-has-indicated-that-he-she-arrived",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2026-02-26T03:48:25Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/4407754403353.txt",
+     "sha256": "2e1c3f49c7dfab1fd2c4802a429533bb89f7ca6525e5f76fbc0fda34e2b4a49c",
+     "line_start": 5,
+     "line_end": 10,
+     "exact_text": "Drivers are only allowed to indicate arrival and impose the Waiting Time Fee only if he/she:\nIs at the pick-up location according to GPS data\nAND\nHas waited for more than 3 mins\nOtherwise, you will not be charged the $6.61 Waiting Time Fee if any of the above are not fulfilled.\nNonetheless, do reach out to us if you feel you have been charged unfairly or wrongly, and we’ll be happy to assist you."
+    }
+   ],
+   "conditions": [
+    "Source requires GPS at pickup AND more than 3 minutes waiting before imposing waiting fee."
+   ],
+   "limits": [
+    "Source amount SGD 6.61 conflicts with principal waiting policy.",
+    "No numeric pickup radius or GPS uncertainty standard supplied."
+   ],
+   "required_evidence_proposed": [
+    "booked_pickup",
+    "gps_with_uncertainty",
+    "arrival_event_at",
+    "wait_end_at"
+   ],
+   "interpretation_proposed": "Use location and timing as distinct checks; conflict blocks using this source alone to price waiting.",
+   "dependencies": [],
+   "conflict_ids": [
+    "C01"
+   ],
+   "unresolved_questions": [
+    "Physical pickup identity and acceptable location tolerance."
+   ],
+   "why_relevant": "Arrival needs GPS at pickup AND more than three minutes; the button alone is not arrival.",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  },
+  {
+   "id": "P07",
+   "title": "Advance cancellation and waiting windows",
+   "kind": "conditional_fee_and_exemption",
+   "categories": [
+    "cancellation_fee",
+    "no_show_charge",
+    "driver_cancellation"
+   ],
+   "statement": "Cancellation more than 15 minutes before schedule is free. Late acceptance example grants 3-minute matching grace. No-show waiting and completed-trip waiting are distinct; both use more-than-3-minute wording.",
+   "origin": "reviewed card 2026-09-23 (carried over unchanged)",
+   "sources": [
+    {
+     "source_id": "23534478435353",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/23534478435353-Cancellation-and-Waiting-Fee",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2026-02-26T08:53:05Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/23534478435353.txt",
+     "sha256": "d059f09e6fbeb26955e168eb1c8104003784da1705aa1233dabf6d1f092c78a0",
+     "line_start": 12,
+     "line_end": 20,
+     "exact_text": "Advanced Trip - Rider Cancellation & Waiting Time Policy Statement\nAll cancellations made > 15 minutes before the scheduled trip time are not chargeable.\n(eg: Scheduled trip: 6 PM, any cancellation made before 5:45 PM is not chargeable.\nIf the advanced trip request is accepted only after 5:45 PM, riders will have a 3 minute grace period)\nRider will be charged a Cancellation Fee of $6.61* if:\nRider cancels after the cancellation window (< Scheduled - 15mins OR Matched) OR\nThe driver cancels the trip after waiting for > 3 minutes for the Rider to arrive at the pick-up point (Rider NO SHOW and no trip completion)\nRiders may be charged a Waiting Time Fee of $5 at the end of the trip if:\nThe driver waits for > 3 minutes for the Rider to board and continues to complete the trip (Rider boards and driver completes trip)"
+    },
+    {
+     "source_id": "4407761270937",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/4407761270937-If-a-driver-arrives-during-the-rider-s-grace-period-will-the-grace-period-for-cancellation-be-reduced",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2024-10-01T06:26:05Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/4407761270937.txt",
+     "sha256": "55d6866d6dfac6f1c7223ddc1fcfb50ca5d59dbf5bb309e68278e0e9d646a4aa",
+     "line_start": 5,
+     "line_end": 5,
+     "exact_text": "Riders are guaranteed 3 minutes of grace period from the time of match and/or 15 minutes before scheduled time for Advance Trip Request before the Cancellation Fee kicks in."
+    }
+   ],
+   "conditions": [
+    "Cancellation more than 15 minutes before schedule is free.",
+    "Late acceptance example grants 3-minute matching grace.",
+    "No-show waiting and completed-trip waiting are distinct; both use more-than-3-minute wording."
+   ],
+   "limits": [
+    "Source algebra is ambiguous; do not execute it literally.",
+    "Do not start early-arrival no-show clock without clarification."
+   ],
+   "required_evidence_proposed": [
+    "scheduled_at",
+    "matched_at",
+    "arrival_event_at",
+    "cancelled_at",
+    "boarding_at",
+    "completion_state",
+    "timezone"
+   ],
+   "interpretation_proposed": "Keep as review-only until exact equality and overlapping clocks are resolved.",
+   "dependencies": [
+    "P01",
+    "P02",
+    "P06"
+   ],
+   "conflict_ids": [
+    "C04",
+    "C01"
+   ],
+   "unresolved_questions": [
+    "Exactly 15 minutes before scheduled time.",
+    "Early arrival clock origin.",
+    "Interpretation of cancellation-window shorthand."
+   ],
+   "why_relevant": "Advance bookings: free more than 15 minutes before; boundaries unresolved.",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  },
+  {
+   "id": "P08",
+   "title": "Cancellation waiver procedure and remedy",
+   "kind": "discretionary_procedure",
+   "categories": [
+    "cancellation_fee",
+    "no_show_charge"
+   ],
+   "statement": "Waiver request via in-app RydeHELP within 30 days of trip. Ryde reviews eligibility. If eligible under the specific waiver procedure, voucher value SGD 6.61 used to top up Ryde wallet before expiry.",
+   "origin": "reviewed card 2026-09-23 (carried over unchanged)",
+   "sources": [
+    {
+     "source_id": "18229758389017",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/18229758389017-Cancellation-Fee-Waiver-Request",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2026-05-25T09:21:47Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/18229758389017.txt",
+     "sha256": "ea989603e5c32253c7c01805519bd96284d8bdd92d77948f2f901a9949c07147",
+     "line_start": 5,
+     "line_end": 9,
+     "exact_text": "If you feel that you have been unfairly charged a Cancellation Fee, you may submit a fee waiver request via RydeHELP in our app within 30 days of the trip* and we will review your eligibility for a refund.\nIf you are eligible, we will issue you a voucher** with a unique code worth $6.61 as a refund for the incurred Cancellation Charges. Please be mindful to top up your Ryde wallet using the voucher code given to you within the expiry period.\n*Requests submitted after 30 days of the trip will not be considered for waivers.\n**This voucher is non-refundable and cannot be exchanged for cash in part or in full. There is strictly no extension of the expiry date from the date of issue.\nThe increase is due to the platform fee changes effective 17 Feb 2026."
+    },
+    {
+     "source_id": "terms",
+     "canonical_url": "https://rydesharing.com/terms-of-use/",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2026-04-10T09:05:28",
+     "cms_date_is_effective_date": false,
+     "archive_path": "corporate/text/pages-9156-terms-of-use.txt",
+     "sha256": "749b6e63d9169f975376f44714c7a4637bfaa24bba7a5e8d492ec2d123b6d261",
+     "line_start": 121,
+     "line_end": 123,
+     "exact_text": "Unless otherwise stated in any Ryde Policy, you may cancel your request for transportation and delivery services at any time before you commence your ride with the Partner that has been matched with you by the Service.\nIf you decide to cancel your ride booking or do not show up at the designated location, you may be charged a Cancellation Fee or such other Cancellation Fee as Ryde may notify from time to time via the Cancellation and Waiting Time Policy on Ryde’s website.\nIf you feel you were incorrectly charged a Cancellation Fee, you may contact Ryde in writing at support@rydesharing.com for assistance. Ryde reserves its absolute discretion to any refunds to you and such refunds may be credited to the payment card you used for the journey, or to your RydeCoins wallet or by such other method as is deemed reasonable by Ryde."
+    }
+   ],
+   "conditions": [
+    "Waiver request via in-app RydeHELP within 30 days of trip.",
+    "Ryde reviews eligibility.",
+    "If eligible under the specific waiver procedure, voucher value SGD 6.61 used to top up Ryde wallet before expiry."
+   ],
+   "limits": [
+    "After-30-day requests not considered for this waiver.",
+    "Voucher is not cash-exchangeable; expiry not extended.",
+    "This is not a universal deadline or remedy for all correction claims; Terms separately reserve refund discretion."
+   ],
+   "required_evidence_proposed": [
+    "trip_date",
+    "request_at",
+    "request_channel",
+    "charge_type",
+    "eligibility_decision",
+    "voucher_expiry"
+   ],
+   "interpretation_proposed": "Recommend waiver review and stated instrument; do not promise eligibility or issue a voucher.",
+   "dependencies": [
+    "P18"
+   ],
+   "conflict_ids": [
+    "C05"
+   ],
+   "unresolved_questions": [
+    "Eligibility criteria and actual voucher expiry duration are not published here.",
+    "30-day counting precision/timezone."
+   ],
+   "why_relevant": "Waiver route: RydeHELP within 30 days, $6.61 wallet voucher.",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  },
+  {
+   "id": "P09",
+   "title": "Waiting waiver procedure and remedy",
+   "kind": "discretionary_procedure",
+   "categories": [
+    "waiting_fee"
+   ],
+   "statement": "Request via RydeHELP within 30 days of trip; eligibility is reviewed. If eligible, SGD 5 voucher to top up wallet before expiry.",
+   "origin": "reviewed card 2026-09-23 (carried over unchanged)",
+   "sources": [
+    {
+     "source_id": "27085468660505",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/27085468660505-Waiting-Fee-Waiver-Request",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2025-11-23T13:37:05Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/27085468660505.txt",
+     "sha256": "899510a31676772ceb88722c5096ef316e74c3f984acf27a759cfe0b8f154601",
+     "line_start": 5,
+     "line_end": 8,
+     "exact_text": "If you feel that you have been unfairly charged for a Waiting Fee, you may submit a fee waiver request via RydeHELP in our app within 30 days of the trip* and we will review your eligibility for a refund.\nIf you are eligible, we will issue you a voucher** with a unique code worth $5.00 as a refund for the incurred Waiting Charges. Please be mindful to top up your Ryde wallet using the voucher code given to you within the expiry period.\n*Requests submitted after 30 days of the trip will not be considered for waivers.\n**This voucher is non-refundable and cannot be exchanged for cash in part or in full. There is strictly no extension of the expiry date from the date of issue."
+    }
+   ],
+   "conditions": [
+    "Request via RydeHELP within 30 days of trip; eligibility is reviewed.",
+    "If eligible, SGD 5 voucher to top up wallet before expiry."
+   ],
+   "limits": [
+    "Not cash-exchangeable; no expiry extension.",
+    "Deadline applies to this waiver procedure, not all complaints."
+   ],
+   "required_evidence_proposed": [
+    "trip_date",
+    "request_at",
+    "charge_type",
+    "eligibility_decision",
+    "voucher_expiry"
+   ],
+   "interpretation_proposed": "Separate waiver eligibility and voucher instrument from charge validity.",
+   "dependencies": [],
+   "conflict_ids": [
+    "C01"
+   ],
+   "unresolved_questions": [
+    "Eligibility criteria and expiry duration unspecified."
+   ],
+   "why_relevant": "Waiver route: RydeHELP within 30 days, $5 wallet voucher.",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  },
+  {
+   "id": "P10",
+   "title": "Fixed fare and preferred route agreement",
+   "kind": "permission_and_context",
+   "categories": [
+    "route_deviation",
+    "fare_overcharge"
+   ],
+   "statement": "Fare based on booked endpoints; driver may choose efficient GPS route. Rider preferred route should be mutually agreed before travel.",
+   "origin": "reviewed card 2026-09-23 (carried over unchanged)",
+   "sources": [
+    {
+     "source_id": "4412121982745",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/4412121982745-Can-I-suggest-my-preferred-route-to-the-driver",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2024-10-01T06:25:32Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/4412121982745.txt",
+     "sha256": "76fe7abdd177a1ce57a4669c4c73c94e8729b11a2b8cfb6952de3db7e15ec610",
+     "line_start": 5,
+     "line_end": 6,
+     "exact_text": "The trip fare is fixed based on pick-up and drop-off points, hence the driver may decide to take the most efficient route according to GPS.\nIf you have a preferred route, you may recommend this to your driver and reach a mutual agreement before you go."
+    },
+    {
+     "source_id": "conduct",
+     "canonical_url": "https://rydesharing.com/code-of-conduct/",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2025-12-08T03:55:57",
+     "cms_date_is_effective_date": false,
+     "archive_path": "conduct/text/code-of-conduct.txt",
+     "sha256": "c3d96f6c124ebb1a7ce9fa124c7743e64aad0cba55ebb04922da69f42a9f725a",
+     "line_start": 19,
+     "line_end": 19,
+     "exact_text": "Drop your driver a message to acknowledge the upcoming trip and add in any details to help them navigate to your specific pick up point better. Furthermore, if you have additional requests such as going via a preferred travel route, do communicate this with the driver and come to a mutual agreement prior to starting the trip. This will help facilitate a smoother ride!"
+    },
+    {
+     "source_id": "4412122016153",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/4412122016153-Am-I-required-to-follow-the-suggested-route-by-the-rider",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2023-07-15T09:16:00Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/4412122016153.txt",
+     "sha256": "7bcb7b14c4bf8353d024107513e7f890a812c8712eb6693a688daed2ad245234",
+     "line_start": 5,
+     "line_end": 6,
+     "exact_text": "The trip fare is fixed based on pick-up and drop-off points. So you may decide to take the fastest or most efficient route based on your GPS.\nHowever, if you do not mind taking the route suggested by the rider, agreeing and travelling via the rider's suggested route may result in a happier ride!"
+    },
+    {
+     "source_id": "30741244296217",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/30741244296217-I-was-overcharged-for-ERP-toll",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2025-11-23T13:37:05Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/30741244296217.txt",
+     "sha256": "8aa49e056eb0e267c09e45a8bd2df98b5e2740da68b87e81a72b343c4db7e790",
+     "line_start": 5,
+     "line_end": 6,
+     "exact_text": "Fares quoted for our services are generally fixed, except for RydeTAXI. However, please note that there may be additional charges such as tolls that could occur during your trip.\nFor a detailed breakdown of your fare, please refer to your receipt. All fees and surcharges will be clearly listed for your reference."
+    }
+   ],
+   "conditions": [
+    "Fare based on booked endpoints; driver may choose efficient GPS route.",
+    "Rider preferred route should be mutually agreed before travel."
+   ],
+   "limits": [
+    "A request alone is not mutual agreement.",
+    "A longer route is not by itself a published refund formula.",
+    "Destination edits and legitimate ERP can affect final total."
+   ],
+   "required_evidence_proposed": [
+    "booking.service",
+    "booked_endpoints",
+    "quoted_fare",
+    "chat_before_trip",
+    "actual_route",
+    "traffic_context",
+    "receipt"
+   ],
+   "interpretation_proposed": "Assess agreement and fare components separately; do not invent a deviation percentage or full-refund entitlement.",
+   "dependencies": [
+    "P11",
+    "P13",
+    "P15",
+    "P18"
+   ],
+   "conflict_ids": [],
+   "unresolved_questions": [
+    "No universal route damages/refund formula identified."
+   ],
+   "why_relevant": "Fixed fare by endpoints; driver chooses route; preferred route needs agreement before travel.",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  },
+  {
+   "id": "P11",
+   "title": "Destination edit eligibility and acceptance",
+   "kind": "conditional_permission",
+   "categories": [
+    "destination_change",
+    "route_deviation"
+   ],
+   "statement": "Inform driver and submit edit in app. Driver acceptance required; nonresponse causes decline. Acceptance recalculates fare and updates route.",
+   "origin": "reviewed card 2026-09-23 (carried over unchanged)",
+   "sources": [
+    {
+     "source_id": "50798691815449",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/50798691815449-Can-I-change-my-destination",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2025-10-10T02:30:34Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/50798691815449.txt",
+     "sha256": "d743ea210ef520b6b9be117c8522b9be6f65f2c1f243a643a67023a799f0284f",
+     "line_start": 5,
+     "line_end": 10,
+     "exact_text": "We are excited to announce the full rollout of a new feature that allows you to update your trip destination during a ride. Please note the following guidelines:\nInform Your Driver First – Before changing your destination, kindly notify your driver. If the new destination significantly increases the trip’s distance or duration, the driver may not be able to accommodate the change.\nDriver Acceptance – After updating your destination in the app, please let your driver know. They will have a limited time to accept the change. If they do not respond within this period, your request will be automatically declined.\nFare Adjustment – Once the driver accepts, your trip fare will be recalculated, and your route will be updated to the new destination.\n*RydePOOL, RydeTAXI & Multiple stop bookings are not allowed to make any changes in destination.\nEffective 17 Oct 2025"
+    },
+    {
+     "source_id": "51400229761177",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/51400229761177-What-is-the-process-for-a-driver-accepting-the-edit-a-destination-request-from-Rider",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2025-10-10T02:40:18Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/51400229761177.txt",
+     "sha256": "91c949ad249b5aeed7ea108b9c12945f135356c3d3cc0edb49bc3560576de1b2",
+     "line_start": 5,
+     "line_end": 8,
+     "exact_text": "The driver receives an edit request pop-up.\nThe driver can accept or reject the request.\nIf the driver accepts, they receive a notification, and the add/edit destination fee is reflected on their receipt.\nIf the driver rejects, the previous trip details remain, and no fee is reflected on their receipt."
+    }
+   ],
+   "conditions": [
+    "Inform driver and submit edit in app.",
+    "Driver acceptance required; nonresponse causes decline.",
+    "Acceptance recalculates fare and updates route."
+   ],
+   "limits": [
+    "Rejection preserves previous trip details.",
+    "Do not treat a chat request alone as an accepted app edit.",
+    "Existing multistop exclusion is explicit."
+   ],
+   "required_evidence_proposed": [
+    "booking.service",
+    "existing_stop_count",
+    "edit_request",
+    "acceptance_event",
+    "revised_quote",
+    "trip_date"
+   ],
+   "interpretation_proposed": "Apply accepted edit only after eligibility and acceptance are evidenced.",
+   "dependencies": [
+    "P12"
+   ],
+   "conflict_ids": [
+    "C06"
+   ],
+   "unresolved_questions": [
+    "Acceptance timeout duration not stated here; do not import pilot timing."
+   ],
+   "why_relevant": "In-app destination change needs driver acceptance; excluded services.",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  },
+  {
+   "id": "P12",
+   "title": "Accepted destination edit fee",
+   "kind": "conditional_rider_charge",
+   "categories": [
+    "destination_change",
+    "fare_overcharge"
+   ],
+   "statement": "Driver accepts edit request; SGD 3 fee reflected on completed-trip receipt.",
+   "origin": "reviewed card 2026-09-23 (carried over unchanged)",
+   "sources": [
+    {
+     "source_id": "51399796192921",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/51399796192921-Will-I-be-charged-a-fee-if-I-add-or-change-my-destination-after-booking-a-trip",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2025-10-10T02:29:21Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/51399796192921.txt",
+     "sha256": "72397637245c994ce8cc43124afbd966c7d601b2e41b5e47f4a953e1a697d48d",
+     "line_start": 5,
+     "line_end": 5,
+     "exact_text": "Yes. If the driver accepts your edit destination request, a $3.00 add/edit destination fee will apply. This fee will be reflected in your receipt once the trip is completed."
+    },
+    {
+     "source_id": "51400229761177",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/51400229761177-What-is-the-process-for-a-driver-accepting-the-edit-a-destination-request-from-Rider",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2025-10-10T02:40:18Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/51400229761177.txt",
+     "sha256": "91c949ad249b5aeed7ea108b9c12945f135356c3d3cc0edb49bc3560576de1b2",
+     "line_start": 5,
+     "line_end": 8,
+     "exact_text": "The driver receives an edit request pop-up.\nThe driver can accept or reject the request.\nIf the driver accepts, they receive a notification, and the add/edit destination fee is reflected on their receipt.\nIf the driver rejects, the previous trip details remain, and no fee is reflected on their receipt."
+    }
+   ],
+   "conditions": [
+    "Driver accepts edit request; SGD 3 fee reflected on completed-trip receipt."
+   ],
+   "limits": [
+    "Rejection: previous trip details and no edit fee.",
+    "Separate edit fee from recalculated fare."
+   ],
+   "required_evidence_proposed": [
+    "edit_request",
+    "acceptance_event",
+    "receipt",
+    "completion_state"
+   ],
+   "interpretation_proposed": "Check conditional fee line, not entire fare formula.",
+   "dependencies": [
+    "P11"
+   ],
+   "conflict_ids": [],
+   "unresolved_questions": [
+    "Standalone fee article gives no explicit effective date; do not inherit rollout date as proven fee start."
+   ],
+   "why_relevant": "$3 add/edit destination fee on acceptance.",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  },
+  {
+   "id": "P13",
+   "title": "ERP passage and service allocation",
+   "kind": "conditional_charge_and_conflict",
+   "categories": [
+    "erp_toll",
+    "route_deviation",
+    "fare_overcharge"
+   ],
+   "statement": "Actual active gantry passage supports toll; driver records actual gantry. Appeal asks for gantry name, entry time and cashcard statement.",
+   "origin": "reviewed card 2026-09-23 (carried over unchanged)",
+   "sources": [
+    {
+     "source_id": "115000772653",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/115000772653-Do-I-need-to-pay-ERP-charges",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2025-11-23T13:37:05Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/115000772653.txt",
+     "sha256": "44465c4d3c543b24f9e862d093960d53ca85cd23157fd1cb824244be20e337b5",
+     "line_start": 5,
+     "line_end": 7,
+     "exact_text": "If a rider passes through an active ERP gantry, the toll charge will be applicable to the rider.\nFor all services apart from RydeSEND, ERP charges are excluded from the fares.\n*RydeSEND fares include ERP charges."
+    },
+    {
+     "source_id": "115001438614",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/115001438614-Which-trips-do-I-need-to-include-ERP",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2026-09-02T08:44:46Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/115001438614.txt",
+     "sha256": "217dce8567b719088860bf78a7f99874c623d0801f3714b63935648c8886006f",
+     "line_start": 5,
+     "line_end": 11,
+     "exact_text": "The fares for RydeSEND include ERP.\nThe fares for  RydeFLASH / RydePET / RydeX / RydeXL / RydeLUXE / RydeTAXI exclude ERP.\nPlease key in ERP based on the ERP gantry you passed during the journey.\nFor Carpool trips:\nThe total ERP charge is shared equally between the driver and passenger.\nThe driver bears 50% of the ERP charge, and the passenger pays the remaining 50%.\nPlease bear in mind that if an additional/excessive amount is keyed in, this will be considered fraudulent and drivers will be liable for permanent suspension."
+    },
+    {
+     "source_id": "23575142762393",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/23575142762393-I-wish-to-make-an-appeal",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2024-03-14T10:00:59Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/23575142762393.txt",
+     "sha256": "58936ee56c4588c90f9d928edea9521f439580ebdb7bd90c2f78dfa840b6d9bd",
+     "line_start": 17,
+     "line_end": 22,
+     "exact_text": "If you forgot to include ERP charges in the fares\nYou may file a claim with the following details:\n1. Name of ERP Gantry\n2. Time of Entry\n3. Screenshot of Cashcard Statement\nNote: RydePOOL, RydeHIRE and RydeSEND include ERP."
+    },
+    {
+     "source_id": "4408072421785",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/4408072421785-Are-surcharges-included-in-the-base-fee",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2025-11-23T13:37:05Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/4408072421785.txt",
+     "sha256": "00bdf047d35f63d7c546230886b0ee12651d793b4a154668b7933d969fa39a93",
+     "line_start": 5,
+     "line_end": 6,
+     "exact_text": "Surcharges such as toll charges, overtime fees and valet parking fees* are excluded from the base fare. You will be charged for such additional fees at the end of the trip, on top of your base fee.\n*Toll charges are already included in RydeHIRE and RydeSEND trip fares."
+    },
+    {
+     "source_id": "4408072389913",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/4408072389913-Are-surcharges-included-in-the-base-fee",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2023-12-31T15:59:43Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/4408072389913.txt",
+     "sha256": "e9c6abfd623a05e8ad9e99533ed4e6b401e0518281c4e5a8f9a177884200096c",
+     "line_start": 5,
+     "line_end": 7,
+     "exact_text": "Surcharges such as toll charges, overtime fees and valet parking fees* are excluded from the base fare. Please remember to charge such additional fees at the end of the trip.\n*Toll charges are already included in RydeSEND trip fares.\n*For shared RydePOOL trips, each rider pays 50% of the total ERP charges."
+    }
+   ],
+   "conditions": [
+    "Actual active gantry passage supports toll; driver records actual gantry.",
+    "Appeal asks for gantry name, entry time and cashcard statement."
+   ],
+   "limits": [
+    "Do not estimate toll without applicable rate/time.",
+    "Do not double-charge included toll.",
+    "POOL/HIRE allocation unresolved."
+   ],
+   "required_evidence_proposed": [
+    "booking.service",
+    "actual_route",
+    "gantry",
+    "entry_time",
+    "toll_record",
+    "receipt",
+    "shared_passengers"
+   ],
+   "interpretation_proposed": "Separate proof of toll incurred from who owes it; contested scope/allocation requires review.",
+   "dependencies": [],
+   "conflict_ids": [
+    "C07"
+   ],
+   "unresolved_questions": [
+    "POOL/HIRE inclusion and shared passenger split."
+   ],
+   "why_relevant": "ERP tied to the gantry actually passed; service inclusion and shared-trip split conflict.",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  },
+  {
+   "id": "P14",
+   "title": "Driver compensation is a separate monetary subject",
+   "kind": "driver_compensation_context",
+   "categories": [
+    "no_show_charge",
+    "cancellation_fee",
+    "waiting_fee"
+   ],
+   "statement": "Driver-facing policy names SGD 4.50 compensation; rider-facing policy uses other gross amounts.",
+   "origin": "reviewed card 2026-09-23 (carried over unchanged)",
+   "sources": [
+    {
+     "source_id": "33362932998937",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/33362932998937-Cancellation-and-Waiting-Time-Policy",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2024-06-05T05:59:53Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/33362932998937.txt",
+     "sha256": "b34bc4c11c2f9916370371918d1fb343598f1c87a9c4cbb3577699161ad5dbe5",
+     "line_start": 5,
+     "line_end": 13,
+     "exact_text": "On-Demand Trip\nA Cancellation Fee compensates drivers for the time and effort they spend getting to the rider’s location.\nA Waiting Time Fee allows our drivers to be compensated by riders for the time spent waiting at a pickup location.\nAll cancellations made within 3 minutes of matching are not chargeable.\nDriver will receive a Cancellation Fee of $4.50* if:\nRider cancels after 3 minutes of matching\nDriver may charge a Waiting Time Fee of $4.50 at the end of the trip if:\nThe driver pressed “I’m Here”, waits for > 3 minutes for rider to arrive at pick-up point and  cancels the trip (Rider NO SHOW and no trip completion), OR\nThe driver pressed “I’m Here”, waits for > 3 minutes for rider to board, and continues the trip  (Rider boards and driver completes trip)."
+    },
+    {
+     "source_id": "4408070838297",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/4408070838297-How-Does-the-Cancellation-Fee-Work",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2026-09-22T02:22:20Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/4408070838297.txt",
+     "sha256": "ed06bb73661d0f3ad9f4ce09d835aadaa4a6bf6932dc143520596cb67f51739b",
+     "line_start": 5,
+     "line_end": 6,
+     "exact_text": "Please let us know why you are cancelling.\nDrivers will receive a $4.50 cancellation fee automatically if they cancel after >3 minutes of waiting."
+    },
+    {
+     "source_id": "23534478435353",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/23534478435353-Cancellation-and-Waiting-Fee",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2026-02-26T08:53:05Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/23534478435353.txt",
+     "sha256": "d059f09e6fbeb26955e168eb1c8104003784da1705aa1233dabf6d1f092c78a0",
+     "line_start": 7,
+     "line_end": 11,
+     "exact_text": "Rider will be charged a Cancellation Fee of $6.61* if:\nRider cancels after 3 minutes of matching OR\nThe driver presses “I’m Here”, waits for > 3 minutes for the rider to arrive at the pick-up point and cancels the trip (Rider NO SHOW and no trip completion)\nRiders may be charged a Waiting Time Fee of $5 at the end of the trip if:\nThe driver presses “I’m Here”, waits for > 3 minutes for the rider to board, and continues the trip (Rider boards and driver completes trip)."
+    }
+   ],
+   "conditions": [
+    "Driver-facing policy names SGD 4.50 compensation; rider-facing policy uses other gross amounts."
+   ],
+   "limits": [
+    "Different payee amounts need not be contradictory.",
+    "No-show naming and completed waiting amounts remain inconsistent."
+   ],
+   "required_evidence_proposed": [
+    "rider_charge",
+    "driver_credit",
+    "platform_deductions",
+    "completion_state",
+    "policy_version"
+   ],
+   "interpretation_proposed": "Never use one undifferentiated fee_amount for rider debit and driver payout.",
+   "dependencies": [],
+   "conflict_ids": [
+    "C03"
+   ],
+   "unresolved_questions": [],
+   "why_relevant": "Rider charge and driver payout ($4.50) are different amounts.",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  },
+  {
+   "id": "P15",
+   "title": "Pickup and communication conduct",
+   "kind": "behavioral_duty",
+   "categories": [
+    "no_show_charge",
+    "late_pickup",
+    "route_deviation",
+    "safety_incident",
+    "harassment"
+   ],
+   "statement": "Driver instructed to travel directly to pickup and communicate ETA; confirm destination at arrival. Rider should be ready at pickup and communicate useful pickup details.",
+   "origin": "reviewed card 2026-09-23 (carried over unchanged)",
+   "sources": [
+    {
+     "source_id": "conduct",
+     "canonical_url": "https://rydesharing.com/code-of-conduct/",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2025-12-08T03:55:57",
+     "cms_date_is_effective_date": false,
+     "archive_path": "conduct/text/code-of-conduct.txt",
+     "sha256": "c3d96f6c124ebb1a7ce9fa124c7743e64aad0cba55ebb04922da69f42a9f725a",
+     "line_start": 12,
+     "line_end": 19,
+     "exact_text": "Please travel directly to the rider’s pick-up location once you have accepted the trip.\nPassengers\nBe prepared to wait for the driver at the pick-up location once you have matched with a driver to avoid being charged the Cancellation and Waiting Time fees.\nCommunicate\nDrivers\nDrop your passenger a message to let them know you are on your way along with your estimated time of arrival. Upon arrival, confirm the destination with your passenger.\nPassengers\nDrop your driver a message to acknowledge the upcoming trip and add in any details to help them navigate to your specific pick up point better. Furthermore, if you have additional requests such as going via a preferred travel route, do communicate this with the driver and come to a mutual agreement prior to starting the trip. This will help facilitate a smoother ride!"
+    }
+   ],
+   "conditions": [
+    "Driver instructed to travel directly to pickup and communicate ETA; confirm destination at arrival.",
+    "Rider should be ready at pickup and communicate useful pickup details."
+   ],
+   "limits": [
+    "No numeric radius, minimum contact count or standalone refund authority.",
+    "Missing communication logs do not prove no communication occurred."
+   ],
+   "required_evidence_proposed": [
+    "pickup",
+    "gps",
+    "chat",
+    "eta",
+    "destination_confirmation"
+   ],
+   "interpretation_proposed": "Use for factual context and exceptions; link any financial recommendation to a separate fee/remedy clause.",
+   "dependencies": [],
+   "conflict_ids": [],
+   "unresolved_questions": [],
+   "why_relevant": "Code of Conduct duties: direct travel, ETA message, agreed routes, no harassment, speed limits.",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  },
+  {
+   "id": "P16",
+   "title": "Policies incorporated by Terms",
+   "kind": "source_governance",
+   "categories": [
+    "other"
+   ],
+   "statement": "Agreement incorporates defined Ryde Policies, including FAQs and in-app/website descriptions. Terms describe amendments taking effect when posted.",
+   "origin": "reviewed card 2026-09-23 (carried over unchanged)",
+   "sources": [
+    {
+     "source_id": "terms",
+     "canonical_url": "https://rydesharing.com/terms-of-use/",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2026-04-10T09:05:28",
+     "cms_date_is_effective_date": false,
+     "archive_path": "corporate/text/pages-9156-terms-of-use.txt",
+     "sha256": "749b6e63d9169f975376f44714c7a4637bfaa24bba7a5e8d492ec2d123b6d261",
+     "line_start": 7,
+     "line_end": 9,
+     "exact_text": "Please read these Terms of Service carefully. By using the Service (as defined below), you agree that you have read and understood the terms in these Terms of Service which are applicable to you. These Terms of Service and the Ryde Policies (as defined below) constitute a legally binding agreement (“Agreement”) between you and Ryde (as defined below). The Agreement applies to your use of the Service provided by Ryde. If you do not agree to the Terms of Service, please do not use or continue using the Platform (as defined below) or the Service.\nRyde may amend the Terms of Service without prior notice at any given time. Such amendments shall be effective once they are posted on https://rydesharing.com/ or on the Ryde application (“Ryde app”). It is your responsibility to review the Terms of Service and Ryde Policies regularly. Your continued use of the Service after any such amendments, whether or not reviewed by you, shall constitute your agreement to be bound by such amendments.\nIf you use the Service in a country other than the country where you registered for the Application (the “Alternate Country“), you must regularly review the Terms of Service applicable in the Alternate Country as it may differ from the country where you registered for the Application. By using the Service in the Alternate Country, you agree to be bound by prevailing Terms of Service in the Alternate Country."
+    },
+    {
+     "source_id": "terms",
+     "canonical_url": "https://rydesharing.com/terms-of-use/",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2026-04-10T09:05:28",
+     "cms_date_is_effective_date": false,
+     "archive_path": "corporate/text/pages-9156-terms-of-use.txt",
+     "sha256": "749b6e63d9169f975376f44714c7a4637bfaa24bba7a5e8d492ec2d123b6d261",
+     "line_start": 17,
+     "line_end": 21,
+     "exact_text": "“Ryde Policies” means the following:\nthe Privacy Policy;\nCode of Conduct;\nDriver Performance and Community Standards; and\nall other forms, policies, notices, guidelines, frequently asked questions (FAQs), in-app or website product/service descriptions and information cards, or agreements provided to or entered into by you from time to time;"
+    }
+   ],
+   "conditions": [
+    "Agreement incorporates defined Ryde Policies, including FAQs and in-app/website descriptions.",
+    "Terms describe amendments taking effect when posted."
+   ],
+   "limits": [
+    "No blanket Terms-over-FAQ hierarchy inferred.",
+    "Capture date and CMS modification do not establish historical accepted version."
+   ],
+   "required_evidence_proposed": [
+    "trip_jurisdiction",
+    "trip_date",
+    "accepted_policy_version"
+   ],
+   "interpretation_proposed": "Retrieve applicable cross-references and preserve competing clauses.",
+   "dependencies": [],
+   "conflict_ids": [],
+   "unresolved_questions": [
+    "In-app policies and historical versions not fully available."
+   ],
+   "why_relevant": "Terms incorporate FAQs; page dates are not effective dates.",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  },
+  {
+   "id": "P17",
+   "title": "Authorization hold versus actual charge",
+   "kind": "payment_state_definition",
+   "categories": [
+    "fare_overcharge",
+    "cancellation_fee",
+    "no_show_charge"
+   ],
+   "statement": "Source distinguishes reasonable authorization hold from an actual charge; may appear pending.",
+   "origin": "reviewed card 2026-09-23 (carried over unchanged)",
+   "sources": [
+    {
+     "source_id": "terms",
+     "canonical_url": "https://rydesharing.com/terms-of-use/",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2026-04-10T09:05:28",
+     "cms_date_is_effective_date": false,
+     "archive_path": "corporate/text/pages-9156-terms-of-use.txt",
+     "sha256": "749b6e63d9169f975376f44714c7a4637bfaa24bba7a5e8d492ec2d123b6d261",
+     "line_start": 112,
+     "line_end": 112,
+     "exact_text": "Automated payment may be made by credit card and or debit card, by Apple Pay, by RydeCoins, or where available by such other methods as are made available in the Application. The terms of these non-cash payments made by you through the Application will be governed by the Terms of Service. You agree that We may verify and authorize Your card details when you first register the card with us as well as when you are using the Service. You agree that we may issue a reasonable authorization hold, which is not an actual charge against your card, in order to verify Your payment method via card. The authorization hold may appear in Your statement as “pending”. The authorization hold is issued as a preventive measure against any unauthorized or fraudulent usage of your card. You shall be responsible to resolve any disputes with your card company on your own."
+    }
+   ],
+   "conditions": [
+    "Source distinguishes reasonable authorization hold from an actual charge; may appear pending."
+   ],
+   "limits": [
+    "A pending bank entry is not sufficient proof of captured payment.",
+    "Do not refund a hold as if it were captured funds."
+   ],
+   "required_evidence_proposed": [
+    "processor_authorization",
+    "capture_ledger",
+    "bank_entry_state"
+   ],
+   "interpretation_proposed": "Reconcile financial state before calculating an available refund ceiling.",
+   "dependencies": [],
+   "conflict_ids": [],
+   "unresolved_questions": [],
+   "why_relevant": "A card hold is not a charge; establish payment state before any refund.",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  },
+  {
+   "id": "P18",
+   "title": "Cancellation assistance and discretionary refunds",
+   "kind": "discretion_and_remedy_boundary",
+   "categories": [
+    "cancellation_fee",
+    "no_show_charge",
+    "waiting_fee",
+    "fare_overcharge",
+    "route_deviation",
+    "safety_incident",
+    "cleaning_fee"
+   ],
+   "statement": "Terms delegate cancellation charge to specific policy. Incorrectly charged users may contact support; Ryde retains refund discretion and instrument choice.",
+   "origin": "reviewed card 2026-09-23 (carried over unchanged)",
+   "sources": [
+    {
+     "source_id": "terms",
+     "canonical_url": "https://rydesharing.com/terms-of-use/",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2026-04-10T09:05:28",
+     "cms_date_is_effective_date": false,
+     "archive_path": "corporate/text/pages-9156-terms-of-use.txt",
+     "sha256": "749b6e63d9169f975376f44714c7a4637bfaa24bba7a5e8d492ec2d123b6d261",
+     "line_start": 111,
+     "line_end": 111,
+     "exact_text": "Users are required to make full payment of the User Charges for all services offered in the Application by the method selected at the time of booking, which may be cash, or one of the automated payment methods available to you on the Application. Any payment pursuant to such selection is non-refundable and irrevocable."
+    },
+    {
+     "source_id": "terms",
+     "canonical_url": "https://rydesharing.com/terms-of-use/",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2026-04-10T09:05:28",
+     "cms_date_is_effective_date": false,
+     "archive_path": "corporate/text/pages-9156-terms-of-use.txt",
+     "sha256": "749b6e63d9169f975376f44714c7a4637bfaa24bba7a5e8d492ec2d123b6d261",
+     "line_start": 121,
+     "line_end": 123,
+     "exact_text": "Unless otherwise stated in any Ryde Policy, you may cancel your request for transportation and delivery services at any time before you commence your ride with the Partner that has been matched with you by the Service.\nIf you decide to cancel your ride booking or do not show up at the designated location, you may be charged a Cancellation Fee or such other Cancellation Fee as Ryde may notify from time to time via the Cancellation and Waiting Time Policy on Ryde’s website.\nIf you feel you were incorrectly charged a Cancellation Fee, you may contact Ryde in writing at support@rydesharing.com for assistance. Ryde reserves its absolute discretion to any refunds to you and such refunds may be credited to the payment card you used for the journey, or to your RydeCoins wallet or by such other method as is deemed reasonable by Ryde."
+    }
+   ],
+   "conditions": [
+    "Terms delegate cancellation charge to specific policy.",
+    "Incorrectly charged users may contact support; Ryde retains refund discretion and instrument choice."
+   ],
+   "limits": [
+    "General nonrefund clause must be read with specific assistance/discretion.",
+    "Discretion granted to Ryde is not delegated to an agent.",
+    "Waiver voucher procedure remains distinct."
+   ],
+   "required_evidence_proposed": [
+    "charge_reason",
+    "applicable_policy",
+    "capture_ledger",
+    "existing_refunds",
+    "review_authorization"
+   ],
+   "interpretation_proposed": "Produce recommendation with authority limits; do not reject all claims under generic nonrefund wording.",
+   "dependencies": [
+    "P17"
+   ],
+   "conflict_ids": [
+    "C05"
+   ],
+   "unresolved_questions": [],
+   "why_relevant": "Refunds are Ryde's discretion via support; the lab recommends, never executes.",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  },
+  {
+   "id": "P19",
+   "title": "Cleaning fee tiers and caps",
+   "kind": "conditional_rider_charge",
+   "categories": [
+    "cleaning_fee",
+    "property_damage"
+   ],
+   "statement": "A mess needing professional cleaning attracts a fee up to a cap by mess type: food, drink, groceries, crumbs or sand up to $40; bodily fluids or stains up to $120; vomit up to $200. Ryde sets the amount within the cap after reviewing photos, trip details and receipt. Driver-facing tiers are described as covering both cleaning cost and downtime.",
+   "origin": "added 2026-09-27 from archived public pages",
+   "sources": [
+    {
+     "source_id": "900003466206",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/900003466206",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/900003466206.txt",
+     "sha256": "e37b6c7b3cd09794fdbfd09ca0a0245a6db3d4aef6604cfe3ca0654b5a07bb8a",
+     "line_start": 23,
+     "line_end": 23,
+     "exact_text": "Ryde reviews the submitted photos, trip details, and cleaning receipt to determine the appropriate amount, up to the applicable cap."
+    },
+    {
+     "source_id": "900003466206",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/900003466206",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/900003466206.txt",
+     "sha256": "e37b6c7b3cd09794fdbfd09ca0a0245a6db3d4aef6604cfe3ca0654b5a07bb8a",
+     "line_start": 12,
+     "line_end": 12,
+     "exact_text": "Food, groceries, or drink spillage"
+    },
+    {
+     "source_id": "900004381243",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/900004381243",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/900004381243.txt",
+     "sha256": "7a480587fb16806dee3ce09acbf2723929629bfbbcd8830fb8f40271dec4ee43",
+     "line_start": 6,
+     "line_end": 6,
+     "exact_text": "reimbursement tiers are structured to reflect both the cleaning cost and the downtime"
+    }
+   ],
+   "conditions": [
+    "Mess type decides the tier.",
+    "Amount is up to the cap, not the cap."
+   ],
+   "limits": [
+    "Caps are maxima; no automatic award.",
+    "Downtime is inside the tier, not a separate claim.",
+    "Ryde keeps sole discretion to approve, deny or set the amount."
+   ],
+   "conflict_ids": [],
+   "why_relevant": "Handbook category 3 (property damage / mess). Sets the ceiling for DISP-005 and any cleaning claim.",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  },
+  {
+   "id": "P20",
+   "title": "Cleaning claim procedure and evidence",
+   "kind": "conditional_requirement",
+   "categories": [
+    "cleaning_fee",
+    "property_damage"
+   ],
+   "statement": "The driver must have the vehicle professionally cleaned within 24 hours of the incident and submit the claim in the driver app within 48 hours of the trip, with a photo of the mess, at least one photo showing the car plate, and a cleaning receipt carrying company name, contact, address, cleaning date, plate, authorised signature and company stamp. Drivers must not demand payment from riders directly.",
+   "origin": "added 2026-09-27 from archived public pages",
+   "sources": [
+    {
+     "source_id": "900004381243",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/900004381243",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/900004381243.txt",
+     "sha256": "7a480587fb16806dee3ce09acbf2723929629bfbbcd8830fb8f40271dec4ee43",
+     "line_start": 13,
+     "line_end": 13,
+     "exact_text": "Your vehicle must be professionally cleaned within 24 hours from the incident"
+    },
+    {
+     "source_id": "900004381243",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/900004381243",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/900004381243.txt",
+     "sha256": "7a480587fb16806dee3ce09acbf2723929629bfbbcd8830fb8f40271dec4ee43",
+     "line_start": 14,
+     "line_end": 14,
+     "exact_text": "Submit your claim via the driver app within 48 hours from the affected trip"
+    },
+    {
+     "source_id": "900004381243",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/900004381243",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/900004381243.txt",
+     "sha256": "7a480587fb16806dee3ce09acbf2723929629bfbbcd8830fb8f40271dec4ee43",
+     "line_start": 11,
+     "line_end": 11,
+     "exact_text": "At least one photo must show the vehicle"
+    },
+    {
+     "source_id": "900004381243",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/900004381243",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/900004381243.txt",
+     "sha256": "7a480587fb16806dee3ce09acbf2723929629bfbbcd8830fb8f40271dec4ee43",
+     "line_start": 9,
+     "line_end": 9,
+     "exact_text": "Do not demand compensation directly from riders"
+    }
+   ],
+   "conditions": [
+    "Cleaning within 24 h of incident.",
+    "Claim within 48 h of trip.",
+    "Plate photo plus a receipt with the details the page lists (company, contact, address, cleaning date, plate), signature and stamp; a price for each item is not required (owner decision, 7 October 2026)."
+   ],
+   "limits": [
+    "Older appeal guidance accepted signature or stamp; the current page asks for both (conflict noted in the 21 September catalog).",
+    "Meeting the procedure does not fix the amount."
+   ],
+   "conflict_ids": [],
+   "why_relevant": "Checklist the Arbitrator applies before any cleaning amount is considered.",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  },
+  {
+   "id": "P21",
+   "title": "Cleaning exclusions",
+   "kind": "fee_exemption",
+   "categories": [
+    "cleaning_fee",
+    "property_damage"
+   ],
+   "statement": "Mess that can be cleaned immediately without professional cleaning is not reimbursed. Pet fur and saliva are not claimable. Claims remain subject to review.",
+   "origin": "added 2026-09-27 from archived public pages",
+   "sources": [
+    {
+     "source_id": "900004381243",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/900004381243",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/900004381243.txt",
+     "sha256": "7a480587fb16806dee3ce09acbf2723929629bfbbcd8830fb8f40271dec4ee43",
+     "line_start": 43,
+     "line_end": 43,
+     "exact_text": "Mess that can be cleaned immediately without professional cleaning will not be reimbursed."
+    },
+    {
+     "source_id": "900004381243",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/900004381243",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/900004381243.txt",
+     "sha256": "7a480587fb16806dee3ce09acbf2723929629bfbbcd8830fb8f40271dec4ee43",
+     "line_start": 29,
+     "line_end": 29,
+     "exact_text": "Pet fur & saliva not claimable"
+    },
+    {
+     "source_id": "900004381243",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/900004381243",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/900004381243.txt",
+     "sha256": "7a480587fb16806dee3ce09acbf2723929629bfbbcd8830fb8f40271dec4ee43",
+     "line_start": 35,
+     "line_end": 35,
+     "exact_text": "All claims are subject to review."
+    }
+   ],
+   "conditions": [],
+   "limits": [
+    "Whether a mess could be cleaned immediately without professional cleaning is a finding on the record (photos, receipt, statements); the sentence restored on 6 October 2026 from the archived driver page excludes such a mess."
+   ],
+   "conflict_ids": [],
+   "why_relevant": "Stops a cleaning claim for ordinary wear or pet hair being treated as a tiered mess.",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  },
+  {
+   "id": "P22",
+   "title": "Rider liability, payment and contesting a cleaning fee",
+   "kind": "discretion_and_remedy_boundary",
+   "categories": [
+    "cleaning_fee",
+    "property_damage"
+   ],
+   "statement": "Riders are responsible for professional cleaning fees where applicable; Ryde contacts the rider with payment instructions once the claim is verified; an unpaid fee can put the account on hold; a rider who believes the fee is wrong contacts RydeHELP.",
+   "origin": "added 2026-09-27 from archived public pages",
+   "sources": [
+    {
+     "source_id": "900003466206",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/900003466206",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/900003466206.txt",
+     "sha256": "e37b6c7b3cd09794fdbfd09ca0a0245a6db3d4aef6604cfe3ca0654b5a07bb8a",
+     "line_start": 25,
+     "line_end": 25,
+     "exact_text": "Our team will contact you to provide payment instructions once the contamination claim has been verified."
+    },
+    {
+     "source_id": "900003466206",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/900003466206",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/900003466206.txt",
+     "sha256": "e37b6c7b3cd09794fdbfd09ca0a0245a6db3d4aef6604cfe3ca0654b5a07bb8a",
+     "line_start": 30,
+     "line_end": 30,
+     "exact_text": "If you believe a cleaning fee was incorrectly charged, please reach out to us via RydeHELP."
+    }
+   ],
+   "conditions": [
+    "Verification precedes charging."
+   ],
+   "limits": [
+    "Account hold is Ryde's action, never the system's."
+   ],
+   "conflict_ids": [],
+   "why_relevant": "Defines who pays, when, and the rider's route to contest. Keeps the lab from implying a charge has been collected.",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  },
+  {
+   "id": "P23",
+   "title": "Driver may end a trip in progress for safety, abuse or breakdown",
+   "kind": "permission_and_context",
+   "categories": [
+    "safety_incident",
+    "harassment",
+    "vehicle_breakdown",
+    "threat"
+   ],
+   "statement": "A driver may terminate a ride in progress for a safety concern or a rider breaching community guidelines, including verbal or physical abuse, intoxication or illegal activity, and may ask the rider to exit. A driver may also end a trip when the vehicle breaks down and should pull over safely and inform the rider.",
+   "origin": "added 2026-09-27 from archived public pages",
+   "sources": [
+    {
+     "source_id": "16925303332889",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/16925303332889",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/16925303332889.txt",
+     "sha256": "25187bb8fda7852ade4e355a2ce01c7991b28813560ae2fa45ffd64762230ad4",
+     "line_start": 6,
+     "line_end": 6,
+     "exact_text": "The driver may terminate a ride in progress if there is a safety concern or if the rider is violating the community guidelines"
+    },
+    {
+     "source_id": "16925303332889",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/16925303332889",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/16925303332889.txt",
+     "sha256": "25187bb8fda7852ade4e355a2ce01c7991b28813560ae2fa45ffd64762230ad4",
+     "line_start": 7,
+     "line_end": 7,
+     "exact_text": "a driver may also terminate a ride in progress if their vehicle breaks down or malfunctions"
+    }
+   ],
+   "conditions": [
+    "Safety concern, guideline breach or breakdown."
+   ],
+   "limits": [
+    "The page gives no fare consequence for a terminated trip.",
+    "A warning that a trip may end is not itself a threat; whether words crossed that line is a credibility question."
+   ],
+   "conflict_ids": [],
+   "why_relevant": "Handbook category 4. Frames the driver's defence in DISP-006 and any breakdown case.",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  },
+  {
+   "id": "P24",
+   "title": "Accident procedure and insurance boundary",
+   "kind": "escalation_boundary",
+   "categories": [
+    "accident_injury",
+    "safety_incident",
+    "vehicle_breakdown"
+   ],
+   "statement": "After an accident both parties move to safety and call 995 if needed; drivers gather evidence, exchange particulars and report to Ryde via RydeHELP within one hour; riders file medical claims through the driver's commercial motor insurance. Ryde does not provide compensation or medical claims.",
+   "origin": "added 2026-09-27 from archived public pages",
+   "sources": [
+    {
+     "source_id": "900003838306",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/900003838306",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/900003838306.txt",
+     "sha256": "1586acd563e213dc15170fd16a19c539a274984bd4fae12ad75e6dc313e9ef9c",
+     "line_start": 8,
+     "line_end": 8,
+     "exact_text": "You may file a medical claim through your driver"
+    },
+    {
+     "source_id": "115000777634",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/115000777634",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/115000777634.txt",
+     "sha256": "686a30a7da1339588a7d1bea4dad14f7f757956aaaefc828f0067763e14c8445",
+     "line_start": 7,
+     "line_end": 7,
+     "exact_text": "Ryde does not provide any compensation or medical claims in the event of an accident."
+    },
+    {
+     "source_id": "900003838386",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/900003838386",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/900003838386.txt",
+     "sha256": "826e54370a98b3c427865a787de7b4b1884cfcdd0eb1f44d63b13fb3071289b5",
+     "line_start": 29,
+     "line_end": 29,
+     "exact_text": "Report to us swiftly via RydeHelp within 1 hour."
+    }
+   ],
+   "conditions": [],
+   "limits": [
+    "Injury, insurance and liability are outside any autonomous ruling; the system may only preserve evidence and route."
+   ],
+   "conflict_ids": [],
+   "why_relevant": "Hard stop for the Arbitrator on injury and insurance questions (discussion note: out of autonomous scope).",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  },
+  {
+   "id": "P25",
+   "title": "Safety reporting channel and seat belts",
+   "kind": "behavioral_duty",
+   "categories": [
+    "safety_incident",
+    "dangerous_driving"
+   ],
+   "statement": "Seat belts are mandatory for rider and driver. Safety issues are reported through RydeHELP, Report a Safety Issue, with the vehicle registration and details; Ryde investigates.",
+   "origin": "added 2026-09-27 from archived public pages",
+   "sources": [
+    {
+     "source_id": "51354502165913",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/51354502165913",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/51354502165913.txt",
+     "sha256": "1ca39539a565956c4b9b514a831c9ee113381f38a611c8c239c0b337544d575d",
+     "line_start": 5,
+     "line_end": 5,
+     "exact_text": "Seat belts are a mandatory requirement."
+    },
+    {
+     "source_id": "51354502165913",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/51354502165913",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/51354502165913.txt",
+     "sha256": "1ca39539a565956c4b9b514a831c9ee113381f38a611c8c239c0b337544d575d",
+     "line_start": 10,
+     "line_end": 10,
+     "exact_text": "Select Report a Safety Issue."
+    }
+   ],
+   "conditions": [],
+   "limits": [
+    "The page describes intake, not outcomes or thresholds."
+   ],
+   "conflict_ids": [],
+   "why_relevant": "Establishes the intake record (safety_report block) as the trigger for safety-first routing.",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  },
+  {
+   "id": "P26",
+   "title": "Driver or vehicle does not match the app profile",
+   "kind": "permission_and_context",
+   "categories": [
+    "identity_mismatch",
+    "safety_incident"
+   ],
+   "statement": "If the driver or car differs from the profile shown, the rider may decline to board, arrange other transport in the app and report through RydeHELP with photo evidence. Driver accounts may not be used by any unauthorised person.",
+   "origin": "added 2026-09-27 from archived public pages",
+   "sources": [
+    {
+     "source_id": "35170207360025",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/35170207360025",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/35170207360025.txt",
+     "sha256": "f760e18ad194dbe80d4b6f1e0dad230f6ae9a2ae4c7afa2846aa00dc6f69da68",
+     "line_start": 5,
+     "line_end": 5,
+     "exact_text": "you may choose not to enter the vehicle and arrange for alternative transport in the app"
+    },
+    {
+     "source_id": "115000777594",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/115000777594",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/115000777594.txt",
+     "sha256": "282bd0a8ecdc98a79f14e34d9fad052f6cbe99a58eef2e1d71d2755a2b1ebc1a",
+     "line_start": 5,
+     "line_end": 5,
+     "exact_text": "We suggest that you do not board the vehicle and report the incident to us as soon as possible."
+    },
+    {
+     "source_id": "51618294693145",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/51618294693145",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/51618294693145.txt",
+     "sha256": "e549cb4bf9a263d22106ef35b03f1438ae2474b5aafe29e6aebee307bebac4cb",
+     "line_start": 5,
+     "line_end": 5,
+     "exact_text": "You cannot allow foreigners or any unauthorized person to use your account."
+    }
+   ],
+   "conditions": [],
+   "limits": [
+    "No published fee consequence for the rider who declines; cancellation rules still need checking.",
+    "Photo evidence is requested but no image-verification standard is published."
+   ],
+   "conflict_ids": [],
+   "why_relevant": "Covers the v2 pack identity case and any 'different car' complaint; also an integrity signal.",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  },
+  {
+   "id": "P27",
+   "title": "In-vehicle recording devices are prohibited",
+   "kind": "source_governance",
+   "categories": [
+    "safety_incident",
+    "dangerous_driving",
+    "harassment"
+   ],
+   "statement": "Ryde does not allow IVRDs or dashcams; drivers must remove them; riders may report their use. No legitimate in-vehicle recording exists for a Ryde trip.",
+   "origin": "added 2026-09-27 from archived public pages",
+   "sources": [
+    {
+     "source_id": "51812996696217",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/51812996696217",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/51812996696217.txt",
+     "sha256": "860751a948749a278b636296e68ce59deb96bdbd7b135fb4921dec4254718119",
+     "line_start": 5,
+     "line_end": 5,
+     "exact_text": "Ryde does not allow drivers to use IVRDs or dashcams at this time."
+    },
+    {
+     "source_id": "360036735393",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/360036735393",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/360036735393.txt",
+     "sha256": "0721b4b5dbbc5f2cf81f451bdf0e1d30cdbfdaf8d0085e8c83fa62348e4683e7",
+     "line_start": 5,
+     "line_end": 5,
+     "exact_text": "We do not allow IVRDs on the Ryde platform at this moment."
+    }
+   ],
+   "conditions": [],
+   "limits": [
+    "Absence of a recording is not evidence for either side.",
+    "A recording that surfaces is itself a policy breach and a data-protection question."
+   ],
+   "conflict_ids": [],
+   "why_relevant": "Tells advocates what evidence cannot exist, so no one treats its absence as suspicious.",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  },
+  {
+   "id": "P28",
+   "title": "Uncontactable rider or driver",
+   "kind": "behavioral_duty",
+   "categories": [
+    "no_show_charge",
+    "cancellation_fee",
+    "late_pickup",
+    "driver_cancellation"
+   ],
+   "statement": "Each party should try in-app chat or call; if the other remains uncontactable, cancelling is the expected step. Driver no-shows are buffered in the driver's cancellation-rate requirements.",
+   "origin": "added 2026-09-27 from archived public pages",
+   "sources": [
+    {
+     "source_id": "115001438754",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/115001438754",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/115001438754.txt",
+     "sha256": "24b23a3dbe76f9d19ee4b09c72d63e6b3305f07f94a60ddd9b60051e66471d1e",
+     "line_start": 5,
+     "line_end": 5,
+     "exact_text": "Try to contact the rider by in-app chat or call. If the rider still cannot be reached, you may need to cancel the trip."
+    },
+    {
+     "source_id": "115000772593",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/115000772593",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/115000772593.txt",
+     "sha256": "19d689536a450569b61dbcaa1e99c369435dd392f598b20619815e9f6882efb4",
+     "line_start": 5,
+     "line_end": 5,
+     "exact_text": "You may like to try contacting your Ryde driver via the in-app chat or via a call."
+    }
+   ],
+   "conditions": [],
+   "limits": [
+    "No minimum number of attempts is published.",
+    "Missing contact records do not prove no contact."
+   ],
+   "conflict_ids": [],
+   "why_relevant": "Expected conduct around no-show cancellations; contact attempts are evidence in DISP-002 and DISP-004.",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  },
+  {
+   "id": "P29",
+   "title": "Trip completed without the rider on board",
+   "kind": "escalation_boundary",
+   "categories": [
+    "trip_not_taken",
+    "fare_overcharge"
+   ],
+   "statement": "A driver cannot cancel after tapping Pick Up. A rider charged for a trip not taken, or a driver who completed a trip that did not happen, must report the details to Ryde for investigation. Completing a trip without the rider is listed as fraudulent activity.",
+   "origin": "added 2026-09-27 from archived public pages",
+   "sources": [
+    {
+     "source_id": "20692560042649",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/20692560042649",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/20692560042649.txt",
+     "sha256": "364257dbb8382acefdcf61da591048cdf00066d6f93ed903a5628e2fe89305ec",
+     "line_start": 6,
+     "line_end": 6,
+     "exact_text": "You will not be able to cancel the trip once you tap"
+    },
+    {
+     "source_id": "18230976652185",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/18230976652185",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/18230976652185.txt",
+     "sha256": "ce0041c8646c326b3cd31293cb5753b0c53b187c9d5f5ea10a262b349a074b9a",
+     "line_start": 5,
+     "line_end": 5,
+     "exact_text": "If you have been charged for a trip that you have not taken, kindly share the details with us to investigate the matter."
+    },
+    {
+     "source_id": "33362721809049",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/33362721809049",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/33362721809049.txt",
+     "sha256": "f4cafe0c5ef05b2b55ec044041fd41e4a80a799efc3526a6661bbf2d7c6aee8c",
+     "line_start": 19,
+     "line_end": 19,
+     "exact_text": "Drivers who overcharge riders and/or complete the trip without the rider onboard."
+    }
+   ],
+   "conditions": [],
+   "limits": [
+    "Outcome is an investigation, not a published automatic refund."
+   ],
+   "conflict_ids": [],
+   "why_relevant": "Catches the 'phantom trip' variant of a fare dispute and flags it as integrity-relevant.",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  },
+  {
+   "id": "P30",
+   "title": "Driver performance standards and irregular-behaviour flags",
+   "kind": "driver_compensation_context",
+   "categories": [
+    "no_show_charge",
+    "cancellation_fee",
+    "waiting_fee",
+    "safety_incident",
+    "fare_overcharge",
+    "trip_not_taken"
+   ],
+   "statement": "Driver accounts may be temporarily disabled for rating below 4.80, cancellation rate above 17.5%, adverse ratings for errant behaviour, or fraudulent activity. An automated flag covers multiple cancellations, low ratings, overcharging, abuse of the cancellation and waiting-time button, trips completed without a rider, unusual trip patterns, and speeding or reckless driving. Ratings use the last 100 trips.",
+   "origin": "added 2026-09-27 from archived public pages",
+   "sources": [
+    {
+     "source_id": "33362721809049",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/33362721809049",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/33362721809049.txt",
+     "sha256": "f4cafe0c5ef05b2b55ec044041fd41e4a80a799efc3526a6661bbf2d7c6aee8c",
+     "line_start": 11,
+     "line_end": 11,
+     "exact_text": "| > 17.5%"
+    },
+    {
+     "source_id": "6959605073177",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/6959605073177",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/6959605073177.txt",
+     "sha256": "819b90d3b338575af50d23d3ec1f7f04fd6b45f8aadc3aafbc8d4fdf641bf73e",
+     "line_start": 12,
+     "line_end": 12,
+     "exact_text": "Abuse of the cancellation and waiting time button"
+    },
+    {
+     "source_id": "6959605073177",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/6959605073177",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/6959605073177.txt",
+     "sha256": "819b90d3b338575af50d23d3ec1f7f04fd6b45f8aadc3aafbc8d4fdf641bf73e",
+     "line_start": 16,
+     "line_end": 16,
+     "exact_text": "Speeding and reckless driving"
+    }
+   ],
+   "conditions": [],
+   "limits": [
+    "Account action is Ryde's; the lab never suspends.",
+    "A flag or low rating is a review signal, not proof about this trip."
+   ],
+   "conflict_ids": [],
+   "why_relevant": "Grounds the 'historical behaviour profile' evidence type and the integrity-review signal without turning history into guilt.",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  },
+  {
+   "id": "P31",
+   "title": "Cash trips: how cancellation and waiting fees move",
+   "kind": "payment_state_definition",
+   "categories": [
+    "no_show_charge",
+    "cancellation_fee",
+    "waiting_fee"
+   ],
+   "statement": "For cash-paying riders, a cancellation or waiting fee under the policy is deducted from the rider's RydeCoins wallet and credited to the driver's wallet; a completed-trip waiting fee is paid with the final fare shown in the app.",
+   "origin": "added 2026-09-27 from archived public pages",
+   "sources": [
+    {
+     "source_id": "4408070775193",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/4408070775193",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/4408070775193.txt",
+     "sha256": "e046b3f92f955538cbb7b20bd4c61856169b3e050eff080993496c0944b0fce2",
+     "line_start": 5,
+     "line_end": 5,
+     "exact_text": "will be deducted from your RydeCoins wallet and credited directly to the driver"
+    },
+    {
+     "source_id": "4408071485081",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/4408071485081",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/4408071485081.txt",
+     "sha256": "2afde36f34177d009305ed479f7d3d91091f5d8948ba1f22359c1e2e1936f757",
+     "line_start": 6,
+     "line_end": 6,
+     "exact_text": "please tap on the Waiting Time Fee button upon drop-off"
+    }
+   ],
+   "conditions": [],
+   "limits": [
+    "Rider debit and driver credit are separate ledger events; the amounts need not match (see P14)."
+   ],
+   "conflict_ids": [
+    "C03"
+   ],
+   "why_relevant": "Explains the wallet debit and driver credit rows in DISP-004 and the reversal path.",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  },
+  {
+   "id": "P32",
+   "title": "Wrong pickup point and location errors",
+   "kind": "conditional_rider_charge",
+   "categories": [
+    "no_show_charge",
+    "cancellation_fee",
+    "late_pickup"
+   ],
+   "statement": "A rider who realises the pickup pin is wrong after matching should cancel and rebook; standard cancellation fees may apply. Incorrect or stale pickup and drop-off locations in the app are reported with a screenshot.",
+   "origin": "added 2026-09-27 from archived public pages",
+   "sources": [
+    {
+     "source_id": "50736334641561",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/50736334641561",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/50736334641561.txt",
+     "sha256": "5c8a0f6e6160ea559efdb52cbe93fd2943477757dfef91a456b920b6dde8d627",
+     "line_start": 7,
+     "line_end": 7,
+     "exact_text": "please cancel and rebook. Standard cancellation fees may apply."
+    },
+    {
+     "source_id": "18230398581913",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/18230398581913",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/18230398581913.txt",
+     "sha256": "d45273342a14ad1a9d505c15c07f330089a667f050d848b29a4e81ff113e25ef",
+     "line_start": 6,
+     "line_end": 6,
+     "exact_text": "Please report to us with a screenshot."
+    }
+   ],
+   "conditions": [],
+   "limits": [
+    "Says nothing about a driver who goes to the wrong place; that is P06 and P15."
+   ],
+   "conflict_ids": [],
+   "why_relevant": "Separates rider pin errors (fee may stand) from driver location errors (fee questionable).",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  },
+  {
+   "id": "P33",
+   "title": "Fare structure, fixed quotes, surge and platform fee",
+   "kind": "fare_definition",
+   "categories": [
+    "route_deviation",
+    "fare_overcharge",
+    "surge_pricing",
+    "erp_toll",
+    "extra_charge"
+   ],
+   "statement": "Quoted fares are generally fixed except RydeTAXI; the trip fare reflects distance and duration and varies by service and surge; a tiered platform fee applies ($1.25 for fares $18 and below, $1.47 above $18, effective 17 February 2026); surcharges such as tolls, overtime and valet parking sit outside the base fare and appear on the receipt.",
+   "origin": "added 2026-09-27 from archived public pages",
+   "sources": [
+    {
+     "source_id": "30741244296217",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/30741244296217",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/30741244296217.txt",
+     "sha256": "8aa49e056eb0e267c09e45a8bd2df98b5e2740da68b87e81a72b343c4db7e790",
+     "line_start": 5,
+     "line_end": 5,
+     "exact_text": "Fares quoted for our services are generally fixed, except for RydeTAXI."
+    },
+    {
+     "source_id": "22836370596377",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/22836370596377",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/22836370596377.txt",
+     "sha256": "39c38a63dcfceb4c02c519a0435fab74d9b7e84776ec355fc07ff2c2a9a58da9",
+     "line_start": 10,
+     "line_end": 10,
+     "exact_text": "First Tier Platform Fee: $1.25 (including GST) for fares $18 and below."
+    },
+    {
+     "source_id": "4408072421785",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/4408072421785",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/4408072421785.txt",
+     "sha256": "00bdf047d35f63d7c546230886b0ee12651d793b4a154668b7933d969fa39a93",
+     "line_start": 5,
+     "line_end": 5,
+     "exact_text": "Surcharges such as toll charges, overtime fees and valet parking fees* are excluded from the base fare."
+    },
+    {
+     "source_id": "900005170043",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/900005170043",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/900005170043.txt",
+     "sha256": "bbfd4adefbf3c7da5f0e20619eefe62bd6ae0836ad510c7a21a06265b3861da4",
+     "line_start": 5,
+     "line_end": 5,
+     "exact_text": "Fares vary depending on the service type and are affected by surges."
+    }
+   ],
+   "conditions": [
+    "Service type and fare basis must be known."
+   ],
+   "limits": [
+    "No published detour-refund formula.",
+    "Surge is a pricing fact; no published dispute rule about it beyond the quote being fixed."
+   ],
+   "conflict_ids": [
+    "C07"
+   ],
+   "why_relevant": "Handbook category 1 and the 'fare breakdown validation, surge pricing' evidence source. Decides that a longer route on a fixed quote changes nothing but tolls.",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  },
+  {
+   "id": "P34",
+   "title": "Other pass-through and prohibited extra charges",
+   "kind": "conditional_rider_charge",
+   "categories": [
+    "extra_charge",
+    "fare_overcharge"
+   ],
+   "statement": "Sentosa admission is charged to the rider at the published time bands unless waived at the gate; drivers cannot enter Jurong Island without a pass and drop off outside; there is no surcharge for bulky items or wheelchairs since 18 November 2021, though a rider who cancels for lack of space may face cancellation fees.",
+   "origin": "added 2026-09-27 from archived public pages",
+   "sources": [
+    {
+     "source_id": "17735760737817",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/17735760737817",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/17735760737817.txt",
+     "sha256": "42c30ca9f61fc637c8697602900a07ecc54ea22e2322bf7427950225e797c666",
+     "line_start": 12,
+     "line_end": 12,
+     "exact_text": "The cost of the admission fee will be charged to the rider."
+    },
+    {
+     "source_id": "4408080441497",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/4408080441497",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/4408080441497.txt",
+     "sha256": "dade074938d3533584ff6c4eac5a5b5850af2d51a3564a8cd5058729fd0bf11d",
+     "line_start": 5,
+     "line_end": 5,
+     "exact_text": "there will be no surcharge for bulky items or wheelchairs"
+    },
+    {
+     "source_id": "48945760704537",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/48945760704537",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/48945760704537.txt",
+     "sha256": "4b6bcc9e39a2aa96bd128ff6c0166edb67e76c1b359de1925ff56426ad8eaf0d",
+     "line_start": 6,
+     "line_end": 6,
+     "exact_text": "Drivers are not permitted to enter Jurong Island unless they have a dedicated Jurong Island Entry Pass."
+    }
+   ],
+   "conditions": [],
+   "limits": [
+    "Amounts are as archived; confirm the date band for the trip."
+   ],
+   "conflict_ids": [],
+   "why_relevant": "Closes off invented surcharges and confirms which extras a receipt may legitimately carry.",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  },
+  {
+   "id": "P35",
+   "title": "Lost and found procedure",
+   "kind": "discretionary_procedure",
+   "categories": [
+    "lost_item"
+   ],
+   "statement": "Within 24 hours the rider contacts the driver through the trip's chat or call, which then expires; after that, through RydeHELP. If found, return is arranged privately, with a recommended $25 minimum compensation for the driver's time; if not found, the driver declares best efforts and the rider is advised to make a police report for valuables. Drivers report found items with description, trip and consent to share contact.",
+   "origin": "added 2026-09-27 from archived public pages",
+   "sources": [
+    {
+     "source_id": "25969395777305",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/25969395777305",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/25969395777305.txt",
+     "sha256": "ac6b9612038b3a777e7fc7a9ad4944a6e599db4921aa9482128b22a3c490c66d",
+     "line_start": 12,
+     "line_end": 12,
+     "exact_text": "The chat log & call driver option will only be available up to 24 hours from the time the trip ends."
+    },
+    {
+     "source_id": "360011925934",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/360011925934",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/360011925934.txt",
+     "sha256": "b9e0be22f83da07e69bda43118a3b23ab4ad9fa7cad42f3c1fc7b697980cece1",
+     "line_start": 14,
+     "line_end": 14,
+     "exact_text": "Make a police report immediately"
+    }
+   ],
+   "conditions": [],
+   "limits": [
+    "Compensation is a recommendation, not a fee.",
+    "Not a handbook category; included because it is a frequent dispute type and appears in the discussion taxonomy as an open category."
+   ],
+   "conflict_ids": [],
+   "why_relevant": "Secondary category. Also explains why chat logs older than 24 hours may be unavailable to the parties.",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  },
+  {
+   "id": "P36",
+   "title": "Fare evasion by a cash rider",
+   "kind": "discretionary_procedure",
+   "categories": [
+    "fare_evasion"
+   ],
+   "statement": "A driver whose cash rider did not pay reports to support with the trip details and files a police report; Ryde reimburses the fare as goodwill and may raise the matter with LTA.",
+   "origin": "added 2026-09-27 from archived public pages",
+   "sources": [
+    {
+     "source_id": "4842763548825",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/4842763548825",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/4842763548825.txt",
+     "sha256": "b31d02e463eb788513cf08cce0cd17e1ab7b0385bd022b3f999737cb6752ffa3",
+     "line_start": 8,
+     "line_end": 8,
+     "exact_text": "We will reimburse the fare to you as a gesture of goodwill."
+    }
+   ],
+   "conditions": [
+    "Cash payment method.",
+    "Police report filed."
+   ],
+   "limits": [
+    "Goodwill, not entitlement."
+   ],
+   "conflict_ids": [],
+   "why_relevant": "Driver-filed money dispute outside the handbook's four categories; documents the evidence expected (police report).",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  },
+  {
+   "id": "P37",
+   "title": "Ratings moderation and fee-related low ratings",
+   "kind": "discretionary_procedure",
+   "categories": [
+    "safety_incident",
+    "harassment",
+    "no_show_charge",
+    "waiting_fee"
+   ],
+   "statement": "Reviews that breach the Terms, are biased or fraudulent, or are irrelevant to the trip may be removed and ratings reinstated; a driver rated poorly because of a cancellation or waiting fee may appeal through RydeHELP; fake trips or trades for ratings lead to account action.",
+   "origin": "added 2026-09-27 from archived public pages",
+   "sources": [
+    {
+     "source_id": "33362498168985",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/33362498168985",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/33362498168985.txt",
+     "sha256": "8c82e7ccc33d59950dfab19a8cf06aa0b9d28820876c0069a82ad8201e7883d6",
+     "line_start": 8,
+     "line_end": 8,
+     "exact_text": "The review is biased or fraudulent"
+    },
+    {
+     "source_id": "4408079364889",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/4408079364889",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/4408079364889.txt",
+     "sha256": "dceb36d802c32af2801dea72f5e4653db94603d3f405e89a25ea77ec40e7927d",
+     "line_start": 5,
+     "line_end": 5,
+     "exact_text": "consider removing ratings that are irrelevant to the driver"
+    }
+   ],
+   "conditions": [],
+   "limits": [
+    "Rating removal is Ryde's decision; the Arbitrator only notes when a rating is entangled with the dispute."
+   ],
+   "conflict_ids": [],
+   "why_relevant": "Prevents ratings exchanged during a dispute (as in DISP-006) from being read as independent evidence.",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  },
+  {
+   "id": "P38",
+   "title": "Vouchers and promotional conditions",
+   "kind": "fee_exemption",
+   "categories": [
+    "promo_code",
+    "fare_overcharge"
+   ],
+   "statement": "Vouchers and promotions are subject to validity and redemption periods and campaign conditions set by Ryde; RydeCoins are non-refundable and cannot be converted to cash.",
+   "origin": "added 2026-09-27 from archived public pages",
+   "sources": [
+    {
+     "source_id": "terms-of-use",
+     "canonical_url": "https://rydesharing.com/terms-of-use/",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "corporate/text/pages-9156-terms-of-use.txt",
+     "sha256": "749b6e63d9169f975376f44714c7a4637bfaa24bba7a5e8d492ec2d123b6d261",
+     "line_start": 125,
+     "line_end": 125,
+     "exact_text": "Vouchers are subject to validity periods, redemption periods"
+    },
+    {
+     "source_id": "terms-of-use",
+     "canonical_url": "https://rydesharing.com/terms-of-use/",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "corporate/text/pages-9156-terms-of-use.txt",
+     "sha256": "749b6e63d9169f975376f44714c7a4637bfaa24bba7a5e8d492ec2d123b6d261",
+     "line_start": 256,
+     "line_end": 256,
+     "exact_text": "RydeCoins are solely intended for use within our Platform and are non-refundable"
+    }
+   ],
+   "conditions": [
+    "Specific campaign terms must be in evidence."
+   ],
+   "limits": [
+    "No published rule on a promo that failed to apply; specific campaign terms are not in the archive."
+   ],
+   "conflict_ids": [],
+   "why_relevant": "Handbook lists 'promo code usage' under payment and fare data. Marks the gap: missing campaign terms block an automatic promo decision.",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  },
+  {
+   "id": "P39",
+   "title": "Account identity and transfer prohibited",
+   "kind": "source_governance",
+   "categories": [
+    "identity_mismatch",
+    "safety_incident"
+   ],
+   "statement": "Users may not let others use their identity or transfer their account; a rider or driver who is not the account holder is a breach.",
+   "origin": "added 2026-09-27 from archived public pages",
+   "sources": [
+    {
+     "source_id": "terms-of-use",
+     "canonical_url": "https://rydesharing.com/terms-of-use/",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "corporate/text/pages-9156-terms-of-use.txt",
+     "sha256": "749b6e63d9169f975376f44714c7a4637bfaa24bba7a5e8d492ec2d123b6d261",
+     "line_start": 51,
+     "line_end": 51,
+     "exact_text": "you may not assign or otherwise transfer your user account to any other person or entity"
+    }
+   ],
+   "conditions": [],
+   "limits": [
+    "Proof of who was actually present needs evidence beyond the account record."
+   ],
+   "conflict_ids": [],
+   "why_relevant": "Supports identity-mismatch handling and the fraud signal for account sharing.",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  },
+  {
+   "id": "P40",
+   "title": "Platform fee in the base fare and the cashless transaction fee",
+   "kind": "fare_definition",
+   "categories": [
+    "fare_overcharge",
+    "cancellation_fee",
+    "no_show_charge",
+    "waiting_fee",
+    "route_deviation"
+   ],
+   "statement": "The footnote to the $6.61 fee says a flat platform fee of $1.15 (fares up to $18) or $1.35 (above $18), before GST, is included in the base fare, and that cashless transactions incur a payment transaction fee of 1.96% + $0.24 including GST.",
+   "origin": "added 2026-09-27 from archived public pages",
+   "sources": [
+    {
+     "source_id": "23534478435353",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/23534478435353",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/23534478435353.txt",
+     "sha256": "d059f09e6fbeb26955e168eb1c8104003784da1705aa1233dabf6d1f092c78a0",
+     "line_start": 21,
+     "line_end": 21,
+     "exact_text": "a flat fee of $1.15 (exclusive of GST) & for fares exceeding $18, a flat fee of $1.35 (exclusive of GST) will be included in the base fare"
+    },
+    {
+     "source_id": "23534478435353",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/23534478435353",
+     "snapshot_date": "2026-09-23",
+     "archive_path": "help-centre/text/23534478435353.txt",
+     "sha256": "d059f09e6fbeb26955e168eb1c8104003784da1705aa1233dabf6d1f092c78a0",
+     "line_start": 21,
+     "line_end": 21,
+     "exact_text": "Cashless transactions will incur a payment transaction fee of 1.96%+ $0.24 (inclusive of GST)"
+    }
+   ],
+   "conditions": [],
+   "limits": [
+    "With 9% GST the platform fees are $1.25 and $1.47, the figures in P33.",
+    "The page does not say which charges show the transaction fee as a separate line; a small gap between a quote and a card charge may be this fee, or may not."
+   ],
+   "conflict_ids": [
+    "C01"
+   ],
+   "why_relevant": "Explains small differences between a quoted or published fee and the amount charged to a card, and how the $6.61 fee relates to a $5 base.",
+   "status": "research_reference; not Ryde-approved; activation disabled"
+  }
+ ],
+ "conflicts": [
+  {
+   "id": "C01",
+   "title": "Waiting fee amount",
+   "status": "explained",
+   "description": "SGD 5 principal waiting fee versus SGD 6.61 named waiting fee in arrival FAQ.",
+   "handling_proposed": "Block disputed waiting amount; retain arrival condition separately.",
+   "sources": [
+    {
+     "source_id": "23534478435353",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/23534478435353-Cancellation-and-Waiting-Fee",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2026-02-26T08:53:05Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/23534478435353.txt",
+     "sha256": "d059f09e6fbeb26955e168eb1c8104003784da1705aa1233dabf6d1f092c78a0",
+     "line_start": 10,
+     "line_end": 11,
+     "exact_text": "Riders may be charged a Waiting Time Fee of $5 at the end of the trip if:\nThe driver presses “I’m Here”, waits for > 3 minutes for the rider to board, and continues the trip (Rider boards and driver completes trip)."
+    },
+    {
+     "source_id": "4407754403353",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/4407754403353-What-if-my-driver-hasn-t-arrived-but-has-indicated-that-he-she-arrived",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2026-02-26T03:48:25Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/4407754403353.txt",
+     "sha256": "2e1c3f49c7dfab1fd2c4802a429533bb89f7ca6525e5f76fbc0fda34e2b4a49c",
+     "line_start": 5,
+     "line_end": 9,
+     "exact_text": "Drivers are only allowed to indicate arrival and impose the Waiting Time Fee only if he/she:\nIs at the pick-up location according to GPS data\nAND\nHas waited for more than 3 mins\nOtherwise, you will not be charged the $6.61 Waiting Time Fee if any of the above are not fulfilled."
+    },
+    {
+     "source_id": "27085468660505",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/27085468660505-Waiting-Fee-Waiver-Request",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2025-11-23T13:37:05Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/27085468660505.txt",
+     "sha256": "899510a31676772ceb88722c5096ef316e74c3f984acf27a759cfe0b8f154601",
+     "line_start": 5,
+     "line_end": 6,
+     "exact_text": "If you feel that you have been unfairly charged for a Waiting Fee, you may submit a fee waiver request via RydeHELP in our app within 30 days of the trip* and we will review your eligibility for a refund.\nIf you are eligible, we will issue you a voucher** with a unique code worth $5.00 as a refund for the incurred Waiting Charges. Please be mindful to top up your Ryde wallet using the voucher code given to you within the expiry period."
+    }
+   ],
+   "resolution": "Team reading (30 September 2026): the $5 Waiting Time Fee and the $6.61 figure are one fee quoted two ways. $5.00 is the fee before charges; $6.61 is what a rider paying cashless is charged: $5.00, plus the $1.15 platform fee with 9% GST ($1.25), plus the 1.96% + $0.24 cashless transaction fee (about $0.36), per P40. The arrival FAQ calls $6.61 the 'Waiting Time Fee', and the $6.61 on the fee page carries the footnote. A completed-trip waiting fee charged at $5.00, or at $6.61 on a cashless payment, matches the pages; the $6.61 cancellation fee carries the same footnote.",
+   "evidence": [
+    "help-centre/text/23534478435353.txt lines 10-11 (Waiting Time Fee of $5) and 21 (the footnote, quoted by P40)",
+    "help-centre/text/4407754403353.txt line 9 ('the $6.61 Waiting Time Fee')",
+    "2026-09-30-app-check/ (the in-app article matches the archive)"
+   ],
+   "what_would_reopen": "A Ryde receipt or RydeHELP reply showing a different waiting-fee amount, or a cash payment charged $6.61 as the waiting fee.",
+   "decided_by": "The team, approved by the user on 30 September 2026; a team reading, not a Ryde statement."
+  },
+  {
+   "id": "C02",
+   "title": "Cancellation service scope",
+   "status": "open",
+   "description": "Specific TAXI exclusion versus general all-service wording.",
+   "handling_proposed": "Use exclusion as candidate interpretation; TAXI automatic decision blocked pending authoritative scope.",
+   "sources": [
+    {
+     "source_id": "4407761313305",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/4407761313305-Does-the-Cancellation-Policy-apply-to-all-Ryde-services",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2025-11-23T13:37:05Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/4407761313305.txt",
+     "sha256": "fc314f0eedd304159ef4ad0c44d09b225bc4e321605992fe87ef8763907872ae",
+     "line_start": 5,
+     "line_end": 6,
+     "exact_text": "Cancellation Policy applies to all Service Types * in the Ryde app and is executed on a service level, not driver level. Hence, all carpool drivers are included in the Cancellation Policy.\n*All services except RydeTAXI"
+    },
+    {
+     "source_id": "33362932998937",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/33362932998937-Cancellation-and-Waiting-Time-Policy",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2024-06-05T05:59:53Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/33362932998937.txt",
+     "sha256": "b34bc4c11c2f9916370371918d1fb343598f1c87a9c4cbb3577699161ad5dbe5",
+     "line_start": 24,
+     "line_end": 25,
+     "exact_text": "This Policy applies for all Service Types **.\n**Please refer to the Ryde app for the comprehensive list of service options."
+    }
+   ]
+  },
+  {
+   "id": "C03",
+   "title": "Compensation labels and payee",
+   "status": "open",
+   "description": "Rider gross charge and driver payout differ legitimately; no-show waiting/cancellation labels remain inconsistent.",
+   "handling_proposed": "Keep payer/payee/event separate and review disputed label or payout.",
+   "sources": [
+    {
+     "source_id": "33362932998937",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/33362932998937-Cancellation-and-Waiting-Time-Policy",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2024-06-05T05:59:53Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/33362932998937.txt",
+     "sha256": "b34bc4c11c2f9916370371918d1fb343598f1c87a9c4cbb3577699161ad5dbe5",
+     "line_start": 9,
+     "line_end": 13,
+     "exact_text": "Driver will receive a Cancellation Fee of $4.50* if:\nRider cancels after 3 minutes of matching\nDriver may charge a Waiting Time Fee of $4.50 at the end of the trip if:\nThe driver pressed “I’m Here”, waits for > 3 minutes for rider to arrive at pick-up point and  cancels the trip (Rider NO SHOW and no trip completion), OR\nThe driver pressed “I’m Here”, waits for > 3 minutes for rider to board, and continues the trip  (Rider boards and driver completes trip)."
+    },
+    {
+     "source_id": "4408070838297",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/4408070838297-How-Does-the-Cancellation-Fee-Work",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2026-09-22T02:22:20Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/4408070838297.txt",
+     "sha256": "ed06bb73661d0f3ad9f4ce09d835aadaa4a6bf6932dc143520596cb67f51739b",
+     "line_start": 5,
+     "line_end": 6,
+     "exact_text": "Please let us know why you are cancelling.\nDrivers will receive a $4.50 cancellation fee automatically if they cancel after >3 minutes of waiting."
+    },
+    {
+     "source_id": "23534478435353",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/23534478435353-Cancellation-and-Waiting-Fee",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2026-02-26T08:53:05Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/23534478435353.txt",
+     "sha256": "d059f09e6fbeb26955e168eb1c8104003784da1705aa1233dabf6d1f092c78a0",
+     "line_start": 7,
+     "line_end": 11,
+     "exact_text": "Rider will be charged a Cancellation Fee of $6.61* if:\nRider cancels after 3 minutes of matching OR\nThe driver presses “I’m Here”, waits for > 3 minutes for the rider to arrive at the pick-up point and cancels the trip (Rider NO SHOW and no trip completion)\nRiders may be charged a Waiting Time Fee of $5 at the end of the trip if:\nThe driver presses “I’m Here”, waits for > 3 minutes for the rider to board, and continues the trip (Rider boards and driver completes trip)."
+    }
+   ]
+  },
+  {
+   "id": "C04",
+   "title": "Advance timing ambiguity",
+   "status": "open",
+   "description": "Exact 15-minute equality, early arrival and cancellation-window algebra unresolved.",
+   "handling_proposed": "Review affected advance cases; do not invent inclusive boundaries.",
+   "sources": [
+    {
+     "source_id": "23534478435353",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/23534478435353-Cancellation-and-Waiting-Fee",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2026-02-26T08:53:05Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/23534478435353.txt",
+     "sha256": "d059f09e6fbeb26955e168eb1c8104003784da1705aa1233dabf6d1f092c78a0",
+     "line_start": 12,
+     "line_end": 20,
+     "exact_text": "Advanced Trip - Rider Cancellation & Waiting Time Policy Statement\nAll cancellations made > 15 minutes before the scheduled trip time are not chargeable.\n(eg: Scheduled trip: 6 PM, any cancellation made before 5:45 PM is not chargeable.\nIf the advanced trip request is accepted only after 5:45 PM, riders will have a 3 minute grace period)\nRider will be charged a Cancellation Fee of $6.61* if:\nRider cancels after the cancellation window (< Scheduled - 15mins OR Matched) OR\nThe driver cancels the trip after waiting for > 3 minutes for the Rider to arrive at the pick-up point (Rider NO SHOW and no trip completion)\nRiders may be charged a Waiting Time Fee of $5 at the end of the trip if:\nThe driver waits for > 3 minutes for the Rider to board and continues to complete the trip (Rider boards and driver completes trip)"
+    },
+    {
+     "source_id": "4407761270937",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/4407761270937-If-a-driver-arrives-during-the-rider-s-grace-period-will-the-grace-period-for-cancellation-be-reduced",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2024-10-01T06:26:05Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/4407761270937.txt",
+     "sha256": "55d6866d6dfac6f1c7223ddc1fcfb50ca5d59dbf5bb309e68278e0e9d646a4aa",
+     "line_start": 5,
+     "line_end": 5,
+     "exact_text": "Riders are guaranteed 3 minutes of grace period from the time of match and/or 15 minutes before scheduled time for Advance Trip Request before the Cancellation Fee kicks in."
+    }
+   ]
+  },
+  {
+   "id": "C05",
+   "title": "Refund versus waiver mechanism",
+   "status": "open",
+   "description": "General nonrefund language, discretionary refund and specific voucher waiver require separate scopes.",
+   "handling_proposed": "Not necessarily contradiction; require named procedure and authorized remedy.",
+   "sources": [
+    {
+     "source_id": "terms",
+     "canonical_url": "https://rydesharing.com/terms-of-use/",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2026-04-10T09:05:28",
+     "cms_date_is_effective_date": false,
+     "archive_path": "corporate/text/pages-9156-terms-of-use.txt",
+     "sha256": "749b6e63d9169f975376f44714c7a4637bfaa24bba7a5e8d492ec2d123b6d261",
+     "line_start": 111,
+     "line_end": 111,
+     "exact_text": "Users are required to make full payment of the User Charges for all services offered in the Application by the method selected at the time of booking, which may be cash, or one of the automated payment methods available to you on the Application. Any payment pursuant to such selection is non-refundable and irrevocable."
+    },
+    {
+     "source_id": "terms",
+     "canonical_url": "https://rydesharing.com/terms-of-use/",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2026-04-10T09:05:28",
+     "cms_date_is_effective_date": false,
+     "archive_path": "corporate/text/pages-9156-terms-of-use.txt",
+     "sha256": "749b6e63d9169f975376f44714c7a4637bfaa24bba7a5e8d492ec2d123b6d261",
+     "line_start": 121,
+     "line_end": 123,
+     "exact_text": "Unless otherwise stated in any Ryde Policy, you may cancel your request for transportation and delivery services at any time before you commence your ride with the Partner that has been matched with you by the Service.\nIf you decide to cancel your ride booking or do not show up at the designated location, you may be charged a Cancellation Fee or such other Cancellation Fee as Ryde may notify from time to time via the Cancellation and Waiting Time Policy on Ryde’s website.\nIf you feel you were incorrectly charged a Cancellation Fee, you may contact Ryde in writing at support@rydesharing.com for assistance. Ryde reserves its absolute discretion to any refunds to you and such refunds may be credited to the payment card you used for the journey, or to your RydeCoins wallet or by such other method as is deemed reasonable by Ryde."
+    },
+    {
+     "source_id": "18229758389017",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/18229758389017-Cancellation-Fee-Waiver-Request",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2026-05-25T09:21:47Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/18229758389017.txt",
+     "sha256": "ea989603e5c32253c7c01805519bd96284d8bdd92d77948f2f901a9949c07147",
+     "line_start": 5,
+     "line_end": 9,
+     "exact_text": "If you feel that you have been unfairly charged a Cancellation Fee, you may submit a fee waiver request via RydeHELP in our app within 30 days of the trip* and we will review your eligibility for a refund.\nIf you are eligible, we will issue you a voucher** with a unique code worth $6.61 as a refund for the incurred Cancellation Charges. Please be mindful to top up your Ryde wallet using the voucher code given to you within the expiry period.\n*Requests submitted after 30 days of the trip will not be considered for waivers.\n**This voucher is non-refundable and cannot be exchanged for cash in part or in full. There is strictly no extension of the expiry date from the date of issue.\nThe increase is due to the platform fee changes effective 17 Feb 2026."
+    }
+   ]
+  },
+  {
+   "id": "C06",
+   "title": "Destination multistop scope",
+   "status": "open",
+   "description": "Adding a stop versus changing existing multistop booking may explain differing procedure wording.",
+   "handling_proposed": "Do not treat apparent tension as resolved; complex cases review-only.",
+   "sources": [
+    {
+     "source_id": "50798691815449",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/50798691815449-Can-I-change-my-destination",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2025-10-10T02:30:34Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/50798691815449.txt",
+     "sha256": "d743ea210ef520b6b9be117c8522b9be6f65f2c1f243a643a67023a799f0284f",
+     "line_start": 9,
+     "line_end": 10,
+     "exact_text": "*RydePOOL, RydeTAXI & Multiple stop bookings are not allowed to make any changes in destination.\nEffective 17 Oct 2025"
+    },
+    {
+     "source_id": "51399674412441",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/51399674412441-What-is-the-process-for-adding-editing-a-destination-after-a-trip-has-started",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2025-10-10T02:29:21Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/51399674412441.txt",
+     "sha256": "bf23b014d295535caefe66c119e6ffcc3989b5290882f707f6919bffcd170e31",
+     "line_start": 5,
+     "line_end": 10,
+     "exact_text": "The trip has started.\nThe rider needs to let their driver know.\nThe destination is selected.\nThe rider types and selects the new destination.\nThere will be a map confirmation (for a single stop).\nThe rider can add another destination, leading to a map confirmation (for multiple stops)."
+    }
+   ]
+  },
+  {
+   "id": "C07",
+   "title": "ERP inclusion and allocation",
+   "status": "open",
+   "description": "POOL/HIRE inclusion and shared allocation vary across articles.",
+   "handling_proposed": "Contested allocation blocked until scope/version clarified.",
+   "sources": [
+    {
+     "source_id": "115000772653",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/115000772653-Do-I-need-to-pay-ERP-charges",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2025-11-23T13:37:05Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/115000772653.txt",
+     "sha256": "44465c4d3c543b24f9e862d093960d53ca85cd23157fd1cb824244be20e337b5",
+     "line_start": 5,
+     "line_end": 7,
+     "exact_text": "If a rider passes through an active ERP gantry, the toll charge will be applicable to the rider.\nFor all services apart from RydeSEND, ERP charges are excluded from the fares.\n*RydeSEND fares include ERP charges."
+    },
+    {
+     "source_id": "115001438614",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/115001438614-Which-trips-do-I-need-to-include-ERP",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2026-09-02T08:44:46Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/115001438614.txt",
+     "sha256": "217dce8567b719088860bf78a7f99874c623d0801f3714b63935648c8886006f",
+     "line_start": 5,
+     "line_end": 10,
+     "exact_text": "The fares for RydeSEND include ERP.\nThe fares for  RydeFLASH / RydePET / RydeX / RydeXL / RydeLUXE / RydeTAXI exclude ERP.\nPlease key in ERP based on the ERP gantry you passed during the journey.\nFor Carpool trips:\nThe total ERP charge is shared equally between the driver and passenger.\nThe driver bears 50% of the ERP charge, and the passenger pays the remaining 50%."
+    },
+    {
+     "source_id": "23575142762393",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/23575142762393-I-wish-to-make-an-appeal",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2024-03-14T10:00:59Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/23575142762393.txt",
+     "sha256": "58936ee56c4588c90f9d928edea9521f439580ebdb7bd90c2f78dfa840b6d9bd",
+     "line_start": 17,
+     "line_end": 22,
+     "exact_text": "If you forgot to include ERP charges in the fares\nYou may file a claim with the following details:\n1. Name of ERP Gantry\n2. Time of Entry\n3. Screenshot of Cashcard Statement\nNote: RydePOOL, RydeHIRE and RydeSEND include ERP."
+    },
+    {
+     "source_id": "4408072421785",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/4408072421785-Are-surcharges-included-in-the-base-fee",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2025-11-23T13:37:05Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/4408072421785.txt",
+     "sha256": "00bdf047d35f63d7c546230886b0ee12651d793b4a154668b7933d969fa39a93",
+     "line_start": 5,
+     "line_end": 6,
+     "exact_text": "Surcharges such as toll charges, overtime fees and valet parking fees* are excluded from the base fare. You will be charged for such additional fees at the end of the trip, on top of your base fee.\n*Toll charges are already included in RydeHIRE and RydeSEND trip fares."
+    },
+    {
+     "source_id": "4408072389913",
+     "canonical_url": "https://help.rydesharing.com/hc/en-us/articles/4408072389913-Are-surcharges-included-in-the-base-fee",
+     "snapshot_date": "2026-09-23",
+     "cms_modified_at": "2023-12-31T15:59:43Z",
+     "cms_date_is_effective_date": false,
+     "archive_path": "help-centre/text/4408072389913.txt",
+     "sha256": "e9c6abfd623a05e8ad9e99533ed4e6b401e0518281c4e5a8f9a177884200096c",
+     "line_start": 5,
+     "line_end": 7,
+     "exact_text": "Surcharges such as toll charges, overtime fees and valet parking fees* are excluded from the base fare. Please remember to charge such additional fees at the end of the trip.\n*Toll charges are already included in RydeSEND trip fares.\n*For shared RydePOOL trips, each rider pays 50% of the total ERP charges."
+    }
+   ]
+  }
+ ],
+ "review_limits": [
+  "Team review is not Ryde policy-owner approval.",
+  "Attachment download does not establish substantive attachment review.",
+  "No runtime rule or case evidence changed.",
+  "Service/date applicability remains case-dependent."
+ ]
+}

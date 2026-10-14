@@ -1,0 +1,67 @@
+name: ryde
+services:
+  db:
+    image: postgres:17-bookworm
+    environment:
+      POSTGRES_DB: ryde
+      POSTGRES_USER: ryde
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ryde -d ryde"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+  migrate:
+    image: ryde-worker:$RELEASE_SHA
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile
+      target: worker
+    environment:
+      DATABASE_URL: postgres://ryde:$POSTGRES_PASSWORD@db:5432/ryde
+    command: ["pnpm", "db:migrate"]
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: "no"
+  web:
+    image: ryde-web:$RELEASE_SHA
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile
+      target: web
+    environment:
+      DATABASE_URL: postgres://ryde:$POSTGRES_PASSWORD@db:5432/ryde
+      RELEASE_SHA: $RELEASE_SHA
+    ports:
+      - "127.0.0.1:3000:3000"
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+    init: true
+  caddy:
+    # Pinned to the image the site ran on 12 October 2026 (v2.11.4), so a recreate never pulls a different Caddy unannounced.
+    image: caddy:2.11.4@sha256:14a9c00d4e833ebc2b65d36515b37bde3b73f0b323a2663aaafc88953d8c4e3f
+    ports:
+      - "80:80"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      web:
+        condition: service_healthy
+    restart: unless-stopped
+volumes:
+  pgdata:
+  caddy_data:
+  caddy_config:

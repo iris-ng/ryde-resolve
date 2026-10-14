@@ -1,0 +1,7 @@
+.otter-judge,.pango-driver,.sprite-agent{position:relative;display:block!important;width:84px;height:104px;margin:0 auto 6px;overflow:hidden;flex:none;image-rendering:pixelated}
+.otter-judge :is(img,canvas),.pango-driver :is(img,canvas),.sprite-agent :is(img,canvas){position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain;image-rendering:pixelated}
+.otter-judge .otter-source,.pango-driver .otter-source,.sprite-agent .otter-source{top:20%;height:80%}
+.lab .desk .otter-judge,.lab .desk .pango-driver,.lab .desk .sprite-agent{width:64px;height:80px;margin-bottom:4px}
+.avatar.otter-avatar{object-fit:contain;image-rendering:pixelated}
+@media(max-width:640px){.desk .otter-judge,.desk .pango-driver,.desk .sprite-agent{width:53px;height:66px}.lab .desk .otter-judge,.lab .desk .pango-driver,.lab .desk .sprite-agent{width:56px;height:80px}}
+@media(max-width:640px){.lab .desk .otter-judge,.lab .desk .pango-driver,.lab .desk .sprite-agent{max-width:100%}}

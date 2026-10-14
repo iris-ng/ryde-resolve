@@ -1,0 +1,20 @@
+# Apply after compose.yaml, with the private viewer environment file.
+# No database/worker changes or model runtime credentials are required.
+services:
+  web:
+    environment:
+      AGENT_LAB_RUNS_DIR: /srv/agent-runs
+      AGENT_LAB_VIEW_TOKEN: ${AGENT_LAB_VIEW_TOKEN:?Set observer token}
+    volumes:
+      - ${AGENT_LAB_RUNS_HOST:?Set published run directory}:/srv/agent-runs:ro
+  caddy:
+    environment:
+      RYDE_SITE_HOST: ${RYDE_SITE_HOST:?Set public host}
+      RYDE_SITE_USER: ${RYDE_SITE_USER:?Set site user}
+      RYDE_SITE_PASSWORD_HASH: ${RYDE_SITE_PASSWORD_HASH:?Set bcrypt password hash}
+      AGENT_LAB_VIEW_TOKEN: ${AGENT_LAB_VIEW_TOKEN:?Set observer token}
+    ports:
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile.auth:/etc/caddy/Caddyfile:ro

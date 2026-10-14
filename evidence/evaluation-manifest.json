@@ -1,0 +1,5 @@
+{
+  "version": 1,
+  "note": "Held-out evaluation cases: IDs, folders, neutral titles, base case and the precedents hidden from each. No answers. The held-out track adds its cases here; cases.ts adds them to the catalogue and packages/policy/evaluation.ts hides the listed precedents in search, direct reads and binding checks.",
+  "cases": []
+}

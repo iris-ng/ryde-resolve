@@ -1,0 +1,9 @@
+:80 {
+    encode gzip
+    request_body {
+        max_size 300KB
+    }
+    reverse_proxy web:3000 {
+        header_up X-Ryde-Client-IP {remote_host}
+    }
+}

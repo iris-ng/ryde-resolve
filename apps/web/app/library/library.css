@@ -1,0 +1,208 @@
+/* The reference library (8 October). The site's colours and type; each shelf has its own colour, carried by the number tab
+   every entry wears: Ryde's rules pink, past rulings gold, and a hollow pink tab where Ryde's own
+   pages disagree. The tab is the library's one strong mark; everything around it stays quiet. */
+:root{--lib-folder:#fdedf2;--lib-rules:#d42a57;--lib-rules-ink:#ffffff;--lib-rules-soft:#fde8ee;--lib-rules-line:#f4bccb;--lib-rulings:#8a5a06;--lib-rulings-ink:#ffffff;--lib-rulings-soft:#fbf1dc;--lib-rulings-line:#e8cf96}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--lib-folder:#311822;--lib-rules:#ff7096;--lib-rules-ink:#24060f;--lib-rulings:#f0bd5b;--lib-rulings-ink:#2a1c00;--lib-rules-soft:#3d1824;--lib-rules-line:#6b2a40;--lib-rulings-soft:#2e2311;--lib-rulings-line:#6a4a1c}}
+:root[data-theme=dark]{--lib-folder:#311822;--lib-rules:#ff7096;--lib-rules-ink:#24060f;--lib-rulings:#f0bd5b;--lib-rulings-ink:#2a1c00;--lib-rules-soft:#3d1824;--lib-rules-line:#6b2a40;--lib-rulings-soft:#2e2311;--lib-rulings-line:#6a4a1c}
+
+.lib{min-height:100vh;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:var(--fs-body);line-height:1.5}
+.lib a{color:inherit}
+.lib-visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.lib :focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:6px}
+[data-embedded] .lib-bar{display:none}
+[data-embedded] .lib-main{padding-top:24px}
+/* The nearest shelf sets the tab's fill, so a rule's tab on a disagreement's page stays filled (white ink on pink). */
+.shelf-rules{--shelf:var(--lib-rules);--shelf-ink:var(--lib-rules-ink);--shelf-fill:var(--shelf)}
+.shelf-rulings{--shelf:var(--lib-rulings);--shelf-ink:var(--lib-rulings-ink);--shelf-fill:var(--shelf)}
+.shelf-conflicts{--shelf:var(--lib-rules);--shelf-ink:var(--lib-rules);--shelf-fill:transparent}
+
+/* The bar: the site's name, where you are, and the way back to the cases. */
+.lib-bar{display:flex;align-items:center;gap:14px;min-height:64px;padding:0 24px;background:var(--bar);border-bottom:1px solid var(--line)}
+.lib-bar-home{font-family:var(--font-head);font-weight:600;font-size:17px;letter-spacing:-.3px;text-decoration:none}
+.lib-bar-here{font-family:var(--font-head);font-weight:500;color:var(--muted);text-decoration:none}
+.lib-bar-here::before{content:"/";margin-right:14px;color:var(--line-strong)}
+.lib-back{margin-left:auto;display:inline-flex;align-items:center;height:40px;padding:0 16px;border:1px solid var(--line-strong);border-radius:999px;background:var(--surface);font-weight:600;text-decoration:none;white-space:nowrap}
+.lib-back:hover{border-color:var(--accent-line);color:var(--accent)}
+
+.lib-main{max-width:1080px;margin:0 auto;padding:36px 24px 72px}
+.lib-footnote{max-width:72ch;margin:56px 0 0;color:var(--muted);font-size:var(--fs-small)}
+
+/* The number tab. */
+.lib-tab{display:inline-flex;align-items:center;justify-content:center;min-width:54px;height:30px;padding:0 8px;border:2px solid var(--shelf);border-radius:7px;background:var(--shelf-fill,var(--shelf));color:var(--shelf-ink);font-family:var(--font-head);font-weight:600;font-size:14px;font-variant-numeric:tabular-nums;letter-spacing:.2px;white-space:nowrap}
+
+/* Front page (user, 8 October: clean). The four case categories are folder tabs: the chosen one is tinted and joins a
+   panel of the same tint, which holds the two doors and their list, so both read as belonging to that category. A chosen
+   button is tinted all over, never marked on one edge. An entry opens in a side pane beside the list. */
+.lib-main.lib-front{max-width:1440px}
+.lib-front h1{max-width:1080px;margin:0;font-family:var(--font-head);font-weight:600;font-size:32px;letter-spacing:-.6px;line-height:1.2}
+.lib-front-grid{display:grid;grid-template-columns:minmax(0,1080px);gap:28px;align-items:start;margin-top:28px}
+.lib-front-grid.has-pane{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)}
+.lib-folders{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));align-items:stretch;gap:8px}
+.lib-folders button{position:relative;min-height:56px;margin-bottom:8px;padding:10px 16px;border:1px solid var(--line);border-radius:14px;background:var(--surface);color:var(--ink-soft);font:inherit;font-family:var(--font-head);font-weight:600;font-size:15px;line-height:1.3;text-align:left;cursor:pointer}
+.lib-folders button:hover{border-color:var(--accent-line);color:var(--ink)}
+.lib-short{display:none}
+/* The chosen tab and its panel are one filled shape: no outlines, the tab runs straight down into the panel, and two
+   curved inner corners (the pseudo-elements, filled outside a quarter circle) let it flow out into the panel's top edge.
+   The tab row spans the panel exactly (user, 8 October: tabs set 32px in still left an S-shaped bump where the panel's
+   corner met the first tab's curve). So the first and last tabs run straight down the panel's side: that side has no
+   curve, and the panel's corner under it is square. */
+.lib-folders button[aria-pressed=true]{z-index:1;margin-bottom:0;padding-bottom:18px;border-color:transparent;border-radius:14px 14px 0 0;background:var(--lib-folder);color:var(--ink)}
+.lib-folders button[aria-pressed=true]::before,.lib-folders button[aria-pressed=true]::after{content:"";position:absolute;bottom:-1px;width:14px;height:14px;pointer-events:none}
+.lib-folders button[aria-pressed=true]::before{right:calc(100% + 1px);background:radial-gradient(circle at 0 0,transparent 13.5px,var(--lib-folder) 14px)}
+.lib-folders button[aria-pressed=true]::after{left:calc(100% + 1px);background:radial-gradient(circle at 100% 0,transparent 13.5px,var(--lib-folder) 14px)}
+.lib-folders button:first-child[aria-pressed=true]::before,.lib-folders button:last-child[aria-pressed=true]::after{display:none}
+.lib-folder{padding:18px 22px 22px;border-radius:18px;background:var(--lib-folder)}
+.lib-folder.at-first{border-top-left-radius:0}
+.lib-folder.at-last{border-top-right-radius:0}
+.lib-doors{display:inline-flex;gap:4px;padding:4px;border:1px solid var(--line);border-radius:999px;background:var(--surface)}
+.lib-door{min-height:38px;padding:6px 20px;border:0;border-radius:999px;background:transparent;color:var(--muted);font:inherit;font-family:var(--font-head);font-weight:600;font-size:15px;cursor:pointer}
+.lib-door:hover{color:var(--ink)}
+.lib-door.door-policy[aria-selected=true]{background:var(--lib-rules);color:var(--lib-rules-ink)}
+.lib-door.door-precedents[aria-selected=true]{background:var(--lib-rulings);color:var(--lib-rulings-ink)}
+#lib-door-panel{margin-top:10px}
+.lib-pane{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto;overscroll-behavior:contain;padding:0 26px 28px;border:1px solid var(--line);border-radius:18px;background:var(--surface);box-shadow:var(--shadow-soft)}
+.lib-pane-bar{position:sticky;top:0;z-index:1;display:flex;align-items:center;justify-content:flex-end;gap:12px;margin:0 -26px 6px;padding:10px 12px;background:var(--surface)}
+.lib-pane-bar a{color:var(--accent);font-weight:600;font-size:var(--fs-small)}
+.lib-pane-close{width:36px;height:36px;border:0;border-radius:50%;background:transparent;color:var(--muted);font-size:22px;line-height:1;cursor:pointer}
+.lib-pane-close:hover{background:var(--hover);color:var(--ink)}
+.lib-pane .lib-head{gap:16px}
+.lib-pane .lib-head .lib-tab{min-width:76px;height:52px;font-size:24px;border-radius:12px}
+.lib-pane .lib-title{font-size:22px}
+.lib-pane .lib-lead{font-size:17px}
+.lib-pane .lib-body{grid-template-columns:1fr;gap:0}
+.lib-pane .lib-links{margin-top:20px;border-top:1px solid var(--line)}
+.lib-pane .lib-verdict .lib-outcome{font-size:20px}
+.lib-list{margin:8px 0 0;padding:0;list-style:none}
+.lib-list>li{border-bottom:1px solid color-mix(in srgb,var(--accent-line) 60%,transparent)}
+.lib-list>li:last-child{border-bottom:0}
+.lib-row{display:grid;grid-template-columns:72px minmax(0,1fr);align-items:start;gap:4px 14px;padding:14px 4px;text-decoration:none}
+.lib-row .lib-tab{margin-top:1px}
+.lib-row.shelf-rules{align-items:center}
+.lib-row.shelf-rules .lib-tab{margin-top:0}
+.lib-row b{display:block;font-weight:600;font-size:17px;line-height:1.35}
+.lib-row-text>span{display:-webkit-box;margin-top:2px;color:var(--muted);-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+.lib-row:hover b{color:var(--accent)}
+.lib-row[aria-current=true]{border-radius:12px;background:var(--surface);box-shadow:0 2px 10px var(--shadow)}
+.lib-row[aria-current=true] b{color:var(--ink)}
+.lib-asof{margin:14px 4px 0;color:var(--muted);font-size:var(--fs-small)}
+.lib-placeholder{margin:14px 4px 0;color:var(--muted);font-size:var(--fs-small)}
+.lib-more{margin:20px 0 0}
+.lib-also{margin:18px 4px 0;color:var(--muted);font-size:var(--fs-small)}
+.lib-also a{color:var(--ink-soft)}
+.lib-also a:hover{color:var(--accent)}
+.lib-more summary{cursor:pointer;font-weight:600;color:var(--ink-soft)}
+.lib-more summary:hover{color:var(--accent)}
+
+/* One entry. */
+.lib-crumbs{margin:0 0 22px;color:var(--muted);font-size:var(--fs-small)}
+.lib-crumbs a{color:var(--muted)}
+.lib-crumbs a:hover{color:var(--accent)}
+.lib-head{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:start;gap:22px}
+.lib-head .lib-tab{min-width:104px;height:72px;padding:0 14px;border-radius:14px;font-size:34px;letter-spacing:-.5px}
+.lib-head .lib-title{margin:2px 0 6px;max-width:34ch;font-family:var(--font-head);font-weight:600;font-size:28px;letter-spacing:-.4px;line-height:1.25}
+.lib-kind{margin:0;color:var(--muted)}
+.lib-types{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 0;padding:0;list-style:none}
+.lib-types li{padding:2px 10px;border-radius:999px;background:var(--tile);color:var(--ink-soft);font-size:var(--fs-small)}
+.lib-verdict{margin:28px 0 0;padding:18px 22px;border:1px solid var(--lib-rulings-line);border-radius:14px;background:var(--lib-rulings-soft)}
+.lib-verdict p{margin:0;max-width:70ch}
+.lib-verdict .lib-outcome{margin-bottom:6px;font-family:var(--font-head);font-weight:600;font-size:22px;letter-spacing:-.3px}
+.lib-lead{margin:26px 0 0;max-width:66ch;font-size:19px;line-height:1.5}
+.lib-body{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:48px;margin-top:8px}
+.lib-text{max-width:68ch;font-size:17px;line-height:1.6}
+.lib-text :is(h2,h3),.lib-links :is(h2,h3){margin:30px 0 8px;font-family:var(--font-head);font-weight:600;font-size:17px}
+.lib-text p{margin:0 0 10px}
+.lib-text ul{margin:0;padding-left:22px}
+.lib-text li{margin:4px 0}
+.lib-quote{margin:12px 0 18px;padding:14px 16px;border-radius:12px;background:var(--sunken)}
+.lib-quote blockquote{margin:0;white-space:pre-line}
+.lib-quote p{margin:8px 0 0;color:var(--muted);font-size:var(--fs-small)}
+.lib-quote a{color:var(--accent)}
+.lib-facts{width:100%;border-collapse:collapse;font-size:16px}
+.lib-facts th,.lib-facts td{padding:8px 10px 8px 0;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.lib-facts th{font-weight:400;color:var(--ink-soft)}
+.lib-facts td{font-weight:600;white-space:nowrap}
+.lib-origin{color:var(--muted);font-size:var(--fs-small)}
+.lib-links :is(h2,h3){color:var(--ink-soft);font-size:15px}
+.lib-links ul{margin:0;padding:0;list-style:none}
+.lib-links li{margin:0 0 6px}
+.lib-links a{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:start;gap:10px;padding:6px 8px;margin:0 -8px;border-radius:10px;text-decoration:none;line-height:1.35}
+.lib-links a:hover{background:var(--hover)}
+.lib-links a:hover span:last-child{color:var(--accent)}
+.lib-links .lib-tab{min-width:46px;height:24px;font-size:12.5px;border-radius:6px}
+.lib-links p{margin:0;color:var(--muted);font-size:var(--fs-small)}
+
+/* How our rules differ from the organisers' sample policy (13 October 2026): a quiet card under the title, its table folded
+   away so the front page stays clean. Not in a case page's library window, which is for looking up a rule. On phones each
+   row becomes a short labelled block. */
+.lib-note{max-width:1080px;margin:20px 0 0;padding:18px 22px;border:1px solid var(--line);border-radius:18px;background:var(--surface)}
+.lib-note h2{margin:0 0 6px;font-size:18px;letter-spacing:-.2px;line-height:1.35}
+.lib-note>p{max-width:80ch;margin:0;color:var(--ink-soft)}
+.lib-note details{margin:12px 0 0}
+.lib-note summary{min-height:32px;cursor:pointer;font-weight:600;color:var(--accent)}
+.lib-note summary:hover{color:var(--accent-hover)}
+.lib-note table{width:100%;margin:12px 0 0;border-collapse:collapse;font-size:var(--fs-small);line-height:1.5}
+.lib-note th,.lib-note td{padding:10px 12px;text-align:left;vertical-align:top;border-top:1px solid var(--line)}
+.lib-note thead th{border-top:0;color:var(--muted);font-family:var(--font-head);font-weight:600;font-size:13px}
+.lib-note tbody th{width:9em;font-family:var(--font-head);font-weight:600;color:var(--ink)}
+.lib-note td{color:var(--ink-soft)}
+.lib-note-rules{display:block;margin-top:6px;color:var(--muted)}
+.lib-note-rules a{color:var(--accent)}
+.lib-note-foot{margin:10px 12px 0;color:var(--muted);font-size:var(--fs-small)}
+/* The organisers' sample cases (owner, 14 October 2026): a second fold-out under the first, one line between them; the case
+   column carries the title and the story; a small tag says whether the two rule books agree. */
+.lib-note-line{max-width:80ch;margin:14px 0 0;color:var(--ink-soft)}
+.lib-note-line+details{margin-top:6px}
+.lib-note-cases tbody th{width:15em}
+.lib-note-case{display:block;color:var(--ink)}
+.lib-note-story{display:block;margin-top:4px;font-family:var(--font-body);font-weight:400;color:var(--ink-soft)}
+.lib-note-tag{display:block;width:fit-content;margin-top:8px;padding:2px 8px;border-radius:999px;font-size:12px;font-weight:600;color:var(--muted);background:var(--paper)}
+.lib-note-tag.is-same{color:var(--accent)}
+.lib-note-why{max-width:80ch;margin:14px 12px 0}
+.lib-note-why p{margin:0 0 8px;color:var(--ink-soft)}
+[data-embedded] .lib-note{display:none}
+/* A rule opened from the note: a popup over the dimmed page, laid out like the side pane (owner, 13 October 2026). On phones
+   it fills the screen, as the pane does. */
+.lib-pane.lib-dialog{position:fixed;inset:0;width:min(760px,calc(100vw - 32px));max-width:none;height:fit-content;max-height:calc(100vh - 64px);margin:auto;color:var(--ink)}
+.lib-dialog::backdrop{background:var(--backdrop)}
+
+@media(max-width:1100px){.lib-front-grid.has-pane{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+/* Tablets and phones: the side pane becomes a sheet over the page; closing it shows the list where it was. */
+@media(max-width:900px){
+  .lib-front-grid.has-pane{grid-template-columns:minmax(0,1fr)}
+  .lib-pane{position:fixed;inset:0;z-index:20;max-height:none;border:0;border-radius:0;box-shadow:none}
+}
+@media(max-width:860px){.lib-body{grid-template-columns:1fr;gap:8px}.lib-links{border-top:1px solid var(--line);margin-top:24px}}
+@media(max-width:640px){
+  .lib-bar{padding:0 16px;gap:10px}
+  .lib-main{padding:24px 16px 56px}
+  .lib-front h1{font-size:26px}
+  .lib-front-grid{margin-top:20px}
+  .lib-note{padding:16px}
+  .lib-note thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+  .lib-note tr,.lib-note tbody th,.lib-note td{display:block;width:auto}
+  .lib-note tbody th{padding:14px 0 4px}
+  .lib-note td{padding:4px 0 8px;border-top:0}
+  .lib-note td::before{content:attr(data-label);display:block;color:var(--muted);font-size:13px;font-weight:600}
+  .lib-note-foot{margin:10px 0 0}
+  .lib-note-cases tbody th{width:auto}
+  .lib-note-why{margin:14px 0 0}
+  .lib-pane.lib-dialog{width:100vw;height:100%;max-height:none;border:0;border-radius:0;box-shadow:none}
+  /* Phones: the four tabs stay in one row under short names, so the chosen one still flows into its panel. */
+  .lib-folders{gap:4px}
+  .lib-folders button{min-height:44px;padding:8px 4px;border-radius:12px;font-size:13px;text-align:center}
+  .lib-folders button[aria-pressed=true]{padding-bottom:16px;border-radius:12px 12px 0 0}
+  .lib-folders button[aria-pressed=true]::before,.lib-folders button[aria-pressed=true]::after{width:10px;height:10px}
+  .lib-folders button[aria-pressed=true]::before{background:radial-gradient(circle at 0 0,transparent 9.5px,var(--lib-folder) 10px)}
+  .lib-folders button[aria-pressed=true]::after{background:radial-gradient(circle at 100% 0,transparent 9.5px,var(--lib-folder) 10px)}
+  .lib-long{display:none}.lib-short{display:inline}
+  .lib-folder{padding:14px 12px 16px;border-radius:14px}
+  .lib-pane{padding:0 16px 24px}
+  .lib-pane-bar{margin:0 -16px 6px}
+  .lib-row{grid-template-columns:62px minmax(0,1fr);padding:12px 0}
+  .lib-head{grid-template-columns:1fr;gap:12px}
+  .lib-head .lib-tab{justify-self:start;min-width:84px;height:54px;font-size:26px}
+  .lib-head h1{font-size:23px}
+  .lib-lead{font-size:18px}
+  .lib-facts td{white-space:normal}
+}
+@media(max-width:400px){.lib-bar-here{display:none}}

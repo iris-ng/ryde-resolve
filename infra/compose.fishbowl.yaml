@@ -1,0 +1,101 @@
+# Apply after compose.yaml and compose.viewer.yaml. Existing DB/worker stay intact.
+services:
+  fishbowl-db:
+    image: postgres:17-bookworm
+    environment:
+      POSTGRES_DB: fishbowl
+      POSTGRES_USER: fishbowl
+      POSTGRES_PASSWORD: ${FISHBOWL_DB_PASSWORD:?Set a dedicated database password}
+    volumes:
+      - fishbowl_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fishbowl -d fishbowl"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+  fishbowl-migrate:
+    image: ryde-live-migrate:${RELEASE_SHA}
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile
+      target: worker
+    environment:
+      DATABASE_URL: postgres://fishbowl:${FISHBOWL_DB_PASSWORD}@fishbowl-db:5432/fishbowl
+    command: ["pnpm", "live:migrate"]
+    depends_on:
+      fishbowl-db:
+        condition: service_healthy
+    restart: "no"
+  fishbowl-worker:
+    image: ryde-live-worker:${RELEASE_SHA}
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile
+      target: live-worker
+    env_file:
+      - /etc/ryde/fishbowl-runtime.env
+    environment:
+      DATABASE_URL: postgres://fishbowl:${FISHBOWL_DB_PASSWORD}@fishbowl-db:5432/fishbowl
+      RYDE_CODEBUDDY_ENTRY: /opt/codebuddy/server.mjs
+      RYDE_ADVOCATE_MODEL: deepseek-v4.1-flash-sg
+      RYDE_JUDGE_MODEL: gpt-5.6-sol
+    volumes:
+      # Root-owned pinned copy of CodeBuddy 2.155.0 (suffix: hash of its file manifest), not the developer
+      # account's global install, so an interactive session or npm update there cannot change the worker's harness.
+      # Never modify it in place; a new version gets a new folder. A missing folder stops the start.
+      - type: bind
+        source: /opt/ryde/codebuddy-2.155.0-15366b11862d
+        target: /opt/codebuddy
+        read_only: true
+        bind:
+          create_host_path: false
+    read_only: true
+    tmpfs:
+      - /tmp:rw,nosuid,nodev,size=256m,mode=1777
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    pids_limit: 192
+    mem_limit: 2g
+    cpus: 2
+    init: true
+    restart: unless-stopped
+    depends_on:
+      fishbowl-migrate:
+        condition: service_completed_successfully
+    profiles: [live-models]
+  web:
+    # Caps (12 October 2026), so a burst of heavy reads cannot starve the database or the worker.
+    cpus: 1.5
+    mem_limit: 1536m
+    environment:
+      FISHBOWL_DATABASE_URL: postgres://fishbowl:${FISHBOWL_DB_PASSWORD}@fishbowl-db:5432/fishbowl
+      FISHBOWL_CONTROL_TOKEN: ${FISHBOWL_CONTROL_TOKEN:?Set a separate operator token}
+      FISHBOWL_SITE_AUTH: "1"
+      # The public copy's read-only token (Caddyfile.fishbowl, owner 11 October 2026): reads, never changes. Not the control token.
+      FISHBOWL_VIEW_TOKEN: ${FISHBOWL_VIEW_TOKEN:?Set a separate view-only token for the public copy}
+      # The cap on new runs in any 24 hours (store.ts dailyRunLimit); 30 unless set for a planned batch.
+      FISHBOWL_DAILY_RUN_LIMIT: ${FISHBOWL_DAILY_RUN_LIMIT:-30}
+      # The operator's pages' origins (route.ts authorize, a comma-separated list). Since 12 October 2026 the operator site is
+      # reached on the server's own loopback address, port 9080; the old address stays listed, harmless once 443 is closed.
+      FISHBOWL_PUBLIC_ORIGIN: "${FISHBOWL_PUBLIC_ORIGIN:-https://${RYDE_SITE_HOST},http://localhost:9080,http://127.0.0.1:9080}"
+      EVIDENCE_DISPUTES_ROOT: /app/evidence/disputes
+  caddy:
+    # The operator site on the server's loopback address only (owner, 12 October 2026): port 9080 there, and
+    # nothing on 80 or 443. `!override` replaces the ports compose.yaml and compose.viewer.yaml publish (Compose 2.24.4 or later).
+    ports: !override
+      - "127.0.0.1:9080:9080"
+    # A second network for a front proxy that should reach Caddy alone, declared here so every Compose command keeps Caddy on it.
+    networks: [default, edge]
+    cpus: 1
+    mem_limit: 256m
+    environment:
+      FISHBOWL_CONTROL_TOKEN: ${FISHBOWL_CONTROL_TOKEN:?Set a separate operator token}
+      FISHBOWL_VIEW_TOKEN: ${FISHBOWL_VIEW_TOKEN:?Set a separate view-only token for the public copy}
+      # The public copy has no login (Caddyfile.fishbowl), so no public user or password hash is passed.
+    volumes:
+      - ./Caddyfile.fishbowl:/etc/caddy/Caddyfile:ro
+networks:
+  edge: {}
+volumes:
+  fishbowl_pgdata:

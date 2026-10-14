@@ -1,0 +1,517 @@
+{
+  "dataset_meta": {
+    "schema_version": "1.0",
+    "synthetic": true,
+    "origin": "team_synthetic",
+    "authored_at": "2026-09-27T16:00:00+08:00",
+    "authored_by": "Ryde Resolve team",
+    "primary_category": "no_show_charge",
+    "secondary_issues": [
+      "cancellation_fee"
+    ],
+    "notes": "Handbook category 2 (No-Show Charge), the mirror image of the organiser sample DISP-002: here the driver declared arrival away from the pickup point. Uses the public Ryde amounts ($6.61, more than three minutes) rather than the organiser sample's $5.00/8-minute block. All people, accounts and coordinates are fictional.",
+    "timezone": "Asia/Singapore"
+  },
+  "dispute_ticket": {
+    "dispute_id": "DISP-004",
+    "trip_id": "TRIP-2026-10388",
+    "filed_by": "rider",
+    "dispute_type": "no_show_charge",
+    "description": "I was charged a $6.61 no-show fee but the driver never came to the pickup point. I was standing at the Stephen Riady Centre driveway in UTown the whole time, I messaged him twice and called him once and he did not answer. He said he was 'at the bus stop' which is on a different road. Then he cancelled on me. Please refund the fee, this is the second time this has happened to me at UTown.",
+    "filed_at": "2026-09-18T08:31:00+08:00",
+    "status": "open",
+    "channel": "RydeHELP in-app form",
+    "requested_remedy": {
+      "type": "fee_reversal",
+      "amount": 6.61,
+      "currency": "SGD"
+    },
+    "issues": [
+      {
+        "issue_id": "I-1",
+        "category": "no_show_charge",
+        "alleged_by": "rider",
+        "against": "driver",
+        "allegation": "Driver was not at the booked pickup point when the no-show cancellation was made.",
+        "claimed_amount": 6.61
+      },
+      {
+        "issue_id": "I-2",
+        "category": "other",
+        "alleged_by": "rider",
+        "against": "driver",
+        "allegation": "Driver did not answer the rider's call before cancelling."
+      }
+    ]
+  },
+  "rider_profile": {
+    "rider_id": "R-9034",
+    "name": "Amirah Binte Rahman",
+    "account_age_days": 402,
+    "total_trips": 96,
+    "avg_rating": 4.9,
+    "dispute_history": {
+      "total_disputes": 1,
+      "upheld": 1,
+      "rejected": 0,
+      "pending": 0,
+      "window_days": 365
+    },
+    "fraud_flags": 0,
+    "payment_method": "RydeCoins wallet",
+    "rating_history": [
+      {
+        "month": "2026-04",
+        "avg_rating": 4.9,
+        "trips": 9
+      },
+      {
+        "month": "2026-05",
+        "avg_rating": 4.9,
+        "trips": 11
+      },
+      {
+        "month": "2026-06",
+        "avg_rating": 5.0,
+        "trips": 7
+      },
+      {
+        "month": "2026-07",
+        "avg_rating": 4.9,
+        "trips": 10
+      },
+      {
+        "month": "2026-08",
+        "avg_rating": 4.8,
+        "trips": 12
+      },
+      {
+        "month": "2026-09",
+        "avg_rating": 4.9,
+        "trips": 6
+      }
+    ]
+  },
+  "driver_profile": {
+    "driver_id": "D-5562",
+    "name": "Ong Kah Seng",
+    "account_age_days": 310,
+    "total_trips": 1140,
+    "avg_rating": 4.6,
+    "dispute_history": {
+      "total_disputes": 5,
+      "upheld_against": 2,
+      "rejected": 2,
+      "pending": 1,
+      "window_days": 365
+    },
+    "fraud_flags": 1,
+    "fraud_flag_details": "irregular_trip_behaviour_notice_sent_2026-08-30: repeated no-show cancellations within 5 minutes of arrival declaration",
+    "vehicle": "Hyundai Ioniq (SMR 3391 D)",
+    "cancellation_rate_pct": 14.8,
+    "licence_type": "PDVL",
+    "rating_history": [
+      {
+        "month": "2026-04",
+        "avg_rating": 4.75,
+        "trips": 190
+      },
+      {
+        "month": "2026-05",
+        "avg_rating": 4.7,
+        "trips": 205
+      },
+      {
+        "month": "2026-06",
+        "avg_rating": 4.66,
+        "trips": 198
+      },
+      {
+        "month": "2026-07",
+        "avg_rating": 4.62,
+        "trips": 176
+      },
+      {
+        "month": "2026-08",
+        "avg_rating": 4.58,
+        "trips": 182
+      },
+      {
+        "month": "2026-09",
+        "avg_rating": 4.55,
+        "trips": 95
+      }
+    ]
+  },
+  "trip_data": {
+    "trip_id": "TRIP-2026-10388",
+    "rider_id": "R-9034",
+    "driver_id": "D-5562",
+    "service_type": "RydeX",
+    "booking_mode": "on_demand",
+    "fare_basis": "fixed_quote",
+    "pickup_location": {
+      "name": "NUS University Town, Stephen Riady Centre driveway pickup point",
+      "lat": 1.3048,
+      "lng": 103.7727,
+      "note": "Rider-selected pickup pin. The NUS Museums bus stop on Kent Ridge Crescent (LTA stop 16161) is about 436 m away in a straight line and about 1.4 km by road."
+    },
+    "dropoff_location": {
+      "name": "Raffles Place MRT Exit A",
+      "lat": 1.284,
+      "lng": 103.8514
+    },
+    "booking_time": "2026-09-18T07:59:40+08:00",
+    "match_time": "2026-09-18T08:00:10+08:00",
+    "scheduled_time": "2026-09-18T08:00:00+08:00",
+    "driver_arrival_time": "2026-09-18T08:04:00+08:00",
+    "driver_wait_start": "2026-09-18T08:04:00+08:00",
+    "cancellation_time": "2026-09-18T08:08:30+08:00",
+    "cancelled_by": "driver",
+    "cancellation_fee": 6.61,
+    "cancellation_reason": "rider_no_show",
+    "quoted_fare": 19.8,
+    "currency": "SGD",
+    "payment_method": "RydeCoins wallet",
+    "trip_status": "cancelled"
+  },
+  "gps_telemetry": [
+    {
+      "timestamp": "2026-09-18T07:52:00+08:00",
+      "lat": 1.296,
+      "lng": 103.785,
+      "speed_kmh": 45,
+      "status": "en_route",
+      "accuracy_m": 7
+    },
+    {
+      "timestamp": "2026-09-18T07:57:00+08:00",
+      "lat": 1.299,
+      "lng": 103.779,
+      "speed_kmh": 30,
+      "status": "en_route",
+      "accuracy_m": 8
+    },
+    {
+      "timestamp": "2026-09-18T08:02:00+08:00",
+      "lat": 1.3005,
+      "lng": 103.7745,
+      "speed_kmh": 15,
+      "status": "en_route",
+      "accuracy_m": 8
+    },
+    {
+      "timestamp": "2026-09-18T08:04:00+08:00",
+      "lat": 1.3011,
+      "lng": 103.774,
+      "speed_kmh": 0,
+      "status": "arrived",
+      "accuracy_m": 8
+    },
+    {
+      "timestamp": "2026-09-18T08:06:00+08:00",
+      "lat": 1.3011,
+      "lng": 103.774,
+      "speed_kmh": 0,
+      "status": "waiting",
+      "accuracy_m": 9
+    },
+    {
+      "timestamp": "2026-09-18T08:08:00+08:00",
+      "lat": 1.3011,
+      "lng": 103.7741,
+      "speed_kmh": 0,
+      "status": "waiting",
+      "accuracy_m": 9
+    },
+    {
+      "timestamp": "2026-09-18T08:08:30+08:00",
+      "lat": 1.3011,
+      "lng": 103.7741,
+      "speed_kmh": 0,
+      "status": "cancelled",
+      "accuracy_m": 9
+    },
+    {
+      "timestamp": "2026-09-18T08:10:00+08:00",
+      "lat": 1.302,
+      "lng": 103.776,
+      "speed_kmh": 22,
+      "status": "en_route",
+      "accuracy_m": 8
+    }
+  ],
+  "rider_location": {
+    "sharing": "shared",
+    "source": "The rider's app location as the platform records it: team-written case data, like the driver's GPS in this file.",
+    "readings": [
+      {
+        "timestamp": "2026-09-18T08:00:10+08:00",
+        "lat": 1.304809,
+        "lng": 103.772727,
+        "accuracy_m": 9,
+        "app_state": "foreground"
+      },
+      {
+        "timestamp": "2026-09-18T08:04:00+08:00",
+        "lat": 1.304836,
+        "lng": 103.772682,
+        "accuracy_m": 10,
+        "app_state": "foreground"
+      },
+      {
+        "timestamp": "2026-09-18T08:06:15+08:00",
+        "lat": 1.304773,
+        "lng": 103.772736,
+        "accuracy_m": 11,
+        "app_state": "foreground"
+      },
+      {
+        "timestamp": "2026-09-18T08:08:25+08:00",
+        "lat": 1.304782,
+        "lng": 103.772673,
+        "accuracy_m": 9,
+        "app_state": "foreground"
+      }
+    ]
+  },
+  "chat_logs": [
+    {
+      "timestamp": "2026-09-18T08:00:30+08:00",
+      "sender": "driver",
+      "type": "message",
+      "content": "Coming, 4 min. Blue Ioniq."
+    },
+    {
+      "timestamp": "2026-09-18T08:04:05+08:00",
+      "sender": "driver",
+      "type": "message",
+      "content": "I'm here."
+    },
+    {
+      "timestamp": "2026-09-18T08:05:10+08:00",
+      "sender": "rider",
+      "type": "message",
+      "content": "I'm at the Stephen Riady Centre driveway, I can't see a blue Ioniq. Where are you?"
+    },
+    {
+      "timestamp": "2026-09-18T08:07:00+08:00",
+      "sender": "rider",
+      "type": "message",
+      "content": "Are you at UTown? I'm right at the pickup pin."
+    },
+    {
+      "timestamp": "2026-09-18T08:07:20+08:00",
+      "sender": "driver",
+      "type": "message",
+      "content": "I am here at the bus stop."
+    },
+    {
+      "timestamp": "2026-09-18T08:07:50+08:00",
+      "sender": "rider",
+      "type": "call",
+      "content": "Outgoing call to driver, not answered (rang 25 s, no response).",
+      "call_outcome": "not_answered",
+      "call_duration_s": 25
+    },
+    {
+      "timestamp": "2026-09-18T08:08:30+08:00",
+      "sender": "system",
+      "type": "system",
+      "content": "Trip cancelled by driver. Reason: rider_no_show. Cancellation fee of $6.61 deducted from RydeCoins wallet."
+    },
+    {
+      "timestamp": "2026-09-18T08:09:05+08:00",
+      "sender": "rider",
+      "type": "message",
+      "content": "You cancelled?? I was standing at the pickup point the whole time."
+    }
+  ],
+  "app_events": [
+    {
+      "timestamp": "2026-09-18T07:59:40+08:00",
+      "event_type": "booking_confirmed",
+      "details": "Rider R-9034 booked RydeX TRIP-2026-10388 from NUS University Town (Stephen Riady Centre driveway) to Raffles Place MRT Exit A. Fixed quote $19.80.",
+      "actor": "rider"
+    },
+    {
+      "timestamp": "2026-09-18T08:00:10+08:00",
+      "event_type": "driver_assigned",
+      "details": "Driver D-5562 (Ong Kah Seng, Hyundai Ioniq SMR 3391 D) matched. Pickup ETA 4 min. Rider grace period starts.",
+      "actor": "system"
+    },
+    {
+      "timestamp": "2026-09-18T08:00:15+08:00",
+      "event_type": "driver_en_route",
+      "details": "Driver started navigating to the pickup pin. Live tracking enabled.",
+      "actor": "driver"
+    },
+    {
+      "timestamp": "2026-09-18T08:04:00+08:00",
+      "event_type": "driver_marked_arrived",
+      "details": "Driver tapped I'm Here. Driver GPS about 1.4 km by road (436 m straight line) from the pickup pin. Auto-arrival geofence (50 m) NOT satisfied; manual arrival accepted.",
+      "actor": "driver",
+      "data": {
+        "distance_to_pin_m": 436,
+        "geofence_m": 50,
+        "geofence_satisfied": false
+      }
+    },
+    {
+      "timestamp": "2026-09-18T08:04:03+08:00",
+      "event_type": "rider_notified",
+      "details": "Push notification sent to rider: 'Your driver has arrived.'",
+      "actor": "system"
+    },
+    {
+      "timestamp": "2026-09-18T08:04:05+08:00",
+      "event_type": "wait_timer_started",
+      "details": "Waiting timer started from manual arrival declaration.",
+      "actor": "system"
+    },
+    {
+      "timestamp": "2026-09-18T08:07:50+08:00",
+      "event_type": "rider_called_driver",
+      "details": "Rider initiated in-app call to driver. Rang 25 s, not answered.",
+      "actor": "rider"
+    },
+    {
+      "timestamp": "2026-09-18T08:08:30+08:00",
+      "event_type": "cancellation_by_driver",
+      "details": "Driver cancelled with reason rider_no_show 4 min 30 s after arrival declaration. Cancellation fee $6.61 applied.",
+      "actor": "driver"
+    },
+    {
+      "timestamp": "2026-09-18T08:08:32+08:00",
+      "event_type": "cancellation_fee_applied",
+      "details": "$6.61 deducted from rider RydeCoins wallet and credited to driver wallet (driver compensation $4.50; platform retains balance).",
+      "actor": "system"
+    },
+    {
+      "timestamp": "2026-09-18T08:08:35+08:00",
+      "event_type": "driver_released",
+      "details": "Driver D-5562 released from trip. Trip status: cancelled (rider_no_show).",
+      "actor": "system"
+    },
+    {
+      "timestamp": "2026-09-18T08:12:00+08:00",
+      "event_type": "rider_rebooked",
+      "details": "Rider booked a new trip TRIP-2026-10391 from the same pickup pin; that driver arrived at the driveway at 08:19.",
+      "actor": "rider"
+    }
+  ],
+  "eta_history": [
+    {
+      "issued_at": "2026-09-18T08:00:10+08:00",
+      "target": "pickup",
+      "estimated_arrival_at": "2026-09-18T08:04:00+08:00",
+      "revision": 0,
+      "source": "dispatch",
+      "displayed_to_rider": true
+    }
+  ],
+  "payment_events": [
+    {
+      "timestamp": "2026-09-18T08:08:32+08:00",
+      "type": "wallet_debit",
+      "amount": 6.61,
+      "status": "settled",
+      "method": "RydeCoins wallet",
+      "reference": "WD-10388",
+      "counterparty": "rider",
+      "note": "Cancellation fee."
+    },
+    {
+      "timestamp": "2026-09-18T08:08:32+08:00",
+      "type": "wallet_credit",
+      "amount": 4.5,
+      "status": "settled",
+      "method": "driver wallet",
+      "reference": "WC-10388",
+      "counterparty": "driver",
+      "note": "Driver cancellation compensation. Distinct from the rider's charge."
+    }
+  ],
+  "statements": [
+    {
+      "party": "rider",
+      "submitted_at": "2026-09-18T08:31:00+08:00",
+      "channel": "RydeHELP",
+      "text": "I set the pickup pin at the Stephen Riady Centre driveway because that is where cars can stop. I got the 'driver has arrived' notification at 8.04 but there was no car. I messaged twice and called once. He replied that he was at the bus stop by the NUS Museums on Kent Ridge Crescent, you cannot even see the driveway from there. He cancelled at 8.08 and I was charged $6.61. The next driver came to the driveway with no problem."
+    },
+    {
+      "party": "driver",
+      "submitted_at": "2026-09-18T14:05:00+08:00",
+      "channel": "RydeHELP driver app",
+      "text": "UTown driveway is always congested in the morning so I waited at the bus stop like most drivers do. I pressed I'm Here at 8.04 and told the rider. I waited more than 3 minutes and she did not come, so I cancelled as a no-show. I did not see the call because I was looking at the road. The rider could have walked to the bus stop."
+    }
+  ],
+  "documents": [
+    {
+      "document_id": "DOC-SS-10388",
+      "kind": "screenshot",
+      "submitted_by": "rider",
+      "submitted_at": "2026-09-18T08:31:00+08:00",
+      "filename": "rider-map-screenshot-0806.txt",
+      "extracted_fields": {
+        "screen_time": "08:06",
+        "driver_marker_label": "Kent Ridge Cres",
+        "pickup_pin_label": "Stephen Riady Centre"
+      },
+      "text": "Author-verified transcript of rider's screenshot taken 08:06: map shows the car marker on Kent Ridge Crescent, the pickup pin at Stephen Riady Centre, and banner 'Your driver has arrived'.",
+      "provenance_notes": "Text-track substitute for the PNG. Not an OCR output and not an additional witness; the driver GPS trace is the primary record of position."
+    }
+  ],
+  "evidence_requests": [
+    {
+      "request_id": "ER-1",
+      "requested_by": "rider_advocate",
+      "target": "Driver GPS positions 08:04-08:08 with accuracy",
+      "purpose": "Establish whether the driver was at the pickup pin when the no-show cancellation was made.",
+      "status": "fulfilled",
+      "result": "All samples between 08:04 and 08:08 are about 436 m straight-line from the pin, accuracy 8-9 m."
+    },
+    {
+      "request_id": "ER-2",
+      "requested_by": "driver_advocate",
+      "target": "Pickup-point access restrictions at Stephen Riady Centre driveway on weekday mornings",
+      "purpose": "Support the driver's claim that the driveway is not practically accessible.",
+      "status": "unavailable",
+      "result": "No platform record of access restrictions for this pin. The replacement driver reached the driveway 11 minutes later."
+    },
+    {
+      "request_id": "ER-3",
+      "requested_by": "judge",
+      "target": "Driver's no-show cancellations in the last 90 days",
+      "purpose": "Integrity signal only; not proof about this trip.",
+      "status": "fulfilled",
+      "result": "14 no-show cancellations in 90 days across 1,020 trips; 9 within 5 minutes of a manual arrival declaration. Irregular-behaviour notice sent 30 August 2026."
+    }
+  ],
+  "policy_snapshot": {
+    "ruleset_version": "policies/ryde/ruleset.json v1.0 (2026-09-27)",
+    "applicable_rule_ids": [
+      "P01",
+      "P02",
+      "P04",
+      "P06",
+      "P08",
+      "P14",
+      "P15",
+      "P18",
+      "P28",
+      "P30",
+      "P31"
+    ],
+    "applicability_assumptions": [
+      "RydeX on-demand trip on 18 September 2026; $6.61 rider-facing cancellation fee and the more-than-three-minutes condition from the 23 September 2026 archive are assumed applicable.",
+      "The GPS-at-pickup requirement is published for the waiting fee (P06); applying it to a no-show cancellation is the team's reading (P04), not an express Ryde rule.",
+      "No published pickup radius exists; the 50 m geofence is a platform product setting in this dataset, not policy."
+    ],
+    "known_conflicts": [
+      "C01: waiting fee $5 versus $6.61.",
+      "C03: fee labels and payee differ across pages.",
+      "C05: waiver voucher versus discretionary refund."
+    ]
+  }
+}

@@ -1,0 +1,92 @@
+# Optional overlay: CodeBuddy stays the harness for every role, and the roles in RYDE_GATEWAY_ROLES send
+# their model calls to our own model gateway (apps/model-gateway) instead of CodeBuddy's hosted models.
+# As set here (1 October 2026, after the CodeBuddy account ran out of credits mid-run) every role goes through
+# the gateway: seat A runs gpt-6.1-sol on our OpenAI key; evidence, policy, rider and driver run
+# and seat B deepseek/deepseek-v4.1-flash, and seat C z-ai/glm-5.3, on our OpenRouter key
+# (a model id of the form maker/model is an OpenRouter model). No CodeBuddy-hosted model is called.
+# To return a role to CodeBuddy's hosted models, take it out of RYDE_GATEWAY_ROLES and give it a CodeBuddy model id.
+# The photo examiner (cleaning claims with photo files) is a direct gateway call from the worker on
+# gpt-6-luna from 4 October (RYDE_PHOTO_MODEL overrides), so that model is on the allowlist too; gpt-5.6-luna stays listed
+# so RYDE_PHOTO_MODEL can roll the photo step back.
+# For all roles on OpenAI, set RYDE_GATEWAY_ROLES to "" and the other models to ones listed in
+# RYDE_GATEWAY_MODELS. Apply after compose.fishbowl.yaml with --profile live-models. Needs three
+# root-only files (mode 0600), never printed or committed:
+#   /etc/ryde/openai.env         OPENAI_API_KEY=...            (gateway only)
+#   /etc/ryde/openrouter.env     OPENROUTER_API_KEY=...        (gateway only)
+#   /etc/ryde/model-gateway.env  RYDE_MODEL_GATEWAY_SECRET=... (gateway and worker; openssl rand -hex 32)
+# Leaving this file out of the Compose command returns the worker to CodeBuddy mode. See docs/MODEL-GATEWAY.md.
+services:
+  model-gateway:
+    image: ryde-model-gateway:${RELEASE_SHA}
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile
+      target: model-gateway
+    env_file:
+      - /etc/ryde/openai.env
+      - /etc/ryde/openrouter.env
+      - /etc/ryde/model-gateway.env
+    environment:
+      RYDE_GATEWAY_HOST: 0.0.0.0
+      RYDE_GATEWAY_PORT: "8787"
+      RYDE_GATEWAY_MODELS: gpt-6.1-sol,gpt-5.6-sol,gpt-6-luna,gpt-5.6-luna,deepseek/deepseek-v4.1-flash,z-ai/glm-5.3
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:8787/health').then(r=>process.exit(r.ok?0:1),()=>process.exit(1))"]
+      interval: 10s
+      timeout: 3s
+      retries: 6
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    pids_limit: 64
+    mem_limit: 512m
+    cpus: 1
+    init: true
+    restart: unless-stopped
+    profiles: [live-models]
+  fishbowl-worker:
+    # Compose adds this to the base file's fishbowl-runtime.env. Each role process gets only its own
+    # route's credentials: gateway roles never see the CodeBuddy token, CodeBuddy roles never see the secret.
+    env_file:
+      - /etc/ryde/model-gateway.env
+      # Outside lookups (owner, 11 October 2026, AD-11): the four keys (OneMap, LTA DataMall, Mapillary, data.gov.sg), root-owned, mode
+      # 600. The worker process makes every outside call; its role children never get a key (executor.ts roleEnv).
+      - /etc/ryde/outside-data.env
+      # Semantic index (owner, 11 October 2026, AD-17): the Voyage key and its settings (VOYAGE_API_KEY, RYDE_SEMANTIC_SEARCH=1,
+      # RYDE_EMBEDDING_MODEL=voyage-4-large, RYDE_EMBEDDING_DIMENSION=512, RYDE_RERANK_MODEL=rerank-2.5), root-owned, mode 600.
+      # The worker alone embeds and reranks; role children never get the key. Optional: without the file the worker runs with fact matching only.
+      - path: /etc/ryde/semantic.env
+        required: false
+    environment:
+      RYDE_MODEL_GATEWAY_URL: http://model-gateway:8787
+      RYDE_GATEWAY_ROLES: rider,driver,evidence,policy,judge,judge_b,judge_c
+      RYDE_ADVOCATE_MODEL: deepseek/deepseek-v4.1-flash
+      # Evidence Collector on gpt-6.1-sol from the MVP fixes (owner, 10 October 2026): it now also reads the chat message by
+      # message, and every later role builds on its notes. Same model and provider as seat A.
+      RYDE_EVIDENCE_MODEL: gpt-6.1-sol
+      RYDE_POLICY_MODEL: deepseek/deepseek-v4.1-flash
+      # Panel seats B and C on OpenRouter: two different makers from seat A and from each other. Seat B is the flash model: the
+      # Judge-only pre-flight of deepseek/deepseek-v4-pro (1 October) had four submissions rejected and did not finish.
+      RYDE_JUDGE_B_MODEL: deepseek/deepseek-v4.1-flash
+      RYDE_JUDGE_C_MODEL: z-ai/glm-5.3
+      # Judge on gpt-6.1-sol from 1 October (user decision after the DISP-013 comparison: same answer, fewer tokens).
+      RYDE_JUDGE_MODEL: gpt-6.1-sol
+      # Sixteen turns for every Judge seat (the bound in config.ts): run 830b3fe4 needed three submissions, and twelve turns
+      # with two reserved can leave no fourth attempt. The prompt reserves four turns at this budget.
+      RYDE_JUDGE_MAX_TURNS: "16"
+    depends_on:
+      model-gateway:
+        condition: service_healthy
+  web:
+    # Outside lookups (AD-15): the Mapillary key only, so the External tab can show a run's street picture by its ID.
+    env_file:
+      - /etc/ryde/outside-web.env
+    # The panel is pinned into the packet when the web app creates a run (packages/live-fishbowl/store.ts startRun), so
+    # the switch belongs on the web service, not the worker. Found on 1 October: run e28d1159 (DISP-013) ran a single
+    # Judge because only the worker carried it. Judges B and C run the models the worker's RYDE_JUDGE_B_MODEL and
+    # RYDE_JUDGE_C_MODEL name (their agent files pin the CodeBuddy-hosted defaults).
+    # Off from 2 October (user decision): in the three live panel runs the panel never caught a wrong answer, blocked one
+    # correct release when Judge B crashed, and Judge B or C failed in two of three. New runs use one Judge (gpt-6.1-sol);
+    # recorded panel runs still show their three judges. Set "1" to switch it back on.
+    environment:
+      RYDE_JUDGE_PANEL: "0"

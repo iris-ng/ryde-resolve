@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "source": "OpenStreetMap standard tile layer (tile.openstreetmap.org), saved once by evidence/tools/fetch-route-maps.mjs",
+  "attribution": "© OpenStreetMap contributors",
+  "licence": "Map data © OpenStreetMap contributors (ODbL); map images CC BY-SA 2.0. See https://www.openstreetmap.org/copyright",
+  "fetched_at": "2026-10-11T11:41:43.117Z",
+  "entries": {
+    "DISP-004": {
+      "zoom": 16,
+      "frame": {
+        "x0": 13224572.8,
+        "y0": 8327710.9,
+        "x1": 13225043.8,
+        "y1": 8328078.9
+      },
+      "tiles": {
+        "x0": 51658,
+        "x1": 51660,
+        "y0": 32530,
+        "y1": 32531
+      }
+    },
+    "DISP-109": {
+      "zoom": 13,
+      "frame": {
+        "x0": 1653397.9,
+        "y0": 1040543.8,
+        "x1": 1653899.3,
+        "y1": 1040935.5
+      },
+      "tiles": {
+        "x0": 6458,
+        "x1": 6460,
+        "y0": 4064,
+        "y1": 4066
+      }
+    }
+  }
+}

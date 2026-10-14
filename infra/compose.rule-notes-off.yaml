@@ -1,0 +1,11 @@
+# Experiment (owner, 14 October 2026): the agents get each rule without the team's two note lists, "Limits and exceptions"
+# and "What the pages leave open" (packages/policy/ruleset.ts agentRule). Add this file after the four usual Compose files when
+# starting the web (it pins a run's cards) and the worker (it embeds the rules). Leave it out to go back: the same images
+# then run with the full cards. The Library page is not affected either way.
+services:
+  web:
+    environment:
+      RYDE_RULE_NOTES: "off"
+  fishbowl-worker:
+    environment:
+      RYDE_RULE_NOTES: "off"

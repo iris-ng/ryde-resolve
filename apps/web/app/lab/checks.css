@@ -1,0 +1,197 @@
+/* The MVP checks made visible (evidence-checks.tsx, 10 October 2026), built from the page's own parts: cards with a light
+   border, citation chips, the conversation's grey bubbles (ryde.css) and the rule chips of the Rules tab. House style: light-
+   tinted cards, no side stripe or coloured left bar anywhere (owner, 4 and 10 October). Every colour is a theme token. */
+.lab-check-card{min-width:0;margin:0 0 16px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.lab-check-card h2{margin:0 0 4px;font-size:var(--fs-body)}
+.lab-check-card h3{margin:14px 0 6px;font-size:var(--fs-body)}
+.lab-check-note{margin:0 0 10px;font-size:var(--fs-small);line-height:1.5;color:var(--muted)}
+.lab-check-list{margin:10px 0 0;padding:0;list-style:none}
+.lab-check-list li{padding:8px 0;border-top:1px solid var(--line)}
+.lab-check-list p{margin:0 0 4px;font-size:var(--fs-body);line-height:1.55;overflow-wrap:anywhere}
+.lab .lab-check-card .citation,.lab .lab-quote .citation,.lab .lab-own-side .citation{margin:2px 4px 2px 0}
+
+/* The route drawing: planned route dashed, the GPS trace solid with its points, the best road route a wide pale band under
+   both, stops as rings. The legend repeats each line's own pattern, so no line is told apart by colour alone. */
+.lab-route-frame{position:relative;width:100%;margin:4px 0 8px;border:1px solid var(--line);border-radius:8px;background:var(--sunken);overflow:hidden}
+.lab-route-frame .lab-route-map{position:absolute;inset:0;display:block;width:100%;height:100%}
+/* The saved street map sits under the drawing, greyed so the route's own lines carry the colour; dark themes invert it. */
+.lab-route-frame .route-tiles{position:absolute;inset:0;filter:grayscale(1) contrast(.9);opacity:.6}
+.lab-route-frame .route-tiles img{position:absolute;display:block;max-width:none;user-select:none;pointer-events:none}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]) .lab-route-frame .route-tiles{filter:invert(1) grayscale(1) brightness(.9) contrast(.85);opacity:.5}}
+:root[data-theme=dark] .lab-route-frame .route-tiles{filter:invert(1) grayscale(1) brightness(.9) contrast(.85);opacity:.5}
+.lab-map-credit a{color:var(--accent);font-weight:600}
+.lab-check-card .route-planned{fill:none;stroke:var(--ink-soft);stroke-width:2;stroke-dasharray:6 4}
+.lab-check-card .route-trace{fill:none;stroke:var(--accent);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round}
+.lab-check-card .route-best{fill:none;stroke:var(--role-evidence);stroke-width:7;stroke-opacity:.45;stroke-linejoin:round;stroke-linecap:round}
+.lab-check-card .route-sample{fill:var(--accent);stroke:var(--sunken);stroke-width:1.2}
+/* A reading with no accuracy figure (owner, 13 October 2026): drawn hollow, "accuracy not recorded"; no check uses it. */
+.lab-check-card .route-sample.unrated{fill:none;stroke:var(--ink);stroke-width:1.5}
+.lab-check-card .route-sample.rider{fill:var(--role-rider);stroke:var(--surface);stroke-width:1.2}
+.lab-check-card .route-stop{fill:var(--sunken);stroke:var(--ink);stroke-width:2}
+.lab-check-card .route-end{fill:var(--ink);stroke:var(--sunken);stroke-width:1.5}
+.lab-check-card .route-pin{fill:var(--warn,#c0392b);stroke:var(--sunken);stroke-width:2}
+.lab-check-card .route-label{font-family:var(--font-body);font-size:12px;font-weight:600;fill:var(--ink);paint-order:stroke;stroke:var(--sunken);stroke-width:3px;stroke-linejoin:round}
+.lab-check-card .route-scale line{stroke:var(--muted);stroke-width:1.5}
+.lab-check-card .route-scale text{font-family:var(--font-body);font-size:11px;fill:var(--muted)}
+.lab-route-legend{display:flex;flex-wrap:wrap;gap:4px 14px;margin:0;padding:0;list-style:none;font-size:var(--fs-small);line-height:1.4;color:var(--muted)}
+.lab-route-legend li{display:inline-flex;align-items:center;gap:6px;min-width:0}
+.lab-route-legend svg{flex:none;width:28px;height:12px}
+
+/* Promo and fare checks. */
+.lab-fare-rebuild{margin:0 0 12px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--sunken)}
+.lab-check-card .lab-fare-rebuild h3{margin:0 0 6px}
+.lab-fare-parts{margin:0 0 6px;padding:0}
+.lab-fare-parts>div{display:flex;justify-content:space-between;gap:12px;padding:3px 0;font-size:var(--fs-body)}
+.lab-fare-parts dt{min-width:0;overflow-wrap:anywhere}.lab-fare-parts dd{margin:0;white-space:nowrap;font-variant-numeric:tabular-nums}
+.lab-fare-parts .lab-fare-sum{margin-top:3px;padding-top:6px;border-top:1px solid var(--line-strong);font-weight:600}
+.lab-fare-rebuild p{margin:6px 0;font-size:var(--fs-body);line-height:1.5}
+.lab-fare-extra{margin-top:8px;padding:8px 10px;border:1px solid var(--warn-line);border-radius:8px;background:var(--warn-soft)}
+.lab-fare-extra ul{margin:0;padding:0;list-style:none}
+.lab-fare-extra li{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;font-size:var(--fs-body);overflow-wrap:anywhere}
+.lab-check-table{width:100%;border-collapse:collapse;font-size:var(--fs-body)}
+.lab-check-table th{padding:4px 0;border-bottom:1px solid var(--line);font-size:var(--fs-small);font-weight:600;color:var(--muted);text-align:left}
+.lab-check-table td{padding:8px 0;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45}
+.lab-check-table th:last-child,.lab-check-table td:last-child{width:1%;padding-left:10px;text-align:right;white-space:nowrap}
+.lab-check-table td>span:first-child{display:block;overflow-wrap:anywhere}
+.lab-answer{display:inline-block;min-width:4.8em;padding:1px 8px;border:1px solid var(--line-strong);border-radius:999px;font-size:var(--fs-small);font-weight:600;text-align:center}
+.lab-answer.answer-unknown{border-style:dashed;color:var(--muted)}
+
+/* The chat, as the Evidence Collector read it: each message a grey bubble like the conversation's (ryde.css), with no edge;
+   the sender's name carries the sender's colour. */
+.lab-chat-lines{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.lab-chat-lines li{--role:var(--role-default);min-width:0;padding:10px 12px;border:0;border-radius:6px 20px 20px 20px;background:var(--tile)}
+.lab-chat-lines li.from-rider{--role:var(--role-rider)}.lab-chat-lines li.from-driver{--role:var(--role-driver)}
+.lab-chat-lines li.unread{background:transparent;box-shadow:inset 0 0 0 1px var(--line);color:var(--muted)}
+.lab-chat-line-head{display:flex;flex-wrap:wrap;align-items:center;gap:2px 10px;font-size:var(--fs-small)}
+.lab-chat-line-head b{font-weight:600;color:var(--role)}.lab-chat-lines li.unread .lab-chat-line-head b{color:var(--muted)}
+.lab-chat-line-head time{color:var(--muted)}
+.lab .lab-chat-line-head .citation{margin:0 0 0 auto}
+.lab-chat-lines p{margin:4px 0 6px;font-size:var(--fs-body);line-height:1.5;overflow-wrap:anywhere}
+.lab-chat-marks{display:inline-flex;flex-wrap:wrap;align-items:center;gap:6px;vertical-align:middle}
+.lab-tone,.lab-act{display:inline-flex;align-items:center;gap:5px;padding:0 8px;border:1px solid var(--line-strong);border-radius:999px;background:var(--surface);color:var(--ink);font-size:var(--fs-small);line-height:1.6;white-space:nowrap}
+.lab-tone i{flex:none;width:8px;height:8px;border-radius:50%;background:var(--idle)}
+.lab-tone.tone-calm i,.lab-tone.tone-polite i{background:var(--good)}
+.lab-tone.tone-frustrated i{background:var(--warn)}
+.lab-tone.tone-angry i,.lab-tone.tone-abusive i{background:var(--bad)}
+.lab-tone.tone-abusive,.lab-act.act-threat{border-color:var(--bad-line);background:var(--bad-soft);color:var(--bad-ink);font-weight:600}
+.lab-act{border-style:dashed;color:var(--ink-soft)}
+
+/* A quoted citation: a light-tinted tile (no left bar), the words in quotation marks, then who said it and the chip. */
+.lab-quote{min-width:0;margin:8px 0;padding:8px 12px;border:0;border-radius:12px;background:color-mix(in srgb,var(--accent) 6%,var(--surface))}
+.lab .lab-quote p{margin:0 0 2px;font-size:var(--fs-body);line-height:1.55;white-space:normal;overflow-wrap:anywhere}
+.lab-quote-who{display:inline-flex;flex-wrap:wrap;align-items:center;gap:6px;margin-right:6px;font-size:var(--fs-small)}
+.lab-quote-who b{font-weight:600}
+
+.lab-disagreements{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+.lab-disagreements>li{min-width:0;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--sunken)}
+.lab-disagreements>li>b{display:block;margin-bottom:4px;font-size:var(--fs-body)}
+.lab .lab-disagreements p{margin:2px 0;font-size:var(--fs-body);line-height:1.5;overflow-wrap:anywhere}
+.lab-disagreements p span{font-weight:600}
+.lab-disagreements p:nth-of-type(1) span{color:var(--role-rider)}.lab-disagreements p:nth-of-type(2) span{color:var(--role-driver)}
+/* The quoted evidence under a disagreement, folded until asked for. */
+.lab-disagree-evidence{margin-top:6px}
+.lab-disagree-evidence>summary{display:inline-block;cursor:pointer;color:var(--accent);font-size:var(--fs-small);font-weight:600}
+.lab-disagree-evidence>summary:hover{text-decoration:underline}
+.lab-disagree-evidence[open]>summary{margin-bottom:2px}
+
+/* An advocate's own-side list, at the top of its opening argument; the rules a claim names, as the Rules tab's chips. */
+.lab-own-side{min-width:0;margin:0 0 16px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--sunken)}
+.lab-own-side h4{margin:0 0 6px;font-size:var(--fs-body)}
+.lab-own-side ul{margin:0;padding:0;list-style:none}
+.lab-own-side li{display:flex;flex-wrap:wrap;align-items:center;gap:2px 6px;padding:3px 0;font-size:var(--fs-body);overflow-wrap:anywhere}
+.lab-own-side li>span{margin-right:4px}
+.lab-own-side .lab-check-note{margin:6px 0 0}
+.lab .argument-view .lab-claim-rules{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0;white-space:normal}
+.lab-claim-rules>span{font-size:var(--fs-small);color:var(--muted)}
+.lab .lab-rule-chip{display:inline-block;padding:1px 9px;border-radius:6px;background:var(--lib-rules,#d42a57);color:var(--lib-rules-ink,#fff);font-family:var(--font-head);font-size:12.5px;font-weight:600;text-decoration:none}
+.lab .lab-rule-chip:hover{text-decoration:underline}
+
+/* A run the chat reading holds: the Status card's quotes, and the safety dialog's section above the handoff controls. */
+.lab-hold-quotes{margin:8px 0 10px}
+.lab-hold .lab-quote{background:color-mix(in srgb,var(--warn) 12%,var(--surface))}
+.lab-chat-hold{margin:14px 0;padding:12px 14px;border:1px solid var(--warn-line);border-radius:12px;background:var(--warn-soft)}
+.lab-chat-hold h3{margin:0 0 6px;font-size:var(--fs-body)}
+.lab-chat-hold>p{margin:0 0 8px;font-size:var(--fs-body);line-height:1.55}
+.lab-chat-hold .lab-quote{background:color-mix(in srgb,var(--warn) 12%,var(--surface))}
+.lab-chat-hold .lab-gate-notice{margin:8px 0 0}
+
+/* A check's lines, grouped by file: the file's name in small muted type, then a chip for each range. */
+.lab-cite-list{display:flex;flex-wrap:wrap;align-items:center;gap:2px 12px;margin-top:2px}
+.lab-cite-file{display:inline-flex;flex-wrap:wrap;align-items:center;gap:2px 4px;min-width:0;font-size:var(--fs-small);color:var(--muted);overflow-wrap:anywhere}
+.lab-cite-file>span{margin-right:2px}
+.lab .lab-check-card .lab-cite-file .citation{margin:2px 0;padding:2px 9px}
+.lab-check-table .lab-cite-list{margin-top:4px}
+
+/* The second release (record-checks.tsx, 10 October 2026), in the same parts: light-tinted tiles with a light border, the
+   fare table's answer pills, citation chips grouped by file, quoted points as the page's quote tiles. No side stripes. */
+/* An advocate's lookup trail, after its own-side list in the full response. */
+.lab-lookups{min-width:0;margin:0 0 16px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--sunken)}
+.lab-lookups h4{margin:0 0 6px;font-size:var(--fs-body)}
+.lab-lookups ol{margin:0;padding:0;list-style:none}
+.lab-lookups li{min-width:0;padding:7px 0;border-top:1px solid var(--line)}
+.lab-lookups li:first-child{border-top:0;padding-top:2px}
+.lab .lab-lookups li>p{margin:0 0 2px;font-size:var(--fs-body);line-height:1.5;overflow-wrap:anywhere}
+.lab .lab-lookups li>p:first-child{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px}
+.lab .lab-lookups .lab-check-note{margin:8px 0 0}
+.lab .lab-lookup-said{margin:2px 0;font-size:var(--fs-small);line-height:1.5;color:var(--muted);overflow-wrap:anywhere}
+.lab .lab-lookups .lab-cite-file .citation,.lab .lab-history-card .lab-cite-file .citation{margin:2px 0;padding:2px 9px}
+.lab .lab-gaps .citation,.lab .lab-gap-answers .citation{margin:2px 4px 2px 0}
+/* A record request's answer: the fare table's pill; "Can't be checked" dashed like its Unknown. */
+.lab-record-answer{min-width:0;white-space:nowrap}
+.lab-record-answer.answer-on{border-color:var(--good-line);background:var(--good-soft);color:var(--good-ink)}
+.lab-record-answer.answer-off{background:var(--surface)}
+
+/* Gap points in a challenge and the Arbitrator's answers: one tile each, like the points of disagreement. */
+.lab-gaps,.lab-gap-answers{min-width:0;margin:14px 0}
+.lab-gaps>ol,.lab-gap-answers>ul{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+.lab-gaps>ol>li,.lab-gap-answers>ul>li{min-width:0;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--sunken)}
+.lab-gaps>ol>li>b,.lab-gap-answers>ul>li>b{display:block;margin-bottom:4px;font-size:var(--fs-body)}
+.lab .argument-view .lab-gaps p,.lab .argument-view .lab-gap-answers p{margin:2px 0;font-size:var(--fs-body);line-height:1.55;white-space:normal;overflow-wrap:anywhere}
+.lab .argument-view .lab-gaps .lab-lookup-said{font-size:var(--fs-small);color:var(--muted)}
+.lab-gap-label{font-weight:600}
+.lab .argument-view .lab-gaps .lab-quote,.lab .argument-view .lab-gap-answers .lab-quote{margin:4px 0 6px;background:var(--surface)}
+.lab .argument-view .lab-gaps .lab-check-note{margin:8px 0 0;font-size:var(--fs-small);color:var(--muted)}
+.lab-gap-effect{min-width:0;margin-right:6px;white-space:nowrap}
+.lab-gap-effect.effect-lowers{border-color:var(--warn-line);background:var(--warn-soft)}
+.lab-gap-effect.effect-none{background:var(--surface)}
+
+/* The Past behaviour card: the plain line first, then each party's four parts as the route card's rows. */
+.lab .lab-history-note{margin:0 0 4px;font-size:var(--fs-body);line-height:1.5}
+.lab-history-party{min-width:0}
+.lab-history-card .lab-history-party h3{margin:14px 0 0}
+.lab-history-party.rider h3{color:var(--role-rider)}.lab-history-party.driver h3{color:var(--role-driver)}
+.lab-history-party .lab-check-list{margin-top:4px}
+.lab-history-party .lab-check-list li:first-child{border-top:0}
+.lab-history-tag{display:inline-block;padding:0 8px;border-radius:999px;background:var(--tile);color:var(--ink);font-size:var(--fs-small);font-weight:600;line-height:1.6;white-space:nowrap}
+.lab .lab-history-months{display:flex;flex-wrap:wrap;gap:2px 12px;margin:2px 0 4px;font-size:var(--fs-small);color:var(--muted);font-variant-numeric:tabular-nums}
+.lab-history-claims{margin:2px 0 4px;padding:0;list-style:none}
+.lab-history-claims li{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 12px;padding:2px 0;font-size:var(--fs-body);overflow-wrap:anywhere}
+.lab-history-claims li>span:last-child{font-variant-numeric:tabular-nums}
+
+/* What each Evidence tab has on record (evidence-record.tsx, 10 October 2026): the records as quiet buttons that open their
+   originals, with a count beside each; then the record in rows of time, words and a citation chip. */
+.lab-record-list{display:grid;gap:2px;margin:6px 0 10px;padding:0;list-style:none}
+.lab-record-list li{display:flex;align-items:baseline;gap:8px;min-width:0}
+.lab.live-app .lab-record-list button{min-height:0;padding:3px 0;border:0;background:transparent;color:var(--accent);font-weight:600;text-align:left}
+.lab.live-app .lab-record-list button:hover{background:transparent;text-decoration:underline}
+.lab-record-list span{color:var(--muted);font-size:var(--fs-small)}
+.lab-record-block{margin-top:12px}
+.lab-record-block>h3{margin:0 0 4px}
+.lab-record-fold>summary{cursor:pointer;font-weight:600;font-size:var(--fs-body);padding:4px 0}
+.lab-record-rows{display:grid;gap:0;margin:6px 0 0;padding:0;list-style:none}
+.lab-record-rows li{display:grid;grid-template-columns:72px minmax(0,1fr) auto;align-items:baseline;gap:8px;padding:6px 0;border-top:1px solid var(--line);font-size:var(--fs-body);line-height:1.45}
+.lab-record-time{color:var(--muted);font-size:var(--fs-small);font-variant-numeric:tabular-nums;white-space:nowrap}
+.lab-record-who{color:var(--muted)}
+.lab .lab-record-rows .citation{margin:0}
+/* Outside lookups (AD-13, 11 October 2026): where and when the Evidence Collector asked, the source's credit, and a street picture. */
+.lab-record-asked,.lab-record-credit{color:var(--muted);font-size:var(--fs-small)}
+.lab-street-picture{display:block;width:100%;max-width:480px;height:auto;margin:8px 0;border-radius:8px;background:var(--tile)}
+.lab-tag{display:inline-block;margin-left:6px;padding:0 8px;border-radius:999px;background:var(--tile);color:var(--ink);font-size:var(--fs-small);font-weight:600;line-height:1.6;white-space:nowrap}
+/* The decision card's Ryde rules button (user, 10 October 2026: more prominent): a light accent fill and a book icon, beside
+   "Read the decision", not a quiet text link. */
+.lab.live-app .lab-rules-button{display:inline-flex;align-items:center;gap:6px;border-color:var(--accent-line);background:var(--accent-soft);color:var(--accent);font-weight:600}
+.lab.live-app .lab-rules-button:hover:not(:disabled){border-color:var(--accent);background:var(--selected);color:var(--accent)}
+.lab-rules-button svg{flex:none;width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+/* The fetch form in the External tab's card: card-sized heading and note, provider and mode on their own rows, date and time
+   side by side, so no choice is cut off in the column. */

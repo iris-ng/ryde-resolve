@@ -1,0 +1,607 @@
+{
+  "version": 1,
+  "note": "OneMap reverse-geocode answers for each named place of each dispute case, saved once by evidence/tools/save-onemap-copy.mjs while the team's token worked (AD-14). Used only when OneMap refuses a live lookup, and then labelled as a saved copy.",
+  "fetched_at": "2026-10-11T06:42:41.510Z",
+  "entries": {
+    "DISP-004": {
+      "pickup": {
+        "at": {
+          "lat": 1.3048,
+          "lng": 103.7727
+        },
+        "answer": {
+          "buildings": [
+            {
+              "building": "UNIVERSITY TOWN (STEPHEN RIADY CENTRE)",
+              "block": "2",
+              "road": "COLLEGE AVENUE WEST",
+              "postal": "138607",
+              "distance_m": 31
+            }
+          ]
+        }
+      },
+      "driver_at_arrival": {
+        "at": {
+          "lat": 1.3011,
+          "lng": 103.774
+        },
+        "answer": {
+          "buildings": [
+            {
+              "building": "LEE KONG CHIAN NATURAL HISTORY MUSEUM",
+              "block": "2",
+              "road": "CONSERVATORY DRIVE",
+              "postal": "117377",
+              "distance_m": 62
+            },
+            {
+              "building": "NATIONAL UNIVERSITY OF SINGAPORE",
+              "block": "21",
+              "road": "LOWER KENT RIDGE ROAD",
+              "postal": "119077",
+              "distance_m": 43
+            },
+            {
+              "building": "NATIONAL UNIVERSITY OF SINGAPORE (FIRE FIGHTING TRAINING SHED)",
+              "block": "21",
+              "road": "LOWER KENT RIDGE ROAD",
+              "postal": "119077",
+              "distance_m": 31
+            }
+          ]
+        }
+      },
+      "driver_at_cancellation": {
+        "at": {
+          "lat": 1.3011,
+          "lng": 103.7741
+        },
+        "answer": {
+          "buildings": [
+            {
+              "building": "NATIONAL UNIVERSITY OF SINGAPORE (FIRE FIGHTING TRAINING SHED)",
+              "block": "21",
+              "road": "LOWER KENT RIDGE ROAD",
+              "postal": "119077",
+              "distance_m": 22
+            },
+            {
+              "building": "NATIONAL UNIVERSITY OF SINGAPORE",
+              "block": "21",
+              "road": "LOWER KENT RIDGE ROAD",
+              "postal": "119077",
+              "distance_m": 42
+            },
+            {
+              "building": "LEE KONG CHIAN NATURAL HISTORY MUSEUM",
+              "block": "2",
+              "road": "CONSERVATORY DRIVE",
+              "postal": "117377",
+              "distance_m": 70
+            }
+          ]
+        }
+      },
+      "dropoff": {
+        "at": {
+          "lat": 1.284,
+          "lng": 103.8514
+        },
+        "answer": {
+          "buildings": [
+            {
+              "building": "RAFFLES PLACE MRT STATION",
+              "block": "5",
+              "road": "RAFFLES PLACE",
+              "postal": "048618",
+              "distance_m": 10
+            },
+            {
+              "building": "ONE RAFFLES PLACE",
+              "block": "1",
+              "road": "RAFFLES PLACE",
+              "postal": "048616",
+              "distance_m": 52
+            },
+            {
+              "building": "THE CLIFFORD AT RAFFLES PLACE",
+              "block": "24",
+              "road": "RAFFLES PLACE",
+              "postal": "048621",
+              "distance_m": 71
+            },
+            {
+              "building": "CIMB PLAZA",
+              "block": "30",
+              "road": "RAFFLES PLACE",
+              "postal": "048622",
+              "distance_m": 72
+            },
+            {
+              "building": "THE ARCADE",
+              "block": "11",
+              "road": "COLLYER QUAY",
+              "postal": "049317",
+              "distance_m": 86
+            }
+          ]
+        }
+      },
+      "trip_start": {
+        "at": {
+          "lat": 1.3048,
+          "lng": 103.7727
+        },
+        "answer": {
+          "buildings": [
+            {
+              "building": "UNIVERSITY TOWN (STEPHEN RIADY CENTRE)",
+              "block": "2",
+              "road": "COLLEGE AVENUE WEST",
+              "postal": "138607",
+              "distance_m": 31
+            }
+          ]
+        }
+      },
+      "trip_end": {
+        "at": {
+          "lat": 1.284,
+          "lng": 103.8514
+        },
+        "answer": {
+          "buildings": [
+            {
+              "building": "RAFFLES PLACE MRT STATION",
+              "block": "5",
+              "road": "RAFFLES PLACE",
+              "postal": "048618",
+              "distance_m": 10
+            },
+            {
+              "building": "ONE RAFFLES PLACE",
+              "block": "1",
+              "road": "RAFFLES PLACE",
+              "postal": "048616",
+              "distance_m": 52
+            },
+            {
+              "building": "THE CLIFFORD AT RAFFLES PLACE",
+              "block": "24",
+              "road": "RAFFLES PLACE",
+              "postal": "048621",
+              "distance_m": 71
+            },
+            {
+              "building": "CIMB PLAZA",
+              "block": "30",
+              "road": "RAFFLES PLACE",
+              "postal": "048622",
+              "distance_m": 72
+            },
+            {
+              "building": "THE ARCADE",
+              "block": "11",
+              "road": "COLLYER QUAY",
+              "postal": "049317",
+              "distance_m": 86
+            }
+          ]
+        }
+      }
+    },
+    "DISP-109": {
+      "pickup": {
+        "at": {
+          "lat": 1.36898,
+          "lng": 103.84839
+        },
+        "answer": {
+          "buildings": [
+            {
+              "building": "AMK HUB",
+              "block": "53",
+              "road": "ANG MO KIO AVENUE 3",
+              "postal": "569933",
+              "distance_m": 23
+            },
+            {
+              "building": "AMK HUB",
+              "block": "55",
+              "road": "ANG MO KIO AVENUE 3",
+              "postal": "569934",
+              "distance_m": 47
+            },
+            {
+              "building": "AMK HUB",
+              "block": "57",
+              "road": "ANG MO KIO AVENUE 3",
+              "postal": "567751",
+              "distance_m": 47
+            },
+            {
+              "building": "ANG MO KIO BUS INTERCHANGE",
+              "block": "57",
+              "road": "ANG MO KIO AVENUE 8",
+              "postal": "567751",
+              "distance_m": 61
+            },
+            {
+              "building": "ANG MO KIO MRT STATION",
+              "block": "80",
+              "road": "ANG MO KIO AVENUE 3",
+              "postal": "569942",
+              "distance_m": 267
+            }
+          ]
+        }
+      },
+      "driver_at_arrival": {
+        "at": {
+          "lat": 1.36898,
+          "lng": 103.84839
+        },
+        "answer": {
+          "buildings": [
+            {
+              "building": "AMK HUB",
+              "block": "53",
+              "road": "ANG MO KIO AVENUE 3",
+              "postal": "569933",
+              "distance_m": 23
+            },
+            {
+              "building": "AMK HUB",
+              "block": "55",
+              "road": "ANG MO KIO AVENUE 3",
+              "postal": "569934",
+              "distance_m": 47
+            },
+            {
+              "building": "AMK HUB",
+              "block": "57",
+              "road": "ANG MO KIO AVENUE 3",
+              "postal": "567751",
+              "distance_m": 47
+            },
+            {
+              "building": "ANG MO KIO BUS INTERCHANGE",
+              "block": "57",
+              "road": "ANG MO KIO AVENUE 8",
+              "postal": "567751",
+              "distance_m": 61
+            },
+            {
+              "building": "ANG MO KIO MRT STATION",
+              "block": "80",
+              "road": "ANG MO KIO AVENUE 3",
+              "postal": "569942",
+              "distance_m": 267
+            }
+          ]
+        }
+      },
+      "dropoff": {
+        "at": {
+          "lat": 1.32015,
+          "lng": 103.84417
+        },
+        "answer": {
+          "buildings": [
+            {
+              "building": "NOVENA SQUARE",
+              "block": "238",
+              "road": "THOMSON ROAD",
+              "postal": "307683",
+              "distance_m": 41
+            },
+            {
+              "building": "NOVENA SQUARE",
+              "block": "238A",
+              "road": "THOMSON ROAD",
+              "postal": "307684",
+              "distance_m": 41
+            },
+            {
+              "building": "SQUARE 2",
+              "block": "10",
+              "road": "SINARAN DRIVE",
+              "postal": "307506",
+              "distance_m": 62
+            },
+            {
+              "building": "OASIA HOTEL NOVENA, SINGAPORE",
+              "block": "8",
+              "road": "SINARAN DRIVE",
+              "postal": "307470",
+              "distance_m": 69
+            },
+            {
+              "building": "NOVENA MRT STATION",
+              "block": "250",
+              "road": "THOMSON ROAD",
+              "postal": "307642",
+              "distance_m": 50
+            }
+          ]
+        }
+      },
+      "trip_start": {
+        "at": {
+          "lat": 1.36898,
+          "lng": 103.84839
+        },
+        "answer": {
+          "buildings": [
+            {
+              "building": "AMK HUB",
+              "block": "53",
+              "road": "ANG MO KIO AVENUE 3",
+              "postal": "569933",
+              "distance_m": 23
+            },
+            {
+              "building": "AMK HUB",
+              "block": "55",
+              "road": "ANG MO KIO AVENUE 3",
+              "postal": "569934",
+              "distance_m": 47
+            },
+            {
+              "building": "AMK HUB",
+              "block": "57",
+              "road": "ANG MO KIO AVENUE 3",
+              "postal": "567751",
+              "distance_m": 47
+            },
+            {
+              "building": "ANG MO KIO BUS INTERCHANGE",
+              "block": "57",
+              "road": "ANG MO KIO AVENUE 8",
+              "postal": "567751",
+              "distance_m": 61
+            },
+            {
+              "building": "ANG MO KIO MRT STATION",
+              "block": "80",
+              "road": "ANG MO KIO AVENUE 3",
+              "postal": "569942",
+              "distance_m": 267
+            }
+          ]
+        }
+      },
+      "trip_end": {
+        "at": {
+          "lat": 1.32015,
+          "lng": 103.84417
+        },
+        "answer": {
+          "buildings": [
+            {
+              "building": "NOVENA SQUARE",
+              "block": "238",
+              "road": "THOMSON ROAD",
+              "postal": "307683",
+              "distance_m": 41
+            },
+            {
+              "building": "NOVENA SQUARE",
+              "block": "238A",
+              "road": "THOMSON ROAD",
+              "postal": "307684",
+              "distance_m": 41
+            },
+            {
+              "building": "SQUARE 2",
+              "block": "10",
+              "road": "SINARAN DRIVE",
+              "postal": "307506",
+              "distance_m": 62
+            },
+            {
+              "building": "OASIA HOTEL NOVENA, SINGAPORE",
+              "block": "8",
+              "road": "SINARAN DRIVE",
+              "postal": "307470",
+              "distance_m": 69
+            },
+            {
+              "building": "NOVENA MRT STATION",
+              "block": "250",
+              "road": "THOMSON ROAD",
+              "postal": "307642",
+              "distance_m": 50
+            }
+          ]
+        }
+      }
+    },
+    "DISP-127": {
+      "pickup": {
+        "at": {
+          "lat": 1.3202,
+          "lng": 103.8437
+        },
+        "answer": {
+          "buildings": [
+            {
+              "building": "NOVENA SQUARE",
+              "block": "238",
+              "road": "THOMSON ROAD",
+              "postal": "307683",
+              "distance_m": 31
+            },
+            {
+              "building": "NOVENA SQUARE",
+              "block": "238A",
+              "road": "THOMSON ROAD",
+              "postal": "307684",
+              "distance_m": 31
+            },
+            {
+              "building": "NOVENA MRT STATION",
+              "block": "250",
+              "road": "THOMSON ROAD",
+              "postal": "307642",
+              "distance_m": 33
+            },
+            {
+              "building": "ROYAL SQUARE AT NOVENA",
+              "block": "101",
+              "road": "IRRAWADDY ROAD",
+              "postal": "329565",
+              "distance_m": 68
+            },
+            {
+              "building": "ROYAL SQUARE AT NOVENA",
+              "block": "103",
+              "road": "IRRAWADDY ROAD",
+              "postal": "329566",
+              "distance_m": 68
+            }
+          ]
+        }
+      },
+      "driver_at_arrival": {
+        "at": {
+          "lat": 1.3202,
+          "lng": 103.8437
+        },
+        "answer": {
+          "buildings": [
+            {
+              "building": "NOVENA SQUARE",
+              "block": "238",
+              "road": "THOMSON ROAD",
+              "postal": "307683",
+              "distance_m": 31
+            },
+            {
+              "building": "NOVENA SQUARE",
+              "block": "238A",
+              "road": "THOMSON ROAD",
+              "postal": "307684",
+              "distance_m": 31
+            },
+            {
+              "building": "NOVENA MRT STATION",
+              "block": "250",
+              "road": "THOMSON ROAD",
+              "postal": "307642",
+              "distance_m": 33
+            },
+            {
+              "building": "ROYAL SQUARE AT NOVENA",
+              "block": "101",
+              "road": "IRRAWADDY ROAD",
+              "postal": "329565",
+              "distance_m": 68
+            },
+            {
+              "building": "ROYAL SQUARE AT NOVENA",
+              "block": "103",
+              "road": "IRRAWADDY ROAD",
+              "postal": "329566",
+              "distance_m": 68
+            }
+          ]
+        }
+      },
+      "dropoff": {
+        "at": {
+          "lat": 1.3506,
+          "lng": 103.8488
+        },
+        "answer": {
+          "buildings": [
+            {
+              "building": "JUNCTION 8",
+              "block": "9",
+              "road": "BISHAN PLACE",
+              "postal": "579837",
+              "distance_m": 14
+            },
+            {
+              "building": "BISHAN MRT STATION",
+              "block": "200",
+              "road": "BISHAN ROAD",
+              "postal": "579827",
+              "distance_m": 82
+            }
+          ]
+        }
+      },
+      "trip_start": {
+        "at": {
+          "lat": 1.3202,
+          "lng": 103.8437
+        },
+        "answer": {
+          "buildings": [
+            {
+              "building": "NOVENA SQUARE",
+              "block": "238",
+              "road": "THOMSON ROAD",
+              "postal": "307683",
+              "distance_m": 31
+            },
+            {
+              "building": "NOVENA SQUARE",
+              "block": "238A",
+              "road": "THOMSON ROAD",
+              "postal": "307684",
+              "distance_m": 31
+            },
+            {
+              "building": "NOVENA MRT STATION",
+              "block": "250",
+              "road": "THOMSON ROAD",
+              "postal": "307642",
+              "distance_m": 33
+            },
+            {
+              "building": "ROYAL SQUARE AT NOVENA",
+              "block": "101",
+              "road": "IRRAWADDY ROAD",
+              "postal": "329565",
+              "distance_m": 68
+            },
+            {
+              "building": "ROYAL SQUARE AT NOVENA",
+              "block": "103",
+              "road": "IRRAWADDY ROAD",
+              "postal": "329566",
+              "distance_m": 68
+            }
+          ]
+        }
+      },
+      "trip_end": {
+        "at": {
+          "lat": 1.3506,
+          "lng": 103.8488
+        },
+        "answer": {
+          "buildings": [
+            {
+              "building": "JUNCTION 8",
+              "block": "9",
+              "road": "BISHAN PLACE",
+              "postal": "579837",
+              "distance_m": 14
+            },
+            {
+              "building": "BISHAN MRT STATION",
+              "block": "200",
+              "road": "BISHAN ROAD",
+              "postal": "579827",
+              "distance_m": 82
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,111 @@
+# The rules both addresses share.
+(common) {
+    encode gzip
+    request_body {
+        max_size 300KB
+    }
+    # What a browser may keep (owner, 12 October 2026): only files that never change in place, and only that browser ("private":
+    # no shared cache, Cloudflare included). The page's scripts and styles get new names with every release, so the web app's own
+    # "keep a year" stands, made private; the character frames (3 October) and the street map's squares keep the web app's "private,
+    # a day". Everything else, pages and case data above all, is never stored. `>` applies each rule to the answer as sent, so it
+    # replaces the web app's header instead of adding a second one; a missing file keeps the web app's "never store". The rule without
+    # `>` covers the answers Caddy writes itself, a refused login (401) above all.
+    @scripts path /_next/static/*
+    header @scripts >Cache-Control public private
+    @not_kept not path_regexp ^/((otter|pango|fish|frog|rooster)/.+\.png|route-maps/\d+/\d+/\d+\.png|_next/static/.+)$
+    header @not_kept Cache-Control "no-store"
+    header @not_kept >Cache-Control "no-store"
+    # While the web app restarts or is down, a short page in the owner's words instead of a blank one (owner review, 8 October 2026;
+    # packages/live-fishbowl/messages.ts runMessages.restarting, kept equal by a test). An open page's requests get it too, and
+    # read it as "Lost contact" (use-lab.ts readAnswer). No braces in the page: Caddy would read them as placeholders.
+    handle_errors 502 503 504 {
+        header Content-Type "text/html; charset=utf-8"
+        header Cache-Control "no-store"
+        header Retry-After "10"
+        respond `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light dark"><meta http-equiv="refresh" content="10"><title>Ryde Resolve</title></head><body style="font: 17px/1.5 system-ui, sans-serif; margin: 0; padding: 18vh 16px; text-align: center"><p>Ryde Resolve is restarting. Back in a few seconds, please reload</p></body></html>` 503
+    }
+}
+
+# The operator site: the site login, then full control. Since 12 October 2026 (owner) port 9080 is published on the server's
+# loopback address alone (infra/compose.fishbowl.yaml), never on the internet.
+(operator) {
+    import common
+    basic_auth {
+        {$RYDE_SITE_USER} {$RYDE_SITE_PASSWORD_HASH}
+    }
+    @fishbowl path /api/live-fishbowl
+    handle @fishbowl {
+        reverse_proxy web:3000 {
+            header_up X-Ryde-Client-IP {remote_host}
+            header_up -Authorization
+            header_up -X-Fishbowl-View-Token
+            # Only the already-authenticated site operator receives write access.
+            # Replace, never trust, any caller-supplied header of this name.
+            header_up X-Fishbowl-Site-Token "{$FISHBOWL_CONTROL_TOKEN}"
+        }
+    }
+    handle {
+        reverse_proxy web:3000 {
+            header_up X-Ryde-Client-IP {remote_host}
+            header_up -X-Fishbowl-Site-Token
+            header_up -X-Fishbowl-View-Token
+            # Nothing reads a token here any more (the recordings viewer's API answers 410), so none is sent (12 October 2026).
+            header_up -Authorization
+        }
+    }
+}
+
+# The public copy (owner, 11 October 2026), at https://ryde-resolve.pages.dev through the Cloudflare tunnel: it reads the owner's
+# chosen cases (packages/live-fishbowl/public-scope.ts) and changes nothing, and asks search engines not to index it. Every request
+# other than a read stops here; the app also refuses a change sent with the view token (apps/web/app/api/live-fishbowl/route.ts).
+# Visitors' own token headers are dropped.
+# robots.txt (owner, 11 October 2026): Google's and Bing's crawlers may read the pages, so they see the noindex and leave the site
+# out of search (a crawler kept out never reads it, and could still list a linked address); every other bot is asked to stay away,
+# since some, AI scrapers among them, may not obey noindex.
+# No login (owner, 13 October 2026): judges open it from the link alone, as the submission form takes no passwords. It had its own
+# login from 11 to 13 October; since 12 October the app shows a visitor only the chosen cases, so nothing else opens with it.
+(public) {
+    import common
+    header X-Robots-Tag "noindex, nofollow, noarchive"
+    route {
+        # Every change stops first, robots.txt included.
+        @change not method GET HEAD
+        respond @change "This is the public copy of the site, so nothing can be changed here." 403
+        @robots path /robots.txt
+        respond @robots `User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: *
+Disallow: /
+` 200
+        @fishbowl path /api/live-fishbowl
+        reverse_proxy @fishbowl web:3000 {
+            header_up X-Ryde-Client-IP {remote_host}
+            header_up -Authorization
+            header_up -X-Fishbowl-Site-Token
+            header_up X-Fishbowl-View-Token "{$FISHBOWL_VIEW_TOKEN}"
+        }
+        reverse_proxy web:3000 {
+            header_up X-Ryde-Client-IP {remote_host}
+            header_up -Authorization
+            header_up -X-Fishbowl-Site-Token
+            header_up -X-Fishbowl-View-Token
+        }
+    }
+}
+
+# The operator site (12 October 2026): plain HTTP on the loopback address, port 9080. The server's own address no longer
+# answers on 80 or 443, so it needs no certificate.
+http://:9080 {
+    import operator
+}
+
+# The Cloudflare front (infra/cloudflare, 7 October) reaches the site here through the cloudflared container. The port is not
+# published. Since 11 October 2026 it serves the public copy; since 12 October cloudflared sits on its own `edge` network with
+# Caddy alone (infra/compose.fishbowl.yaml), so the tunnel reaches no other container.
+http://:8080 {
+    import public
+}

@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "synthetic": true,
+  "note": "Register of earlier claims for the record check and the past-behaviour patterns. IDs (claim, trip, rider, driver), claim type, keys, amounts and status only; no answer hints. Empty in this copy: placeholders go here.",
+  "photoHashMethod": "dhash-9x8-v2",
+  "entries": []
+}

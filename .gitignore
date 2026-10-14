@@ -1,0 +1,19 @@
+.env
+.env.*
+!.env.example
+node_modules/
+.next/
+dist/
+coverage/
+*.pem
+*.key
+*.log
+.DS_Store
+*.tsbuildinfo
+playwright-report/
+test-results/
+__pycache__/
+*.pyc
+
+# Local tool state: pnpm content store
+.pnpm-store/
